@@ -26,27 +26,38 @@
  */
 //Router::connect('/', array('controller' => 'pages', 'action' => 'display', 'home'));
        
-        Router::connect('/register', array('controller' => 'users', 'action' => 'register'));
-        Router::connect('/login', array('controller' => 'users', 'action' => 'login'));
-        Router::connect('/logout', array('controller' => 'users', 'action' => 'logout'));
+        Router::connect('/users/register', array('controller' => 'users', 'action' => 'register'));
+        Router::connect('/users/login', array('controller' => 'users', 'action' => 'login'));
+        Router::connect('/users/logout', array('controller' => 'users', 'action' => 'logout'));
         Router::connect('/hello', array('controller' => 'users', 'action' => 'hello'));
         Router::connect('/', array('controller' => 'users', 'action' => 'index'));
 
-        Router::connect('/register', array('controller' => 'employees', 'action' => 'register'));
-        Router::connect('/login', array('controller' => 'employees', 'action' => 'login'));
-        Router::connect('/logout', array('controller' => 'employees', 'action' => 'logout'));
-        Router::connect('/hello', array('controller' => 'employees', 'action' => 'hello'));
+        Router::connect('/employee/register', array('controller' => 'Employees', 'action' => 'register'));
+        Router::connect('/employee/login', array('controller' => 'Employees', 'action' => 'login'));
+        Router::connect('/employee/logout', array('controller' => 'Employees', 'action' => 'logout'));
+        Router::connect('/employee/hello', array('controller' => 'Employees', 'action' => 'hello'));
 
 
 
-        Router::connect('/index', array('controller' => 'Products', 'action' => 'index'));
-        Router::connect('/view', array('controller' => 'Products', 'action' => 'view'));
-        Router::connect('/add', array('controller' => 'Products', 'action' => 'add'));
-         Router::connect('/addemp', array('controller' => 'Products', 'action' => 'addemp'));
-        Router::connect('/form', array('controller' => 'Products', 'action' => 'form'));
-        Router::connect('/edit', array('controller' => 'Products', 'action' => 'edit'));
-         Router::connect('/delete', array('controller' => 'Products', 'action' => 'delete'));
+         Router::connect('/employee/index', array('controller' => 'Employees', 'action' => 'index'));
+         Router::connect('/employee/addemp', array('controller' => 'Employees', 'action' => 'add'));
+         Router::connect('/employee/editemp', array('controller' => 'Employees', 'action' => 'edit'));
+         Router::connect('/employee/deleteemp', array('controller' => 'Employees', 'action' => 'delete'));
+
+        Router::connect('/product/index', array('controller' => 'Products', 'action' => 'index'));
+        Router::connect('/product/view', array('controller' => 'Products', 'action' => 'view'));
+
+
+        Router::connect('/product/addprod', array('controller' => 'Products', 'action' => 'add'));
+        Router::connect('/product/editprod', array('controller' => 'Products', 'action' => 'edit'));
+         Router::connect('/product/deleteprod', array('controller' => 'Products', 'action' => 'delete'));
      
+
+
+         Router::connect('/gadget/index', array('controller' => 'Gadgets', 'action' => 'index'));
+        Router::connect('/gadget/addgdgt', array('controller' => 'Gadgets', 'action' => 'add'));
+        Router::connect('/gadget/editgdgt', array('controller' => 'Gadgets', 'action' => 'edit'));
+        Router::connect('/gadget/deletegdgt', array('controller' => 'Gadgets', 'action' => 'delete'));
 /**
  * ...and connect the rest of 'Pages' controller's urls.
  */

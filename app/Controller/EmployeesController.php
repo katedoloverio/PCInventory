@@ -1,50 +1,107 @@
 <?php
 App::uses('AppController', 'Controller');
+App::uses('Product', 'Model');
+App::uses('User', 'Model');
+App::uses('Employee', 'Model');
+
 
 class EmployeesController extends AppController {
 
-	public function beforeFilter() {
-	parent::beforeFilter();
-	$this->Auth->allow();
-}
 
-public function register() {
-	if ($this->request->is('post')) {
+
+	public $uses = array('Product', 'User', 'Employee');
+
+	public $helpers = array('Html', 'Form');
+
+	public $components = array('Session', 'Paginator');
+
+
+	public function index() {
+		if ($this->request->is('post')) {
 		$this->Employee->create();
 		if ($this->Employee->save($this->request->data)) {
-			$this->Session->setFlash(__('New epmloyee registered'));
-			return $this->redirect(array('action' => 'login'));
+			$this->Session->setFlash(__('New employee added'));
+			//return $this->redirect(array('action' => 'index'));
 		}
-		$this->Session->setFlash(__('Could not register employee'));
-	}
-}
-
-public function login() {
-
-
-	  if($this->Session->check('Auth.Employee')){
-   $this->redirect(array('controller' => 'employees', 'action' => 'hello'));  
-  }
-    if ($this->request->is('post')) {
-    if ($this->Auth->login()) {
-     $this->Session->write('name', $this->Session->read('Auth.Employee.name'));
-     $this->redirect(array('controller' => 'products', 'action' => 'index'));
-    } else {
-     $this->Session->setFlash(__('Username or Password is invalid!'));
-     
-                }
-}
-}
-
-
-
-public function logout() {
-	return $this->redirect($this->Auth->logout());
-}
-public function hello() {
+		$this->Session->setFlash(__('Could not add employee'));
 	}
 
-	public function product() {
+    $this->Paginator->settings = array( 'limit' => 10);
+
+    // similar to findAll(), but fetches paged results
+    $data = $this->Paginator->paginate('Employee');
+    $this->set('employees', $data);
+}
+
+public function add() {
+		if ($this->request->is('post')) {
+		$this->Employee->create();
+		if ($this->Employee->save($this->request->data)) {
+			$this->Session->setFlash(__('New employee added'));
+			return $this->redirect(array('action' => 'index'));
+		}
+		$this->Session->setFlash(__('Could not add employee'));
 	}
+
+
+}
+
+public function addemp() {
+	$this->autoRender = false;
+
+		if ($this->request->is('post')) {
+		$this->Employee->create();
+
+				if ($this->Employee->save($this->request->data)) {
+			$this->Session->setFlash(__('New employee added'));
+			$this->redirect($this->referer());
+		}
+		$this->Session->setFlash(__('Could not add employee'));
+	}
+
+
+}
+
+
+
+
+public function edit() {
+	$this->autoRender = false;
+	
+        if ($this->request->is('post')) {
+            
+            $data = $this->request->data;
+
+            $prepareData = array(
+                'Employee' => array(
+                    'empfirstname' => $data['empfirstname'],
+                    'emplastname' => $data['emplastname'],
+                    'empcompanyid' => $data['empcompanyid'],
+                    'empphoto' => $data['empphoto'],
+                    'empstatus' => $data['empstatus']
+                             )
+            );
+            $this->Employee->id = $data['id'];
+            $this->Employee->save($prepareData);
+
+            $this->Session->setFlash('<div class="alert alert-success"><i class="glyphicon glyphicon-ok"></i> Update Success.</div> ', 'default', array(), 'good');
+            $this->redirect($this->referer());
+            exit();
+
+
+}
+}
+public function delete() {
+	$this->autoRender = false;
+	$id = $this->request->data['id'];
+	
+	if ($this->Employee->delete($id)) {
+	$this->Session->setFlash('<div class="alert alert-success"><i class="glyphicon glyphicon-ok"></i> Successfully deleted.</div>', 'default', array(), 'good');
+		return $this->redirect(array('action' => 'index'));
+	}
+	$this->Session->setFlash(__('Could not remove employee'));
+	$this->redirect($this->referer());
+}
+
 
 }

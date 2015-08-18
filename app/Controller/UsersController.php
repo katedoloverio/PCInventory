@@ -28,7 +28,7 @@ public function login() {
     if ($this->request->is('post')) {
     if ($this->Auth->login()) {
      $this->Session->write('name', $this->Session->read('Auth.User.name'));
-     $this->redirect(array('controller' => 'products', 'action' => 'index'));
+     $this->redirect(array('controller' => 'employees', 'action' => 'index'));
     } else {
      $this->Session->setFlash(__('Username or Password is invalid!'));
      

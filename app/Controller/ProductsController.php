@@ -2,34 +2,27 @@
 App::uses('AppController', 'Controller');
 App::uses('Product', 'Model');
 App::uses('User', 'Model');
+App::uses('Employee', 'Model');
 
 class ProductsController extends AppController {
 
 
 
-	public $uses = array('Product', 'User');
+	public $uses = array('Product', 'User', 'Employee', 'Gadget');
 
 	public $helpers = array('Html', 'Form');
 
 	public $components = array('Session', 'Paginator');
 
-	public $paginate = array(
-	'limit' => 10
-);
+	
+
 
 	public function index() {
-		if ($this->request->is('post')) {
-		$this->Product->create();
-		if ($this->Product->save($this->request->data)) {
-			$this->Session->setFlash(__('New product added'));
-			//return $this->redirect(array('action' => 'index'));
-		}
-		$this->Session->setFlash(__('Could not add product'));
-	}
+		 $this->Paginator->settings = array( 'limit' => 5);
 
-
-	$this->Product->recursive = -1;
-	$this->set('products', $this->paginate());
+    // similar to findAll(), but fetches paged results
+    $data = $this->Paginator->paginate('Product');
+    $this->set('products', $data);
 }
 
 public function add() {

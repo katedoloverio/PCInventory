@@ -1,13 +1,22 @@
 
 
- 
-
 	<div class="container">
     
     
     <div class="alert alert-success" style="margin-top: 50px;">
        <a href="#add" class="btn btn-primary" data-toggle="modal"> <i class="glyphicon glyphicon-plus"> </i> Add Product</a> 
         <a href="#addemp" class="btn btn-primary" data-toggle="modal"> <i class="glyphicon glyphicon-plus"> </i> Add Employee</a> 
+<p>
+<!--    check if user is logged, show user name and logout link or login link -->
+    <?php if ($this->Session->read('Auth.User')): ?>
+        You are logged in as <?php echo $this->Session->read('Auth.User.username'); ?>. <?php echo $this->Html->link('logout', array('controller' => 'users', 'action' => 'logout')); ?>
+    <?php else: ?>
+        <?php echo $this->Html->link('login', array('controller' => 'users', 'action' => 'login')); ?>
+    <?php endif; ?>
+</p>
+
+ 
+        
     </div>
     
 </div>
@@ -19,7 +28,7 @@
                <i class="glyphicon glyphicon-plus"></i> Add Product
             </div>
 
-            <form action = "add" method ="post">
+            <form action = "addprod" method ="post">
             <div  class="modal-body">
                 <div class="form-group">
                     <label for="name">Product Name</label>
@@ -126,6 +135,7 @@
 	echo $this->Paginator->numbers(array('separator' => ''));
 	echo $this->Paginator->next(__('next >'), array(), null, array('class' => 'next disabled'));
 	?>
+ <div>
 </div>
 
 
@@ -141,20 +151,20 @@
                 <i class="glyphicon glyphicon-pencil"></i>
                 Edit 
             </div>
-            <form action="edit" method="post">
+            <form action="editprod" method="post">
                 <div class="modal-body">
                     <input type="text" name="id" value="<?php echo  $row['Product']['id'];?>"/>
                     <div class="form-group">
                         <label for="name">Name</label>
-                        <input type="text" name="name" id="name" value="<?php echo $row['Product']['name']; ?>" class="form-control"/>
+                        <input type="text" name="name" id="" value="<?php echo $row['Product']['name']; ?>" class="form-control"/>
                     </div>
                     <div class="form-group">
                         <label for="details">Details</label>
-                        <input type="text" name="details" id="details" value="<?php echo $row['Product']['details'];?>" class="form-control"/>
+                        <input type="text" name="details" id="" value="<?php echo $row['Product']['details'];?>" class="form-control"/>
                     </div>
                     <div class="form-group">
                         <label for="available">Available</label>
-                        <select name="available" id="available" class="form-control">
+                        <select name="available" id="" class="form-control">
                         <?php $available = $row['Product']['available'];
                         if ($available == 1){?>
 
@@ -199,7 +209,7 @@
                 <i class="glyphicon glyphicon-pencil"></i>
                 Delete 
             </div>
-            <form action="delete" method="post">
+            <form action="deleteprod" method="post">
                 <div class="modal-body">
                     <input type="hidden" name="id" value="<?php echo  $row['Product']['id'];?>"/>
                     Are you sure you want to delete this data?
