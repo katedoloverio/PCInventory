@@ -1,26 +1,39 @@
 
+<nav style = "color:white" class="navbar navbar-inverse" role="navigation">
+<div class="container" style="margin: 30px 1px 15px 175px;">
+<div class="pull-right" >
 
-	<div class="container">
-    
-    
-    <div class="alert alert-success" style="margin-top: 50px;">
-       
-        <a href="#add" class="btn btn-primary" data-toggle="modal"> <i class="glyphicon glyphicon-plus"> </i> Add Gadget</a> 
-        <div flo>
-<p>
+<p><i class="glyphicon glyphicon-user"></i> &nbsp;
+
 <!--    check if user is logged, show user name and logout link or login link -->
     <?php if ($this->Session->read('Auth.User')): ?>
-        You are logged in as <?php echo $this->Session->read('Auth.User.username'); ?>. <?php echo $this->Html->link('logout', array('controller' => 'users', 'action' => 'logout')); ?>
+        You are logged in as <?php echo $this->Session->read('Auth.User.username'); ?>. <?php echo $this->Html->link('Logout', array('controller' => 'users', 'action' => 'logout')); ?>
     <?php else: ?>
         <?php echo $this->Html->link('login', array('controller' => 'users', 'action' => 'login')); ?>
     <?php endif; ?>
+
 </p>
 </div>
- 
+</div>
+
+</nav>
+	<div class="container">
+    
+    
+    <div class="alert alert-success" style="margin-top: 5px;">
+       
+        <a href="#add" class="btn btn-primary" data-toggle="modal"> <i class="glyphicon glyphicon-plus"> </i> Add Gadget</a> 
+        
         
     </div>
     
-</div>
+<div  class="panel panel-success">
+
+
+        <div class="panel-heading">
+                Gadget Table
+        </div>
+        
 <!--ADD Gadget-->
 <div class="modal fade" id="add" role="dialog" tabindex="-1">
     <div class="modal-dialog">
@@ -74,6 +87,10 @@
 </div>
 
 
+
+<div>
+
+<div class="panel-body">
 
 <div>
 
@@ -133,7 +150,7 @@
      
 </div>
 
-   
+   </div>
 
 
 
@@ -327,3 +344,5 @@
 </div>
 
 <?php } ?>
+
+
