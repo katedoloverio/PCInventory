@@ -37,9 +37,16 @@ class EmployeesController extends AppController {
 }
 
 public function add() {
+
+
     $this->autoRender = false;
 		if ($this->request->is('post')) {
      $accept = $this->request->data;
+
+
+    $try= $this->Employee->find('first')->Category->find('all');
+     pr($try);
+     die();
      $data = array(
    'Employee' => array(
             'empfirstname' => $accept['empfirstname'],
