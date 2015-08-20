@@ -39,14 +39,13 @@ class EmployeesController extends AppController {
 public function add() {
 
 
+    $try = $this->Employee->find('all');
+
+    pr($try);
+    die();
     $this->autoRender = false;
-		if ($this->request->is('post')) {
+        if ($this->request->is('post')) {
      $accept = $this->request->data;
-
-
-    $try= $this->Employee->find('first')->Category->find('all');
-     pr($try);
-     die();
      $data = array(
    'Employee' => array(
             'empfirstname' => $accept['empfirstname'],
@@ -71,7 +70,7 @@ public function add() {
         }
         $this->Session->setFlash(__('Could not register user'));
 
-	
+    
 
 
 }

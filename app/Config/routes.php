@@ -34,33 +34,71 @@
         Router::connect('/hello', array('controller' => 'users', 'action' => 'hello'));
         Router::connect('/', array('controller' => 'users', 'action' => 'index'));
 
-        Router::connect('/employee/register', array('controller' => 'Employees', 'action' => 'register'));
-        Router::connect('/employee/login', array('controller' => 'Employees', 'action' => 'login'));
-        Router::connect('/employee/logout', array('controller' => 'Employees', 'action' => 'logout'));
-        Router::connect('/employee/hello', array('controller' => 'Employees', 'action' => 'hello'));
+        //EMPLOYEE 
+         Router::connect('/employee/index', array('controller' => 'employees', 'action' => 'index'));
+         Router::connect('/employee/addemp', array('controller' => 'employees', 'action' => 'add'));
+         Router::connect('/employee/editemp', array('controller' => 'employees', 'action' => 'edit'));
+         Router::connect('/employee/deleteemp', array('controller' => 'employees', 'action' => 'delete'));
+         Router::connect('/employee/home', array('controller' => 'employees', 'action' => 'home'));
+
+         //MONITOR  - Property 
+         Router::connect('/monitor/index', array('controller' => 'monitors', 'action' => 'index'));
+         Router::connect('/monitor/addmon', array('controller' => 'monitors', 'action' => 'add'));
+         Router::connect('/monitor/editmon', array('controller' => 'monitors', 'action' => 'edit'));
+         Router::connect('/monitor/deletemon', array('controller' => 'monitors', 'action' => 'delete'));
+         Router::connect('/monitor/home', array('controller' => 'monitors', 'action' => 'home'));
+
+          //MOUSE  - Property 
+         Router::connect('/mouse/index', array('controller' => 'mouses', 'action' => 'index'));
+         Router::connect('/mouse/addms', array('controller' => 'mouses', 'action' => 'add'));
+         Router::connect('/mouse/editms', array('controller' => 'mouses', 'action' => 'edit'));
+         Router::connect('/mouse/deletems', array('controller' => 'mouses', 'action' => 'delete'));
+         Router::connect('/mouse/home', array('controller' => 'mouses', 'action' => 'home'));
+
+           //Keyboard  - Property 
+         Router::connect('/keyboard/index', array('controller' => 'keyboards', 'action' => 'index'));
+         Router::connect('/keyboard/addkb', array('controller' => 'keyboards', 'action' => 'add'));
+         Router::connect('/keyboard/editkb', array('controller' => 'keyboards', 'action' => 'edit'));
+         Router::connect('/keyboard/deletekb', array('controller' => 'keyboards', 'action' => 'delete'));
+         Router::connect('/keyboard/home', array('controller' => 'keyboards', 'action' => 'home'));
+    
+
+          //System Unit  - Property 
+         Router::connect('/systemunit/index', array('controller' => 'systemunits', 'action' => 'index'));
+         Router::connect('/systemunit/addsu', array('controller' => 'systemunits', 'action' => 'add'));
+         Router::connect('/systemunit/editsu', array('controller' => 'systemunits', 'action' => 'edit'));
+         Router::connect('/systemunit/deletesu', array('controller' => 'systemunits', 'action' => 'delete'));
+         Router::connect('/systemunit/home', array('controller' => 'systemunits', 'action' => 'home'));
+    
+
+         //Video Card - Property 
+         Router::connect('/videocard/index', array('controller' => 'videocards', 'action' => 'index'));
+         Router::connect('/videocard/addvc', array('controller' => 'videocards', 'action' => 'add'));
+         Router::connect('/videocard/editvc', array('controller' => 'videocards', 'action' => 'edit'));
+         Router::connect('/videocard/deletevc', array('controller' => 'videocards', 'action' => 'delete'));
+         Router::connect('/videocard/home', array('controller' => 'videocards', 'action' => 'home'));
+    
+          //PC Inventory 
+         Router::connect('/inventory/index', array('controller' => 'inventorys', 'action' => 'index'));
+         Router::connect('/inventory/addpc', array('controller' => 'inventorys', 'action' => 'add'));
+         Router::connect('/inventory/editpc', array('controller' => 'inventorys', 'action' => 'edit'));
+         Router::connect('/inventory/deletepc', array('controller' => 'inventorys', 'action' => 'delete'));
+         Router::connect('/inventory/home', array('controller' => 'inventorys', 'action' => 'home'));
+    
 
 
 
-         Router::connect('/employee/index', array('controller' => 'Employees', 'action' => 'index'));
-         Router::connect('/employee/add', array('controller' => 'Employees', 'action' => 'add'));
-         Router::connect('/employee/edit', array('controller' => 'Employees', 'action' => 'edit'));
-         Router::connect('/employee/delete', array('controller' => 'Employees', 'action' => 'delete'));
-         Router::connect('/employee/addemp', array('controller' => 'Employees', 'action' => 'add'));
-         Router::connect('/employee/editemp', array('controller' => 'Employees', 'action' => 'edit'));
-         Router::connect('/employee/deleteemp', array('controller' => 'Employees', 'action' => 'delete'));
-        Router::connect('/employee/home', array('controller' => 'Employees', 'action' => 'home'));
+
 
         Router::connect('/product/index', array('controller' => 'Products', 'action' => 'index'));
         Router::connect('/product/view', array('controller' => 'Products', 'action' => 'view'));
-
-
         Router::connect('/product/addprod', array('controller' => 'Products', 'action' => 'add'));
         Router::connect('/product/editprod', array('controller' => 'Products', 'action' => 'edit'));
-         Router::connect('/product/deleteprod', array('controller' => 'Products', 'action' => 'delete'));
+        Router::connect('/product/deleteprod', array('controller' => 'Products', 'action' => 'delete'));
      
 
 
-         Router::connect('/gadget/index', array('controller' => 'Gadgets', 'action' => 'index'));
+        Router::connect('/gadget/index', array('controller' => 'Gadgets', 'action' => 'index'));
         Router::connect('/gadget/addgdgt', array('controller' => 'Gadgets', 'action' => 'add'));
         Router::connect('/gadget/editgdgt', array('controller' => 'Gadgets', 'action' => 'edit'));
         Router::connect('/gadget/deletegdgt', array('controller' => 'Gadgets', 'action' => 'delete'));

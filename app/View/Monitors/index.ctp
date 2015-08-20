@@ -1,6 +1,4 @@
 
-
-
 <div class="container-fluid" background-color="black">
 <div class="row">
 <div class="container-fluid">
@@ -18,14 +16,14 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">FDCI PC Inventory </br><center><img src="/PCInventory/img/users/fdci.png"  width="50" height="50"/> </center></a>
+            <a class="navbar-brand" href="#">FDCI PC Inventory <img src="/PCInventory/img/users/fdci.png"/> </a>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li><a href="#">Home<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-home"></span></a></li>
 
-                <li  class="active"><a href="<?php echo $this->webroot;?>employee/index">Employee<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a></li>
+                <li ><a href="<?php echo $this->webroot;?>employee/index">Employee<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a></li>
 
                 <li ><a href="<?php echo $this->webroot;?>employee/index">PC <span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-blackboard"></span></a></li>
 
@@ -35,7 +33,7 @@
              
 
                
-                <li  class="dropdown">
+                <li  class="active" class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Properties <span class="pull-right hidden-xs showopacity glyphicon glyphicon-list"></span><span style="font-size:16px;" ></span></a>
                     <ul class="dropdown-menu forAnimate" role="menu">
                         <li>
@@ -86,16 +84,13 @@
 
    </div>
  </div>
-  <div class="col-sm-10">
-    <div class="container">
-      <div class="pull-right" >
-
-
-</div>
+ <div class="col-sm-10">
+     <div class="container">
+        <div class="pull-right" >
+    </div>
 </div>
 
-
-    <div> 
+<div>  
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -112,8 +107,8 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Employee Manangement <span class="sr-only">(current)</span></a></li>
-        <li>  <a href="#add" data-toggle="modal"> <i class="glyphicon glyphicon-plus"> </i> Add Employee</a></li>
+        <li class="active"><a href="#">Monitor Manangement <span class="sr-only">(current)</span></a></li>
+        <li>  <a href="#add" data-toggle="modal"> <i class="glyphicon glyphicon-plus"> </i> Add Mointor</a></li>
         <li>  <a href="#add" data-toggle="modal"> <i class="glyphicon glyphicon-search"> </i> View All Details</a></li>
           </ul>
         </li>
@@ -150,49 +145,59 @@
    
       
  
-<div  class="panel panel-default" >
+<div  class="panel panel-info" >
 
 
         <div class="panel-heading" >
-                Employee Table
+                Monitor Table
         </div>
         <div class="panel-body" style="background-color:navyblue" >
 
 <div>
 
 
-
+<!--DISPLAY MONITOR DETAILS IN TABLE-->
 <?php echo $this->Session->flash('good'); ?>
 
 <table class="table table-bordered table-hover" >
     <tr>
-       <th><?php echo $this->Paginator->sort('Photo'); ?></th>
-        <th><?php echo $this->Paginator->sort('Firstname'); ?></th>
-        <th><?php echo $this->Paginator->sort('Lastname'); ?></th>
-       <th><?php echo $this->Paginator->sort('Company ID'); ?></th>
-       <th><?php echo $this->Paginator->sort('Status'); ?></th>
+       <th><?php echo $this->Paginator->sort('Property Number'); ?></th>
+        <th><?php echo $this->Paginator->sort('Description'); ?></th>
+        <th><?php echo $this->Paginator->sort('Status'); ?></th>
+        <th><?php echo $this->Paginator->sort('Type'); ?></th>
+       <th><?php echo $this->Paginator->sort('Availability'); ?></th>
+      
 
         <th><?php echo __('Actions'); ?></th>
     </tr>
 
-    <?php foreach ($employees as $employee):
-
-    $imagedisplay= $employee['Employee']['empphoto']; ?>
-
+    <?php foreach ($monitors as $monitor):
+$mostatus = $monitor['Monitor']['mostatus'];
+$moavailability = $monitor['Monitor']['moavailability'];
+$motype = $monitor['Monitor']['motype'];
+    ?>
 
     <tr>
-    <td> <img src="/PCInventory/img/users/<?php echo $imagedisplay; ?>" class="img-circle img-for-own-message"></td>
-        <td><?php echo $employee['Employee']['empfirstname']; ?></td>
-        <td><?php echo $employee['Employee']['emplastname']; ?></td>
-         <td><?php echo $employee['Employee']['empcompanyid']; ?></td>
-         <td><?php echo $employee['Employee']['empstatus']; ?></td>
+    
+        <td> <?php echo $monitor['Monitor']['mopropertyno']; ?></td>
+        <td><?php echo $monitor['Monitor']['modescription']; ?></td>
+        <td><?php  if ($mostatus == 1){?> Working
+            <?php }else{ ?> Defective
+            <?php   }   ?></td>
+         <td><?php  if ($motype == 1){?> New
+            <?php }else{ ?> Old
+            <?php   }   ?></td>
+        <td>  <?php 
+                        if ($moavailability == 1){?> Used
+                        <?php }else{ ?> Available
+                            <?php   }   ?></td>
 
         <td>
-        <a href="#view<?php echo $employee['Employee']['id'];?>" data-toggle="modal" class="btn btn-success"><i class="glyphicon glyphicon-search"> </i>View</a>
+        <a href="#view<?php echo $monitor['Monitor']['id'];?>" data-toggle="modal" class="btn btn-success"><i class="glyphicon glyphicon-search"> </i>View</a>
 
-        <a href="#edit<?php echo $employee['Employee']['id'];?>" data-toggle="modal" class="btn btn-primary"> <i class="glyphicon glyphicon-edit"> </i>Edit</a>
+        <a href="#edit<?php echo $monitor['Monitor']['id'];?>" data-toggle="modal" class="btn btn-primary"> <i class="glyphicon glyphicon-edit"> </i>Edit</a>
 
-        <a href="#delete<?php echo $employee['Employee']['id'];?>" data-toggle="modal" class="btn btn-danger"><i class="glyphicon glyphicon-trash"> </i>Delete</a></td>
+        <a href="#delete<?php echo $monitor['Monitor']['id'];?>" data-toggle="modal" class="btn btn-danger"><i class="glyphicon glyphicon-trash"> </i>Delete</a></td>
 
 
 
@@ -234,46 +239,50 @@
 
 
  
-<!-- EMPLOYEE-->
+<!--ADD MONITOR-->
 <div class="modal fade" id="add" role="dialog" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-               <i class="glyphicon glyphicon-plus"></i> Add Employee
+               <i class="glyphicon glyphicon-plus"></i> Add Monitor
             </div>
-
-<?php echo $this->Form->create('Employee', array('controller' => 'Employee', 'action' => 'add', 'type' => 'file')); ?>
-
-
+<form action = "addmon" method ="post">
 
             <div  class="modal-body">
                 <div class="form-group">
-                    <label for="empfirstname">First Name</label>
-                    <input type="text" name="empfirstname" id="" class="form-control">
+                    <label for="mopropertyno">Property No.</label>
+                    <input type="text" name="mopropertyno" id="" class="form-control">
                 </div>
                 <div class="form-group">
-                    <label for="emplastname">Lastname</label>
-                    <input type="text" name="emplastname" id="" class="form-control">
+                    <label for="modescription">Description</label>
+                    <input type="text" name="modescription" id="" class="form-control">
                 </div>
-                  <div class="form-group">
-                    <label for="empcompanyid">Company ID</label>
-                    <input type="text" name="empcompanyid" id="" class="form-control">
-                </div>
-                <div class="form-group">
-                <label for="empphoto">Photo</label>
-               <div class="input file"><label for="PageImage"></label>
-             
-<?php echo $this->Form->input('empphoto', array('type' => 'file', 'class' => 'form-control', 'value' => '')); ?>
-              </div>
-
-                </div>
-                
                   <div class="form-group">
                     <label for="available">Status</label>
 
-                      <select name="empstatus" id="available" class="form-control">
-                        <option value="1"> Active</option>
-                        <option  value="2"> Resign</option>          
+                      <select name="mostatus" id="mostatus" class="form-control">
+                        <option value="1"> Working</option>
+                        <option  value="2"> Defective</option>          
+                        </select>
+               
+                </div>
+                    <div class="form-group">
+                    <label for="available">Type</label>
+
+                      <select name="motype" id="motype" class="form-control">
+                        <option value="1"> New  </option>
+                        <option  value="2"> Old</option>          
+                        </select>
+               
+                </div>
+
+
+                  <div class="form-group">
+                    <label for="available">Availability</label>
+
+                      <select name="moavailability" id="moavailability" class="form-control">
+                        <option value="1"> Used</option>
+                        <option  value="2"> Available</option>          
                         </select>
                
                 </div>
@@ -300,10 +309,10 @@
 
 
 
-<!-- This modal for Edit Member -->
-<?php foreach($employees  as $row){ ?>
+<!-- EDIT MONITOR DETAILS -->
+<?php foreach($monitors  as $row){ ?>
 
-<div class="modal fade" id="edit<?php echo $row['Employee']['id'];?>" tabindex="-1" role="dialog">
+<div class="modal fade" id="edit<?php echo $row['Monitor']['id'];?>" tabindex="-1" role="dialog">
 
     <div class="modal-dialog">
         <div class="modal-content">
@@ -311,46 +320,83 @@
                 <i class="glyphicon glyphicon-pencil"></i>
                 Edit 
             </div>
-         <?php echo $this->Form->create('Employee', array('controller' => 'Employee', 'action' => 'edit', 'type' => 'file')); ?>
+        <form action = "editmon" method ="post">
 
                 <div class="modal-body">
-                    <input type="text" name="id" value="<?php echo  $row['Employee']['id'];?>"/>
+                    <input type="text" name="id" value="<?php echo  $row['Monitor']['id'];?>"/>
                     <div class="form-group">
-                        <label for="empfirstname">First Name</label>
-                        <input type="text" name="empfirstname" id="empfirstname" value="<?php echo $row['Employee']['empfirstname']; ?>" class="form-control"/>
+                        <label for="mopropertyno">Property No.</label>
+                        <input type="text" name="mopropertyno" id="mopropertyno" value="<?php echo $row['Monitor']['mopropertyno']; ?>" class="form-control"/>
                     </div>
                      <div class="form-group">
-                        <label for="emplastname">Last Name</label>
-                        <input type="text" name="emplastname" id="emplastname" value="<?php echo $row['Employee']['emplastname']; ?>" class="form-control"/>
+                        <label for="modescription">Description</label>
+                        <input type="text" name="modescription" id="modescription" value="<?php echo $row['Monitor']['modescription']; ?>" class="form-control"/>
                     </div>
-                     <div class="form-group">
-                        <label for="empcompanyid">Company ID</label>
-                        <input type="text" name="empcompanyid" id="empcompanyid" value="<?php echo $row['Employee']['empcompanyid']; ?>" class="form-control"/>
-                    </div>
-                       <div class="form-group">
-                <label>Photo <img src="/PCInventory/img/users/user.png" class="img-circle img-for-own-message"/></label>
-               
-               <div class="input file"><label for="PageImage"></label>
-             
-<?php echo $this->Form->input('empphoto', array('type' => 'file', 'class' => 'form-control', 'value' => '')); ?>
-              </div>
-
-                </div>
+                     
                     
                     <div class="form-group">
-                        <label for="empstatus">Status</label>
-                        <select name="empstatus" id="empstatus" class="form-control">
-                        <?php $empstatus = $row['Employee']['empstatus'];
-                        if ($empstatus == 1){?>
+                        <label for="mostatus">Status</label>
+                        <select name="mostatus" id="mostatus" class="form-control">
+                        <?php $mostatus = $row['Monitor']['mostatus'];
+                        if ($mostatus == 1){?>
 
-                        <option value="1"> Active</option>
-                        <option  value="2"> Resign</option> 
+                        <option value="1"> Working</option>
+                        <option  value="2"> Defective</option> 
 
 <?php
                         }else{
                             ?>
-                        <option  value="2"> Resign</option> 
-                        <option value="1"> Active</option>
+                        <option  value="2"> Defective</option> 
+                        <option value="1"> Working</option>
+                     
+                            <?php 
+                        }
+
+
+                        ?>
+                        
+                        </select>
+                        
+                    </div>
+
+ <div class="form-group">
+                        <label for="motype">Status</label>
+                        <select name="mostatus" id="mostatus" class="form-control">
+                        <?php $motype = $row['Monitor']['motype'];
+                        if ($motype == 1){?>
+
+                        <option value="1"> New</option>
+                        <option  value="2"> Old</option> 
+
+<?php
+                        }else{
+                            ?>
+                        <option  value="2"> Old</option> 
+                        <option value="1"> New</option>
+                     
+                            <?php 
+                        }
+
+
+                        ?>
+                        
+                        </select>
+                        
+                    </div>
+                    <div class="form-group">
+                        <label for="moavailability">Availability</label>
+                        <select name="moavailability" id="moavailability" class="form-control">
+                        <?php $moavailability = $row['Monitor']['moavailability'];
+                        if ($moavailability == 1){?>
+
+                        <option value="1"> Used</option>
+                        <option  value="2"> Availaible</option> 
+
+<?php
+                        }else{
+                            ?>
+                        <option  value="2"> Availaible</option> 
+                        <option value="1"> Used</option>
                      
                             <?php 
                         }
@@ -374,9 +420,9 @@
 <?php } ?>
 
 <!-- This modal for Delete Member -->
-<?php foreach($employees  as $row){ ?>
+<?php foreach($monitors  as $row){ ?>
 
-<div class="modal fade" id="delete<?php echo $row['Employee']['id'];?>" tabindex="-1" role="dialog">
+<div class="modal fade" id="delete<?php echo $row['Monitor']['id'];?>" tabindex="-1" role="dialog">
 
     <div class="modal-dialog">
         <div class="modal-content">
@@ -384,9 +430,9 @@
                 <i class="glyphicon glyphicon-pencil"></i>
                 Delete 
             </div>
-            <form action="deleteemp" method="post">
+            <form action="deletemon" method="post">
                 <div class="modal-body">
-                    <input type="hidden" name="id" value="<?php echo  $row['Employee']['id'];?>"/>
+                    <input type="hidden" name="id" value="<?php echo  $row['Monitor']['id'];?>"/>
                     Are you sure you want to delete this data?
                 </div>
                 <div class="modal-footer">
@@ -400,24 +446,38 @@
 
 <?php } ?>
 
-<!-- This modal for View Employees -->
-<?php foreach($employees  as $row){ 
-    $imagedisplay= $row['Employee']['empphoto'] ;?>
+<!-- This modal for View Monitor -->
+<?php foreach($monitors  as $row){ 
+    ?>
 
-<div class="modal fade" id="view<?php echo $row['Employee']['id'];?>" tabindex="-1" role="dialog">
+<div class="modal fade" id="view<?php echo $row['Monitor']['id'];?>" tabindex="-1" role="dialog">
 
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <i class="glyphicon glyphicon-pencil"></i>
-                Employee Information 
+                Monitor Information 
             </div>
                 <div class="modal-body">
-                <label><img src="/PCInventory/img/users/<?php echo $imagedisplay; ?>" class="img-circle img-for-own-message"></label> <br/>
-                 <label>  First Name : <?php echo $row['Employee']['empfirstname'];?> </label> <br/>
-                  <label> Last Name : <?php echo $row['Employee']['emplastname'];?> </label> <br/>
-                  <label> Company ID : <?php echo $row['Employee']['empcompanyid'];?> </label> <br/>
-                  <label>Status: <?php echo $row['Employee']['empstatus'];?> </label> <br/>
+                
+                 <label> Property No : <?php echo $row['Monitor']['mopropertyno'];?> </label> <br/>
+                  <label>Description : <?php echo $row['Monitor']['modescription'];?> </label> <br/>
+                  <label> Status : <?php $mostatus = $row['Monitor']['mostatus'];
+                        if ($mostatus == 1){?> Working
+                        <?php }else{ ?> Defective
+                            <?php   }   ?>
+                  </label> <br/>
+                  <label> Type :      <?php $motype = $row['Monitor']['motype'];
+                        if ($motype == 1){?> New
+                        <?php }else{ ?> Old
+                            <?php   }   ?>
+                  </label> <br/>
+                
+                  <label> Availability :      <?php $moavailability = $row['Monitor']['moavailability'];
+                        if ($moavailability == 1){?> Used
+                        <?php }else{ ?> Available
+                            <?php   }   ?>
+                  </label> <br/>
                 
                 </div>
                 <div class="modal-footer">

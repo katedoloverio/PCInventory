@@ -40,6 +40,9 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
                 ));
                 
 		echo $this->Html->meta('icon');
+                echo $this->Html->css('style.css');
+                echo $this->Html->css('style.js');
+
                 echo $this->Html->css('bootstrap.min');
                 echo $this->Html->css('bootstrap-theme.min');
                 //echo $this->Html->css('screen');
