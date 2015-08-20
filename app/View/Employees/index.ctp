@@ -4,7 +4,7 @@
  <div class="row">
   <div class="col-sm-2">
  <div class = "breadcrumb">
-<img src="/PCInventory/img/users/fdci.png"/>
+<img src="/PCInventory/img/users/"/>
  </div>
   </div>
   <div class="col-sm-10">
