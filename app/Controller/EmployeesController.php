@@ -17,6 +17,9 @@ class EmployeesController extends AppController {
 
 
 	public function index() {
+
+        
+
 		if ($this->request->is('post')) {
 		$this->Employee->create();
 		if ($this->Employee->save($this->request->data)) {
@@ -34,34 +37,37 @@ class EmployeesController extends AppController {
 }
 
 public function add() {
+    $this->autoRender = false;
 		if ($this->request->is('post')) {
-		$this->Employee->create();
-		if ($this->Employee->save($this->request->data)) {
-			$this->Session->setFlash(__('New employee added'));
-			return $this->redirect(array('action' => 'index'));
-		}
-		$this->Session->setFlash(__('Could not add employee'));
-	}
+     $accept = $this->request->data;
+     $data = array(
+   'Employee' => array(
+            'empfirstname' => $accept['empfirstname'],
+            'emplastname' => $accept['emplastname'],
+            'empcompanyid' => $accept['empcompanyid'],
+            'empphoto' => $accept['Employee']['empphoto']['name'],
+            'empstatus' => $accept['empstatus']
+            
+             )
+             );
+    $this->Employee->create($data);
+    $this->Employee->save($data);
+    $path = WWW_ROOT . 'img/users/'.$accept['Employee']['empphoto']['name'];
+    $upload = move_uploaded_file($accept['Employee']['empphoto']['tmp_name'], $path);
+
+     
+     
+          $this->redirect(array('action' => 'index'));
+
+
+
+        }
+        $this->Session->setFlash(__('Could not register user'));
+
+	
 
 
 }
-
-public function addemp() {
-	$this->autoRender = false;
-
-		if ($this->request->is('post')) {
-		$this->Employee->create();
-
-				if ($this->Employee->save($this->request->data)) {
-			$this->Session->setFlash(__('New employee added'));
-			$this->redirect($this->referer());
-		}
-		$this->Session->setFlash(__('Could not add employee'));
-	}
-
-
-}
-
 
 
 
@@ -77,12 +83,15 @@ public function edit() {
                     'empfirstname' => $data['empfirstname'],
                     'emplastname' => $data['emplastname'],
                     'empcompanyid' => $data['empcompanyid'],
-                    'empphoto' => $data['empphoto'],
+                    'empphoto' => $data['Employee']['empphoto']['name'],
                     'empstatus' => $data['empstatus']
                              )
             );
             $this->Employee->id = $data['id'];
             $this->Employee->save($prepareData);
+
+            $path = WWW_ROOT . 'img/users/'. $data['Employee']['empphoto']['name'];
+            $upload = move_uploaded_file( $data['Employee']['empphoto']['tmp_name'], $path);
 
             $this->Session->setFlash('<div class="alert alert-success"><i class="glyphicon glyphicon-ok"></i> Update Success.</div> ', 'default', array(), 'good');
             $this->redirect($this->referer());
@@ -102,6 +111,9 @@ public function delete() {
 	$this->Session->setFlash(__('Could not remove employee'));
 	$this->redirect($this->referer());
 }
+
+
+
 
 
 }

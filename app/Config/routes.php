@@ -27,6 +27,8 @@
 //Router::connect('/', array('controller' => 'pages', 'action' => 'display', 'home'));
        
         Router::connect('/users/register', array('controller' => 'users', 'action' => 'register'));
+
+        Router::connect('/users/create', array('controller' => 'users', 'action' => 'create'));
         Router::connect('/users/login', array('controller' => 'users', 'action' => 'login'));
         Router::connect('/users/logout', array('controller' => 'users', 'action' => 'logout'));
         Router::connect('/hello', array('controller' => 'users', 'action' => 'hello'));
@@ -40,9 +42,13 @@
 
 
          Router::connect('/employee/index', array('controller' => 'Employees', 'action' => 'index'));
+         Router::connect('/employee/add', array('controller' => 'Employees', 'action' => 'add'));
+         Router::connect('/employee/edit', array('controller' => 'Employees', 'action' => 'edit'));
+         Router::connect('/employee/delete', array('controller' => 'Employees', 'action' => 'delete'));
          Router::connect('/employee/addemp', array('controller' => 'Employees', 'action' => 'add'));
          Router::connect('/employee/editemp', array('controller' => 'Employees', 'action' => 'edit'));
          Router::connect('/employee/deleteemp', array('controller' => 'Employees', 'action' => 'delete'));
+        Router::connect('/employee/home', array('controller' => 'Employees', 'action' => 'home'));
 
         Router::connect('/product/index', array('controller' => 'Products', 'action' => 'index'));
         Router::connect('/product/view', array('controller' => 'Products', 'action' => 'view'));
@@ -58,6 +64,8 @@
         Router::connect('/gadget/addgdgt', array('controller' => 'Gadgets', 'action' => 'add'));
         Router::connect('/gadget/editgdgt', array('controller' => 'Gadgets', 'action' => 'edit'));
         Router::connect('/gadget/deletegdgt', array('controller' => 'Gadgets', 'action' => 'delete'));
+
+        Router::connect('/page/index', array('controller' => 'Pages', 'action' => 'index'));
 /**
  * ...and connect the rest of 'Pages' controller's urls.
  */
