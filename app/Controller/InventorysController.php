@@ -10,7 +10,7 @@ App::uses('Systemunit', 'Model');
 App::uses('Videocard', 'Model');
 App::uses('Inventory', 'Model');
 
-class VideocardsController extends AppController {
+class  InventorysController extends AppController {
 
 
 
@@ -23,11 +23,14 @@ class VideocardsController extends AppController {
 
     public function index() {
 
-        
+        $data = $this->Inventory->find('all');  
+  //  pr($data);
+ // die();
+
 
         if ($this->request->is('post')) {
-        $this->Inventorys->create();
-        if ($this->Inventorys->save($this->request->data)) {
+        $this->Inventory->create();
+        if ($this->Inventory->save($this->request->data)) {
             $this->Session->setFlash(__('New system unit added'));
             //return $this->redirect(array('action' => 'index'));
         }
@@ -37,30 +40,37 @@ class VideocardsController extends AppController {
     $this->Paginator->settings = array( 'limit' => 10);
 
     // similar to findAll(), but fetches paged results
-    $data = $this->Paginator->paginate('Inventorys');
+   $data = $this->Paginator->paginate('Inventory');
     $this->set('inventorys', $data);
 }
 
 public function add() {
     $this->autoRender = false;
+
+
+//$try = $this->Inventory->find('all');
+
+ //  pr($try);
+  //  die();
+
+ 
         if ($this->request->is('post')) {
      $accept = $this->request->data;
      $data = array(
    'Inventory' => array(
-            'empid' => $accept['empid'],
-            'pcsystemunit' => $accept['pcsystemunit'],
-            'pcmonitor' => $accept['pcmonitor'],
-            'pcvideocard' => $accept['pcvideocard'],
-            'pckeyboard' => $accept['pckeyboard'],
-            'pcheadset' => $accept['pcheadset'],
-            'pcvideocard' => $accept['pcvideocard'],
-            'pcspeakers' => $accept['pcspeakers'],
-            'pcvideocard' => $accept['pcvideocard'],
-            'pcups' => $accept['pcups'],
-            'pcos' => $accept['pcos'],
+            'employee_id' => $accept['employee_id'],
+            'systemunit_id' => $accept['systemunit_id'],
+            'monitor_id' => $accept['monitor_id'],
+            'videocard_id' => $accept['videocard_id'],
+            'keyboard_id' => $accept['keyboard_id'],
+            'headeset_id' => $accept['headeset_id'],
+            'speaker_id' => $accept['speaker_id'],
+            'ups_id' => $accept['ups_id'],
+            'os_id' => $accept['os_id'],
             'pcosserialno' => $accept['pcosserialno'],
             'pcadditionalinfo' => $accept['pcadditionalinfo'],
             'pcstatus' => $accept['pcstatus'],
+            'pctype' => $accept['pctype'],
             'pcavailability' => $accept['pcavailability'],
             'pcreceivedate' => $accept['pcreceivedate']
             
@@ -85,6 +95,8 @@ public function add() {
 
 
 public function edit() {
+
+
 	$this->autoRender = false;
 	
         if ($this->request->is('post')) {
@@ -93,20 +105,19 @@ public function edit() {
 
             $prepareData = array(
                 'Inventory' => array(
-                    'empid' => $accept['empid'],
-            'pcsystemunit' => $accept['pcsystemunit'],
-            'pcmonitor' => $accept['pcmonitor'],
-            'pcvideocard' => $accept['pcvideocard'],
-            'pckeyboard' => $accept['pckeyboard'],
-            'pcheadset' => $accept['pcheadset'],
-            'pcvideocard' => $accept['pcvideocard'],
-            'pcspeakers' => $accept['pcspeakers'],
-            'pcvideocard' => $accept['pcvideocard'],
-            'pcups' => $accept['pcups'],
-            'pcos' => $accept['pcos'],
+             'employee_id' => $accept['employee_id'],
+            'systemunit_id' => $accept['systemunit_id'],
+            'monitor_id' => $accept['monitor_id'],
+            'videocard_id' => $accept['videocard_id'],
+            'keyboard_id' => $accept['keyboard_id'],
+            'headeset_id' => $accept['headeset_id'],
+            'speaker_id' => $accept['speaker_id'],
+            'ups_id' => $accept['ups_id'],
+            'os_id' => $accept['os_id'],
             'pcosserialno' => $accept['pcosserialno'],
             'pcadditionalinfo' => $accept['pcadditionalinfo'],
             'pcstatus' => $accept['pcstatus'],
+            'pctype' => $accept['pctype'],
             'pcavailability' => $accept['pcavailability'],
             'pcreceivedate' => $accept['pcreceivedate']
                              )

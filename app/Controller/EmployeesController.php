@@ -39,13 +39,13 @@ class EmployeesController extends AppController {
 public function add() {
 
 
-    $try = $this->Employee->find('all');
-
-    pr($try);
-    die();
     $this->autoRender = false;
         if ($this->request->is('post')) {
      $accept = $this->request->data;
+     if($accept['empfirstname']==""){
+        $this->Session->setFlash('Required field');
+     }else{
+
      $data = array(
    'Employee' => array(
             'empfirstname' => $accept['empfirstname'],
@@ -62,7 +62,7 @@ public function add() {
     $upload = move_uploaded_file($accept['Employee']['empphoto']['tmp_name'], $path);
 
      
-     
+     }
           $this->redirect(array('action' => 'index'));
 
 
@@ -78,6 +78,7 @@ public function add() {
 
 
 public function edit() {
+    
 	$this->autoRender = false;
 	
         if ($this->request->is('post')) {

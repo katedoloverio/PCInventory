@@ -8,12 +8,14 @@ App::uses('Mouse', 'Model');
 App::uses('Keyboard', 'Model');
 App::uses('Systemunit', 'Model');
 App::uses('Videocard', 'Model');
+App::uses('Inventory', 'Model');
+
 
 class VideocardsController extends AppController {
 
 
 
-    public $uses = array('Product', 'User', 'Employee', 'Monitor', 'Mouse','Keyboard','Systemunit', 'Videocard');
+       public $uses = array('Product', 'User', 'Employee', 'Monitor', 'Mouse','Keyboard','Systemunit', 'Videocard', 'Inventory');
 
     public $helpers = array('Html', 'Form');
 

@@ -16,7 +16,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">FDCI PC Inventory</a>
+            <a class="navbar-brand" href="#">FDCI PC Inventory <img src="/PCInventory/img/users/fdci.png"/> </a>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
@@ -25,7 +25,7 @@
 
                 <li ><a href="<?php echo $this->webroot;?>employee/index">Employee<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a></li>
 
-                <li ><a href="<?php echo $this->webroot;?>employee/index">PC <span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-blackboard"></span></a></li>
+                <li ><a href="<?php echo $this->webroot;?>inventory/index">PC <span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-blackboard"></span></a></li>
 
 
 
@@ -34,7 +34,7 @@
 
                
                 <li  class="active" class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Properties <span  class="pull-right hidden-xs showopacity glyphicon glyphicon-list"></span><span style="font-size:16px;" ></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Properties <span class="pull-right hidden-xs showopacity glyphicon glyphicon-list"></span><span style="font-size:16px;" ></span></a>
                     <ul class="dropdown-menu forAnimate" role="menu">
                         <li>
                 <li ><a href="<?php echo $this->webroot;?>monitor/index">Monitor<span style="font-size:16px;"></span></a></li>
@@ -450,17 +450,17 @@
                 
                  <label> Property No : <?php echo $row['Keyboard']['kbpropertyno'];?> </label> <br/>
                   <label>Description : <?php echo $row['Keyboard']['kbdescription'];?> </label> <br/>
-                  <label> Status : <?php $mostatus = $row['Keyboard']['kbstatus'];
+                  <label> Status : <?php $kbstatus = $row['Keyboard']['kbstatus'];
                         if ($kbstatus == 1){?> Working
                         <?php }else{ ?> Defective
                             <?php   }   ?>
                   </label> <br/>
-                  <label> Type : <?php $mstype = $row['Keyboard']['kbtype'];
+                  <label> Type : <?php $kbtype = $row['Keyboard']['kbtype'];
                         if ($kbtype == 1){?> Working
                         <?php }else{ ?> Defective
                             <?php   }   ?>
                   </label> <br/>
-                  <label> Availability :      <?php $msavailability = $row['Keyboard']['kbavailability'];
+                  <label> Availability :      <?php $kbavailability = $row['Keyboard']['kbavailability'];
                         if ($kbavailability == 1){?> Used
                         <?php }else{ ?> Available
                             <?php   }   ?>

@@ -7,12 +7,14 @@ App::uses('Monitor', 'Model');
 App::uses('Mouse', 'Model');
 App::uses('Keyboard', 'Model');
 App::uses('Systemunit', 'Model');
+App::uses('Videocard', 'Model');
+App::uses('Inventory', 'Model');
 
 class SystemunitsController extends AppController {
 
 
 
-	public $uses = array('Product', 'User', 'Employee', 'Monitor', 'Mouse','Keyboard','Systemunit');
+	  public $uses = array('Product', 'User', 'Employee', 'Monitor', 'Mouse','Keyboard','Systemunit', 'Videocard', 'Inventory');
 
 	public $helpers = array('Html', 'Form');
 

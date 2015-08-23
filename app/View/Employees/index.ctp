@@ -1,6 +1,5 @@
 
 
-
 <div class="container-fluid" background-color="black">
 <div class="row">
 <div class="container-fluid">
@@ -18,16 +17,16 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">FDCI PC Inventory </br><center><img src="/PCInventory/img/users/fdci.png"  width="50" height="50"/> </center></a>
+            <a class="navbar-brand" href="#">FDCI PC Inventory <img src="/PCInventory/img/users/fdci.png"/> </a>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li><a href="#">Home<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-home"></span></a></li>
 
-                <li  class="active"><a href="<?php echo $this->webroot;?>employee/index">Employee<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a></li>
+                <li class="active" ><a href="<?php echo $this->webroot;?>employee/index">Employee<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a></li>
 
-                <li ><a href="<?php echo $this->webroot;?>employee/index">PC <span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-blackboard"></span></a></li>
+                <li ><a href="<?php echo $this->webroot;?>inventory/index">PC <span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-blackboard"></span></a></li>
 
 
 
@@ -157,6 +156,7 @@
                 Employee Table
         </div>
         <div class="panel-body" style="background-color:navyblue" >
+<?php echo $this->Session->flash(); ?>
 
 <div>
 
@@ -167,10 +167,10 @@
 <table class="table table-bordered table-hover" >
     <tr>
        <th><?php echo $this->Paginator->sort('Photo'); ?></th>
-        <th><?php echo $this->Paginator->sort('Firstname'); ?></th>
-        <th><?php echo $this->Paginator->sort('Lastname'); ?></th>
-       <th><?php echo $this->Paginator->sort('Company ID'); ?></th>
-       <th><?php echo $this->Paginator->sort('Status'); ?></th>
+        <th><?php echo $this->Paginator->sort('Name'); ?></th>
+        <th><?php echo $this->Paginator->sort('PC Type'); ?></th>
+       <th><?php echo $this->Paginator->sort('Monitor/s'); ?></th>
+      
 
         <th><?php echo __('Actions'); ?></th>
     </tr>
@@ -182,10 +182,13 @@
 
     <tr>
     <td> <img src="/PCInventory/img/users/<?php echo $imagedisplay; ?>" class="img-circle img-for-own-message"></td>
-        <td><?php echo $employee['Employee']['empfirstname']; ?></td>
-        <td><?php echo $employee['Employee']['emplastname']; ?></td>
-         <td><?php echo $employee['Employee']['empcompanyid']; ?></td>
-         <td><?php echo $employee['Employee']['empstatus']; ?></td>
+        <td><?php echo $employee['Employee']['empfirstname']; ?>&nbsp; <?php echo $employee['Employee']['emplastname']; ?> </td>
+       <td><?php $pctype =  $employee['Inventory']['pctype'] ;
+       if($pctype==1) { ?> Fast
+              <?php } else{ ?>Slow
+                <?php  }   ?>
+        </td>
+         <td><?php echo $employee['Inventory']['monitor_id']; ?></td>
 
         <td>
         <a href="#view<?php echo $employee['Employee']['id'];?>" data-toggle="modal" class="btn btn-success"><i class="glyphicon glyphicon-search"> </i>View</a>
@@ -218,6 +221,8 @@
 
 
         </div>
+
+
         <div class="panel-footer">
         <div class="text-center">
     <?php echo $this->Paginator->counter(array('format' => __('Page {:page} of {:pages}, showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}'))); ?>
@@ -249,11 +254,11 @@
             <div  class="modal-body">
                 <div class="form-group">
                     <label for="empfirstname">First Name</label>
-                    <input type="text" name="empfirstname" id="" class="form-control">
+                    <input  type="text" name="empfirstname" id="" class="form-control" >
                 </div>
                 <div class="form-group">
                     <label for="emplastname">Lastname</label>
-                    <input type="text" name="emplastname" id="" class="form-control">
+                    <input type="text" name="emplastname" id="" class="form-control" >
                 </div>
                   <div class="form-group">
                     <label for="empcompanyid">Company ID</label>
@@ -261,7 +266,7 @@
                 </div>
                 <div class="form-group">
                 <label for="empphoto">Photo</label>
-               <div class="input file"><label for="PageImage"></label>
+               <div class="input file" ><label for="PageImage"></label>
              
 <?php echo $this->Form->input('empphoto', array('type' => 'file', 'class' => 'form-control', 'value' => '')); ?>
               </div>
@@ -271,7 +276,7 @@
                   <div class="form-group">
                     <label for="available">Status</label>
 
-                      <select name="empstatus" id="available" class="form-control">
+                      <select name="empstatus" id="available" class="form-control" >
                         <option value="1"> Active</option>
                         <option  value="2"> Resign</option>          
                         </select>

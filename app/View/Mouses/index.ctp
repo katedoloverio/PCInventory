@@ -16,7 +16,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">FDCI PC Inventory</a>
+            <a class="navbar-brand" href="#">FDCI PC Inventory <img src="/PCInventory/img/users/fdci.png"/> </a>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
@@ -25,7 +25,7 @@
 
                 <li ><a href="<?php echo $this->webroot;?>employee/index">Employee<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a></li>
 
-                <li ><a href="<?php echo $this->webroot;?>employee/index">PC <span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-blackboard"></span></a></li>
+                <li ><a href="<?php echo $this->webroot;?>inventory/index">PC <span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-blackboard"></span></a></li>
 
 
 
@@ -42,9 +42,9 @@
 </li>
                          <li ><a href="<?php echo $this->webroot;?>mouse/index">Mouse<span style="font-size:16px;" ></span></a></li>
 
-</li>
 
-<li>
+</li>
+ <li>
                 <li ><a href="<?php echo $this->webroot;?>keyboard/index">Keyboard<span style="font-size:16px;"></span></a></li>
 
 </li>
@@ -58,13 +58,14 @@
 </li>
 
  <li>
-                <li ><a href="<?php echo $this->webroot;?>speakers/index">Speakers<span style="font-size:16px;"></span></a></li>
+                <li ><a href="<?php echo $this->webroot;?>speaker/index">Speakers<span style="font-size:16px;"></span></a></li>
 
 </li>
 
  <li>
-                <li ><a href="<?php echo $this->webroot;?>monitor/index">UPS<span style="font-size:16px;"></span></a></li>
+                <li ><a href="<?php echo $this->webroot;?>ups/index">UPS<span style="font-size:16px;"></span></a></li>
 </li>
+
 
 
                     </ul>
@@ -455,8 +456,8 @@
                             <?php   }   ?>
                   </label> <br/>
                   <label> Type : <?php $mstype = $row['Mouse']['mstype'];
-                        if ($mstype == 1){?> Working
-                        <?php }else{ ?> Defective
+                        if ($mstype == 1){?> New
+                        <?php }else{ ?> Old
                             <?php   }   ?>
                   </label> <br/>
                   <label> Availability :      <?php $msavailability = $row['Mouse']['msavailability'];
