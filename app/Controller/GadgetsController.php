@@ -4,6 +4,7 @@ App::uses('Product', 'Model');
 App::uses('User', 'Model');
 App::uses('Employee', 'Model');
 App::uses('Gadget', 'Model');
+App::uses('Alert', 'lib');
 
 
 class GadgetsController extends AppController {
@@ -17,9 +18,21 @@ class GadgetsController extends AppController {
 	public $components = array('Session', 'Paginator');
 
 	
+    public function beforeFilter(){
 
+    parent::beforeFilter();
+	$this->alert = new Alert();
+	$this->Auth->allow();
+
+    }
 
 	public function index() {
+
+		$all = $this->Gadget->find('all');
+		$number= count($all);
+		$this->Set('allGadgets', $number);
+		
+
 		 $this->Paginator->settings = array( 'limit' => 5);
 
     // similar to findAll(), but fetches paged results
@@ -66,19 +79,50 @@ public function edit() {
             
             $data = $this->request->data;
 
-            $prepareData = array(
-                'Gadget' => array(
-                    'ggpropertyno' => $data['ggpropertyno'],
-                    'ggdescription' => $data['ggdescription'],
-                    'ggserial' => $data['ggserial'],
-                    'ggstatus' => $data['ggstatus'],
-                    'ggavailabiliy' => $data['ggavailabiliy']
-                )
-            );
-            $this->Gadget->id = $data['id'];
-            $this->Gadget->save($prepareData);
 
-            $this->Session->setFlash('<div class="alert alert-success"><i class="glyphicon glyphicon-ok"></i> Update Success.</div>', 'default', array(), 'good');
+		
+
+            if( empty($data['ggpropertyno']) || empty($data['ggdescription']) || empty($data['ggserial']) ||
+             empty($data['ggstatus']) || empty($data['ggavailability']) ) {
+
+           	    $this->Session->setFlash($this->alert->danger('All fields must have values.'),'default', array(), 'error');   
+            }
+            
+            else{
+
+				$checkExist = $this->Gadget->find('first',
+				array(
+					'fields' => 'ggpropertyno',
+					'conditions' => array(
+						'ggpropertyno' => $data['ggpropertyno']
+						)
+					)
+				);
+
+				if($checkExist){
+					$this->Session->setFlash($this->alert->danger('Gadget Property No. already exist.'),'default', array(), 'error');   
+					
+				} else{
+
+	            	$prepareData = array(
+	                'Gadget' => array(
+	                    'ggpropertyno' => $data['ggpropertyno'],
+	                    'ggdescription' => $data['ggdescription'],
+	                    'ggserial' => $data['ggserial'],
+	                    'ggstatus' => $data['ggstatus'],
+	                    'ggavailability' => $data['ggavailability']
+
+	                )
+	            );
+	            $this->Gadget->id = $data['id'];
+	            $this->Gadget->save($prepareData);
+	            $this->Session->setFlash($this->alert->success('Update Success.'), 'default', array(), 'good');
+	            }
+  
+
+            } 
+  			        
+
             $this->redirect($this->referer());
             exit();
 

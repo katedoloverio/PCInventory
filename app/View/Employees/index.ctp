@@ -1,3 +1,12 @@
+<head>
+<?php      
+   echo $this->Html->css('stylevalidate.css');
+   echo $this->Html->css('validation.css');
+  echo $this->Html->script(array('main', 'jquery-1.9.1.min', 'livevalidation_standalone'));
+?>
+ 
+  
+</head>
 
 
 <div class="container-fluid" background-color="black">
@@ -5,7 +14,7 @@
 <div class="container-fluid">
 <div class="row">
   <div class="col-sm-2">
-   <div class = "breadcrumb">
+   <div class>
    
    <nav class="navbar navbar-inverse sidebar" role="navigation">
     <div class="container-fluid">
@@ -57,7 +66,10 @@
                 <li ><a href="<?php echo $this->webroot;?>videocard/index">Videocard<span style="font-size:16px;"></span></a></li>
 
 </li>
+<li>
+                <li ><a href="<?php echo $this->webroot;?>headset/index">Headset<span style="font-size:16px;"></span></a></li>
 
+</li>
  <li>
                 <li ><a href="<?php echo $this->webroot;?>speaker/index">Speakers<span style="font-size:16px;"></span></a></li>
 
@@ -191,11 +203,11 @@
          <td><?php echo $employee['Inventory']['monitor_id']; ?></td>
 
         <td>
-        <a href="#view<?php echo $employee['Employee']['id'];?>" data-toggle="modal" class="btn btn-success"><i class="glyphicon glyphicon-search"> </i>View</a>
+        <a href="#view<?php echo $employee['Employee']['id'];?>" data-toggle="modal" class="btn btn-success"  title ="View"><i class="glyphicon glyphicon-search" > </i>View</a>
 
-        <a href="#edit<?php echo $employee['Employee']['id'];?>" data-toggle="modal" class="btn btn-primary"> <i class="glyphicon glyphicon-edit"> </i>Edit</a>
+        <a href="#edit<?php echo $employee['Employee']['id'];?>" data-toggle="modal" class="btn btn-primary" title ="Edit"> <i class="glyphicon glyphicon-edit"> </i>Edit</a>
 
-        <a href="#delete<?php echo $employee['Employee']['id'];?>" data-toggle="modal" class="btn btn-danger"><i class="glyphicon glyphicon-trash"> </i>Delete</a></td>
+        <a href="#delete<?php echo $employee['Employee']['id'];?>" data-toggle="modal" class="btn btn-danger" title ="Delete"><i class="glyphicon glyphicon-trash"> </i>Delete</a></td>
 
 
 
@@ -218,6 +230,7 @@
         </ul>
 </div>
    
+
 
 
         </div>
@@ -254,18 +267,18 @@
             <div  class="modal-body">
                 <div class="form-group">
                     <label for="empfirstname">First Name</label>
-                    <input  type="text" name="empfirstname" id="" class="form-control" >
+                    <input  type="text" name="empfirstname" id="firstname-input" class="LV_field"  class="form-control" >
                 </div>
                 <div class="form-group">
-                    <label for="emplastname">Lastname</label>
-                    <input type="text" name="emplastname" id="" class="form-control" >
+                    <label for="emplastname">Last Name</label>
+                    <input type="text" name="emplastname" id="lastname-input" class="LV_field" class="form-control" >
                 </div>
                   <div class="form-group">
                     <label for="empcompanyid">Company ID</label>
-                    <input type="text" name="empcompanyid" id="" class="form-control">
+                    <input type="text" name="empcompanyid" id="companyid-input" class="LV_field" class="form-control">
                 </div>
                 <div class="form-group">
-                <label for="empphoto">Photo</label>
+                <label for="">Photo</label>
                <div class="input file" ><label for="PageImage"></label>
              
 <?php echo $this->Form->input('empphoto', array('type' => 'file', 'class' => 'form-control', 'value' => '')); ?>
@@ -276,7 +289,7 @@
                   <div class="form-group">
                     <label for="available">Status</label>
 
-                      <select name="empstatus" id="available" class="form-control" >
+                      <select name="empstatus" id="available" class="form-control" id="status-input" class="LV_field">
                         <option value="1"> Active</option>
                         <option  value="2"> Resign</option>          
                         </select>
@@ -284,12 +297,13 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="submit" class="btn btn-primary">Add</button>
+                <button type="submit" class="btn btn-primary" onClick="checkForm()" >Add</button>
                 <button data-dismiss="modal" class="btn btn-default">Cancel</button>
             </div>
 
         </div>
         </form>
+       
     </div>
 </div>
 </div>
@@ -422,7 +436,11 @@
                  <label>  First Name : <?php echo $row['Employee']['empfirstname'];?> </label> <br/>
                   <label> Last Name : <?php echo $row['Employee']['emplastname'];?> </label> <br/>
                   <label> Company ID : <?php echo $row['Employee']['empcompanyid'];?> </label> <br/>
-                  <label>Status: <?php echo $row['Employee']['empstatus'];?> </label> <br/>
+                  <label> Status : <?php $empstatus = $row['Employee']['empstatus'];
+                        if ($empstatus == 1){?> Active
+                        <?php }else{ ?> Resign
+                            <?php   }   ?>
+                  </label> <br/>
                 
                 </div>
                 <div class="modal-footer">

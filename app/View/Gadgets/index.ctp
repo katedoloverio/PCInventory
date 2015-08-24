@@ -55,7 +55,10 @@
                 <li ><a href="<?php echo $this->webroot;?>videocard/index">Videocard<span style="font-size:16px;"></span></a></li>
 
 </li>
+<li>
+                <li ><a href="<?php echo $this->webroot;?>headset/index">Headset<span style="font-size:16px;"></span></a></li>
 
+</li>
  <li>
                 <li ><a href="<?php echo $this->webroot;?>speaker/index">Speakers<span style="font-size:16px;"></span></a></li>
 
@@ -166,15 +169,15 @@
             <div  class="modal-body">
                 <div class="form-group">
                     <label for="ggpropertyno">Property Number</label>
-                    <input type="text" name="data[Gadget][ggpropertyno]" id="" class="form-control">
+                    <input type="text" name="data[Gadget][ggpropertyno]" id="propertyno-input" class="LV_field" class="form-control">
                 </div>
                 <div class="form-group">
                     <label for="ggdescription">Description</label>
-                    <input type="textarea" name="data[Gadget][ggdescription]" id="" class="form-control">
+                    <input type="text" name="data[Gadget][ggdescription]" id="description-input" class="LV_field" class="form-control">
                 </div>
                   <div class="form-group">
                     <label for="ggserial">Serial No.</label>
-                    <input type="text" name="data[Gadget][ggserial]" id="" class="form-control">
+                    <input type="text" name="data[Gadget][ggserial]" id="description-input" class="LV_field"  class="form-control">
                 </div>
                  <div class="form-group">
                     <label for="ggstatus">Status</label>
@@ -215,7 +218,7 @@
 <div>
 
 
-
+<?php echo $this->Session->flash('error'); ?>
 <?php echo $this->Session->flash('good'); ?>
 <div class="container">
 <table class="table table-bordered table-hover" >
@@ -231,7 +234,12 @@
 		<th><?php echo __('Actions'); ?></th>
 	</tr>
 
-	<?php foreach ($gadgets as $gadget): ?>
+     
+	<?php foreach ($gadgets as $gadget):
+
+     ?>
+
+
 	<tr>
 		<td><?php echo $gadget['Gadget']['ggpropertyno']; ?></td>
 		<td><?php echo $gadget['Gadget']['ggdescription']; ?></td>
@@ -261,16 +269,26 @@
 
    
 
+   <?php if ($allGadgets > 5){ ?>
 <ul class="pagination">
     <li><?php echo $this->Paginator->prev(__('Previous'), array(), null, array('class' => 'prev disabled'));?></li>
+
    <li><?php echo $this->Paginator->numbers(array('separator' => '')); ?></li>
-   <li><?php echo $this->Paginator->next(__('Next'), array(), null, array('class' => 'next disabled'));
+
+  <li> <?php echo $this->Paginator->next(__('Next'), array(), null, array('class' => 'next disabled'));
     ?></li>
+
+ 
+
+   
         </ul>
+           <?php } ?>
      
 </div>
 
    </div>
+
+
 
 
 
@@ -381,7 +399,7 @@
                 <i class="glyphicon glyphicon-pencil"></i>
                 Delete 
             </div>
-            <form action="deletegdgt" method="post">
+            <form action="/PCInventory/gadget/deletegdgt" method="post">
                 <div class="modal-body">
                     <input type="hidden" name="id" value="<?php echo  $row['Gadget']['id'];?>"/>
                     Are you sure you want to delete this data?

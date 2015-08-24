@@ -24,10 +24,12 @@
                         <h3 class="panel-title">Please Sign In</h3>
                     </div>
                     <div class="panel-body">
+                     <h5><?php echo $this->Session->flash();?></h5>
+
                     <form action="/PCInventory/users/login" id="UserLoginForm" method="post" accept-charset="utf-8">
                             <fieldset>
                                 <div class="form-group">
-                                <input name="data[User][username]" maxlength="20" type="text" id="UserUsername" required="required" class="form-control" placeholder="Username"  type="username" autofocus />
+                                <input name="data[User][username]" maxlength="20" type="text" id="firstname" class="LV_field" required="required" class="form-control" placeholder="Username"  type="username" autofocus />
                                 </div>
                                 <div class="form-group">
                                   <input name="data[User][password]" type="password" id="UserPassword" required="required" class="form-control" placeholder="Password"  type="username" autofocus  />
@@ -45,8 +47,7 @@
                                </button> </form>
                                 
                             </fieldset>
-                        <h5><?php echo $this->Session->flash();?></h5>
-
+                       
                     </div>
                 </div>
             </div>

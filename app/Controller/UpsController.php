@@ -14,11 +14,11 @@ App::uses('Up', 'Model');
 App::uses('Inventory', 'Model');
 
 
-
-class MousesController extends AppController {
+class UpsController extends AppController {
 
 
   public $uses = array('Product', 'User', 'Employee', 'Monitor', 'Mouse','Keyboard','Systemunit', 'Videocard', 'Headset', 'Speaker', 'Up', 'Inventory');
+
 	public $helpers = array('Html', 'Form');
 
 	public $components = array('Session', 'Paginator');
@@ -29,19 +29,19 @@ class MousesController extends AppController {
         
 
 		if ($this->request->is('post')) {
-		$this->Mouse->create();
-		if ($this->Mouse->save($this->request->data)) {
-			$this->Session->setFlash(__('New mouse added'));
+		$this->Up->create();
+		if ($this->Up->save($this->request->data)) {
+			$this->Session->setFlash(__('New UPS added'));
 			//return $this->redirect(array('action' => 'index'));
 		}
-		$this->Session->setFlash(__('Could not add mouse'));
+		$this->Session->setFlash(__('Could not add UPS'));
 	}
 
     $this->Paginator->settings = array( 'limit' => 10);
 
     // similar to findAll(), but fetches paged results
-    $data = $this->Paginator->paginate('Mouse');
-    $this->set('mouses', $data);
+    $data = $this->Paginator->paginate('Up');
+    $this->set('ups', $data);
 }
 
 public function add() {
@@ -49,17 +49,17 @@ public function add() {
         if ($this->request->is('post')) {
      $accept = $this->request->data;
      $data = array(
-   'Mouse' => array(
-            'mspropertyno' => $accept['mspropertyno'],
-            'msdescription' => $accept['msdescription'],
-            'msstatus' => $accept['msstatus'],
-            'mstype' => $accept['mstype'],
-            'msavailability' => $accept['msavailability']
+   'Up' => array(
+            'uppropertyno' => $accept['uppropertyno'],
+            'updescription' => $accept['updescription'],
+            'upstatus' => $accept['upstatus'],
+            'uptype' => $accept['uptype'],
+            'upavailability' => $accept['upavailability']
             
              )
              );
-    $this->Mouse->create($data);
-    $this->Mouse->save($data);
+    $this->Up->create($data);
+    $this->Up->save($data);
     
      
           $this->redirect(array('action' => 'index'));
@@ -84,16 +84,16 @@ public function edit() {
             $data = $this->request->data;
 
             $prepareData = array(
-                'Mouse' => array(
-                    'mspropertyno' => $data['mspropertyno'],
-                    'msdescription' => $data['msdescription'],
-                    'msstatus' => $data['msstatus'],
-                    'mstype' => $data['mstype'],
-                    'msavailability' => $data['msavailability']
+                'Up' => array(
+                    'uppropertyno' => $data['uppropertyno'],
+            'updescription' => $data['updescription'],
+            'upstatus' => $data['upstatus'],
+            'uptype' => $data['uptype'],
+            'upavailability' => $data['upavailability']
                              )
             );
-            $this->Mouse->id = $data['id'];
-            $this->Mouse->save($prepareData);
+            $this->Up->id = $data['id'];
+            $this->Up->save($prepareData);
 
            
             $this->Session->setFlash('<div class="alert alert-success"><i class="glyphicon glyphicon-ok"></i> Update Success.</div> ', 'default', array(), 'good');
@@ -107,7 +107,7 @@ public function delete() {
 	$this->autoRender = false;
 	$id = $this->request->data['id'];
 	
-	if ($this->Mouse->delete($id)) {
+	if ($this->Up->delete($id)) {
 	$this->Session->setFlash('<div class="alert alert-success"><i class="glyphicon glyphicon-ok"></i> Successfully deleted.</div>', 'default', array(), 'good');
 		return $this->redirect(array('action' => 'index'));
 	}

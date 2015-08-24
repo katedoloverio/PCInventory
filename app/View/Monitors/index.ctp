@@ -1,4 +1,14 @@
 
+<head>
+<?php      
+   echo $this->Html->css('stylevalidate.css');
+   echo $this->Html->css('validation.css');
+  echo $this->Html->script(array('main2', 'jquery-1.9.1.min', 'livevalidation_standalone'));
+?>
+ 
+  
+</head>
+
 <div class="container-fluid" background-color="black">
 <div class="row">
 <div class="container-fluid">
@@ -56,7 +66,10 @@
                 <li ><a href="<?php echo $this->webroot;?>videocard/index">Videocard<span style="font-size:16px;"></span></a></li>
 
 </li>
+<li>
+                <li ><a href="<?php echo $this->webroot;?>headset/index">Headset<span style="font-size:16px;"></span></a></li>
 
+</li>
  <li>
                 <li ><a href="<?php echo $this->webroot;?>speaker/index">Speakers<span style="font-size:16px;"></span></a></li>
 
@@ -251,11 +264,11 @@ $motype = $monitor['Monitor']['motype'];
             <div  class="modal-body">
                 <div class="form-group">
                     <label for="mopropertyno">Property No.</label>
-                    <input type="text" name="mopropertyno" id="" class="form-control">
+                    <input type="text" name="mopropertyno" id="propertyno-input" class="LV_field"  class="form-control">
                 </div>
                 <div class="form-group">
                     <label for="modescription">Description</label>
-                    <input type="text" name="modescription" id="" class="form-control">
+                    <input type="text" name="modescription" id="description-input" class="LV_field" class="form-control">
                 </div>
                   <div class="form-group">
                     <label for="available">Status</label>

@@ -78,6 +78,28 @@
          Router::connect('/videocard/deletevc', array('controller' => 'videocards', 'action' => 'delete'));
          Router::connect('/videocard/home', array('controller' => 'videocards', 'action' => 'home'));
     
+
+         //Headset - Property 
+         Router::connect('/headset/index', array('controller' => 'headsets', 'action' => 'index'));
+         Router::connect('/headset/addhs', array('controller' => 'headsets', 'action' => 'add'));
+         Router::connect('/headset/ediths', array('controller' => 'headsets', 'action' => 'edit'));
+         Router::connect('/headset/deletehs', array('controller' => 'headsets', 'action' => 'delete'));
+         Router::connect('/headset/home', array('controller' => 'headsets', 'action' => 'home'));
+    
+      //Speakers - Property 
+         Router::connect('/speaker/index', array('controller' => 'speakers', 'action' => 'index'));
+         Router::connect('/speaker/addsp', array('controller' => 'speakers', 'action' => 'add'));
+         Router::connect('/speaker/editsp', array('controller' => 'speakers', 'action' => 'edit'));
+         Router::connect('/speaker/deletesp', array('controller' => 'speakers', 'action' => 'delete'));
+         Router::connect('/speaker/home', array('controller' => 'speakers', 'action' => 'home'));
+
+             //UPS - Property 
+         Router::connect('/up/index', array('controller' => 'ups', 'action' => 'index'));
+         Router::connect('/up/addup', array('controller' => 'ups', 'action' => 'add'));
+         Router::connect('/up/editup', array('controller' => 'ups', 'action' => 'edit'));
+         Router::connect('/up/deleteup', array('controller' => 'ups', 'action' => 'delete'));
+         Router::connect('/up/home', array('controller' => 'ups', 'action' => 'home'));
+    
           //PC Inventory 
          Router::connect('/inventory/index', array('controller' => 'inventorys', 'action' => 'index'));
          Router::connect('/inventory/addpc', array('controller' => 'inventorys', 'action' => 'add'));
@@ -98,10 +120,10 @@
      
 
 
-        Router::connect('/gadget/index', array('controller' => 'Gadgets', 'action' => 'index'));
-        Router::connect('/gadget/addgdgt', array('controller' => 'Gadgets', 'action' => 'add'));
-        Router::connect('/gadget/editgdgt', array('controller' => 'Gadgets', 'action' => 'edit'));
-        Router::connect('/gadget/deletegdgt', array('controller' => 'Gadgets', 'action' => 'delete'));
+        Router::connect('/gadget/index', array('controller' => 'gadgets', 'action' => 'index'));
+        Router::connect('/gadget/addgdgt', array('controller' => 'gadgets', 'action' => 'add'));
+        Router::connect('/gadget/editgdgt', array('controller' => 'gadgets', 'action' => 'edit'));
+        Router::connect('/gadget/deletegdgt', array('controller' => 'gadgets', 'action' => 'delete'));
 
         Router::connect('/page/index', array('controller' => 'Pages', 'action' => 'index'));
 /**

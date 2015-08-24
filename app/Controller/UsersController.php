@@ -1,10 +1,14 @@
 <?php
 App::uses('AppController', 'Controller');
+App::uses('Alert', 'lib');
+
 
 class UsersController extends AppController {
 
 	public function beforeFilter() {
+
 	parent::beforeFilter();
+	$this->alert = new Alert();
 	$this->Auth->allow();
 }
 
@@ -32,10 +36,6 @@ public function register() {
 
 
 
-
-
-
-
 }
 
 public function login() {
@@ -49,7 +49,7 @@ public function login() {
      $this->Session->write('name', $this->Session->read('Auth.User.name'));
      $this->redirect(array('controller' => 'Employees', 'action' => 'index'));
     } else {
-     $this->Session->setFlash(__('Username or Password is invalid!'));
+     $this->Session->setFlash($this->alert->danger('Username or Password is invalid!'));
      
                 }
 }

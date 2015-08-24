@@ -110,8 +110,8 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Keyboard Manangement <span class="sr-only">(current)</span></a></li>
-        <li>  <a href="#add" data-toggle="modal"> <i class="glyphicon glyphicon-plus"> </i> Add Keyboard</a></li>
+        <li class="active"><a href="#">Headset Manangement <span class="sr-only">(current)</span></a></li>
+        <li>  <a href="#add" data-toggle="modal"> <i class="glyphicon glyphicon-plus"> </i> Add Headset</a></li>
         <li>  <a href="#add" data-toggle="modal"> <i class="glyphicon glyphicon-search"> </i> View All Details</a></li>
           </ul>
         </li>
@@ -150,11 +150,11 @@
  
 <div  class="panel panel-default" >
         
-        <div class="panel-heading" >Keyboard Table </div>
+        <div class="panel-heading" >Headset Table </div>
         <div class="panel-body" style="background-color:navyblue" > <div>
 
 
-<!--DISPLAY Mouse DETAILS IN TABLE-->
+<!--DISPLAY Headset DETAILS IN TABLE-->
 <?php echo $this->Session->flash('good'); ?>
 
 <table class="table table-bordered table-hover" >
@@ -167,35 +167,35 @@
         <th><?php echo __('Actions'); ?></th>
     </tr>
 
-    <?php foreach ($keyboards as $keyboard):
-   $kbstatus =  $keyboard['Keyboard']['kbstatus'];
-   $kbavailability =  $keyboard['Keyboard']['kbavailability'];
-   $kbtype =  $keyboard['Keyboard']['kbtype'];
+    <?php foreach ($headsets as $headset):
+   $hsstatus =  $headset['Headset']['hsstatus'];
+   $hsavailability =  $headset['Headset']['hsavailability'];
+   $hstype =  $headset['Headset']['hstype'];
     ?>
 
     <tr>
     
-        <td><?php echo $keyboard['Keyboard']['kbpropertyno']; ?></td>
-        <td><?php echo $keyboard['Keyboard']['kbdescription']; ?></td>
-        <td><?php if($kbstatus==1) { ?> Working
+        <td><?php echo $headset['Headset']['hspropertyno']; ?></td>
+        <td><?php echo $headset['Headset']['hsdescription']; ?></td>
+        <td><?php if($hsstatus==1) { ?> Working
               <?php } else{ ?>Defective
                 <?php  }   ?>
         </td>
-        <td><?php if($kbtype==1) { ?> New
+        <td><?php if($hstype==1) { ?> New
               <?php } else{ ?>Old
                 <?php  }   ?>
         </td>
-                <td><?php if($kbavailability ==1){?> Used
+                <td><?php if($hsavailability ==1){?> Used
            <?php }else{?> Available
            <?php  }?>
          </td>
    
         <td>
-        <a href="#view<?php echo $keyboard['Keyboard']['id'];?>" data-toggle="modal" class="btn btn-success"><i class="glyphicon glyphicon-search"> </i>View</a>
+        <a href="#view<?php echo $headset['Headset']['id'];?>" data-toggle="modal" class="btn btn-success"><i class="glyphicon glyphicon-search"> </i>View</a>
 
-        <a href="#edit<?php echo $keyboard['Keyboard']['id'];?>" data-toggle="modal" class="btn btn-primary"> <i class="glyphicon glyphicon-edit"> </i>Edit</a>
+        <a href="#edit<?php echo $headset['Headset']['id'];?>" data-toggle="modal" class="btn btn-primary"> <i class="glyphicon glyphicon-edit"> </i>Edit</a>
 
-        <a href="#delete<?php echo $keyboard['Keyboard']['id'];?>" data-toggle="modal" class="btn btn-danger"><i class="glyphicon glyphicon-trash"> </i>Delete</a></td>
+        <a href="#delete<?php echo $headset['Headset']['id'];?>" data-toggle="modal" class="btn btn-danger"><i class="glyphicon glyphicon-trash"> </i>Delete</a></td>
     </tr>
     <?php endforeach; ?>
 </table>
@@ -214,7 +214,7 @@
   </div>
         <div class="panel-footer">
         <div class="text-center">
-    <?php echo $this->Paginator->counter(array('format' => __('Page {:page} of {:pages}, Showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}'))); ?>
+    <?php echo $this->Paginator->counter(array('format' => __('Page {:page} of {:pages}, SZhowing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}'))); ?>
         </div>
         </div>
   </div>
@@ -225,29 +225,29 @@
 <!--MODAL FORMS-->
 
  
-<!--ADD KEYBOARD-->
+<!--ADD Headset-->
 <div class="modal fade" id="add" role="dialog" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-               <i class="glyphicon glyphicon-plus"></i> Add Keyboard
+               <i class="glyphicon glyphicon-plus"></i> Add Headset
             </div>
 
 
-        <form action = "addkb" method ="post">
+        <form action = "addhs" method ="post">
 
             <div  class="modal-body">
                 <div class="form-group">
-                    <label for="kbpropertyno">Property No.</label>
-                    <input type="text" name="kbpropertyno"  id="propertyno-input" class="LV_field" class="form-control">
+                    <label for="hspropertyno">Property No.</label>
+                    <input type="text" name="hspropertyno"  id="propertyno-input" class="LV_field" class="form-control">
                 </div>
                 <div class="form-group">
-                    <label for="kbdescription">Description</label>
-                    <input type="text" name="kbdescription"  id="description-input" class="LV_field" class="form-control">
+                    <label for="hsdescription">Description</label>
+                    <input type="text" name="hsdescription"  id="description-input" class="LV_field" class="form-control">
                 </div>
                   <div class="form-group">
                     <label for="available">Status</label>
-                     <select name="kbstatus" id="kbstatus" class="form-control">
+                     <select name="hsstatus" id="hsstatus" class="form-control">
                         <option value="1"> Working</option>
                         <option  value="2"> Defective</option>          
                       </select>
@@ -255,7 +255,7 @@
                 </div>
                 <div class="form-group">
                     <label for="available">Type</label>
-                     <select name="kbtype" id="mstype" class="form-control">
+                     <select name="hstype" id="hstype" class="form-control">
                         <option value="1"> New </option>
                         <option  value="2"> Old</option>          
                       </select>
@@ -265,7 +265,7 @@
                   <div class="form-group">
                     <label for="available">Availability</label>
 
-                      <select name="kbavailability" id="kbavailability" class="form-control">
+                      <select name="hsavailability" id="hsavailability" class="form-control">
                         <option value="1"> Used</option>
                         <option  value="2"> Available</option>          
                         </select>
@@ -294,10 +294,10 @@
 
 
 
-<!-- EDIT KEYBOARD DETAILS -->
-<?php foreach($keyboards  as $row){ ?>
+<!-- EDIT Headset DETAILS -->
+<?php foreach($headsets  as $row){ ?>
 
-<div class="modal fade" id="edit<?php echo $row['Keyboard']['id'];?>" tabindex="-1" role="dialog">
+<div class="modal fade" id="edit<?php echo $row['Headset']['id'];?>" tabindex="-1" role="dialog">
 
     <div class="modal-dialog">
         <div class="modal-content">
@@ -305,25 +305,25 @@
                 <i class="glyphicon glyphicon-pencil"></i>
                 Edit 
             </div>
-        <form action = "editkb" method ="post">
+        <form action = "ediths" method ="post">
 
                 <div class="modal-body">
-                    <input type="text" name="id" value="<?php echo  $row['Keyboard']['id'];?>"/>
+                    <input type="text" name="id" value="<?php echo  $row['Headset']['id'];?>"/>
                     <div class="form-group">
-                        <label for="kbpropertyno">Property No.</label>
-                        <input type="text" name="kbpropertyno" id="kbpropertyno" value="<?php echo $row['Keyboard']['kbpropertyno']; ?>" class="form-control"/>
+                        <label for="hspropertyno">Property No.</label>
+                        <input type="text" name="hspropertyno" id="hspropertyno" value="<?php echo $row['Headset']['hspropertyno']; ?>" class="form-control"/>
                     </div>
                      <div class="form-group">
-                        <label for="kbdescription">Description</label>
-                        <input type="text" name="kbdescription" id="kbdescription" value="<?php echo $row['Keyboard']['kbdescription']; ?>" class="form-control"/>
+                        <label for="hsdescription">Description</label>
+                        <input type="text" name="hsdescription" id="hsdescription" value="<?php echo $row['Headset']['hsdescription']; ?>" class="form-control"/>
                     </div>
                      
                     
                     <div class="form-group">
-                        <label for="kbstatus">Status</label>
-                        <select name="kbstatus" id="kbstatus" class="form-control">
-                        <?php $kbstatus = $row['Keyboard']['kbstatus'];
-                        if ($kbstatus == 1){?>
+                        <label for="hsstatus">Status</label>
+                        <select name="hsstatus" id="hsstatus" class="form-control">
+                        <?php $hsstatus = $row['Headset']['hsstatus'];
+                        if ($hsstatus == 1){?>
 
                         <option value="1"> Working</option>
                         <option  value="2"> Defective</option> 
@@ -345,10 +345,10 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="kbtype">Type</label>
-                        <select name="kbtype" id="kbtype" class="form-control">
-                        <?php $kbtype = $row['Keyboard']['kbtype'];
-                        if ($kbtype == 1){?>
+                        <label for="hstype">Type</label>
+                        <select name="hstype" id="hstype" class="form-control">
+                        <?php $hstype = $row['Headset']['hstype'];
+                        if ($hstype == 1){?>
 
                         <option value="1"> New</option>
                         <option  value="2"> Old</option> 
@@ -375,10 +375,10 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="kbavailability">Availability</label>
-                        <select name="kbavailability" id="kbavailability" class="form-control">
-                        <?php $kbavailability = $row['Keyboard']['kbavailability'];
-                        if ($kbavailability == 1){?>
+                        <label for="hsavailability">Availability</label>
+                        <select name="hsavailability" id="hsavailability" class="form-control">
+                        <?php $hsavailability = $row['Headset']['hsavailability'];
+                        if ($hsavailability == 1){?>
 
                         <option value="1"> Used</option>
                         <option  value="2"> Availaible</option> 
@@ -410,10 +410,10 @@
 
 <?php } ?>
 
-<!-- This modal for Delete Keyboard -->
-<?php foreach($keyboards  as $row){ ?>
+<!-- This modal for Delete Headset -->
+<?php foreach($headsets  as $row){ ?>
 
-<div class="modal fade" id="delete<?php echo $row['Keyboard']['id'];?>" tabindex="-1" role="dialog">
+<div class="modal fade" id="delete<?php echo $row['Headset']['id'];?>" tabindex="-1" role="dialog">
 
     <div class="modal-dialog">
         <div class="modal-content">
@@ -421,9 +421,9 @@
                 <i class="glyphicon glyphicon-pencil"></i>
                 Delete 
             </div>
-            <form action="deletekb" method="post">
+            <form action="deletehs" method="post">
                 <div class="modal-body">
-                    <input type="hidden" name="id" value="<?php echo  $row['Keyboard']['id'];?>"/>
+                    <input type="hidden" name="id" value="<?php echo  $row['Headset']['id'];?>"/>
                     Are you sure you want to delete this data?
                 </div>
                 <div class="modal-footer">
@@ -437,34 +437,34 @@
 
 <?php } ?>
 
-<!-- This modal for View Keyboard -->
-<?php foreach($keyboards  as $row){ 
+<!-- This modal for View Headset -->
+<?php foreach($headsets  as $row){ 
     ?>
 
-<div class="modal fade" id="view<?php echo $row['Keyboard']['id'];?>" tabindex="-1" role="dialog">
+<div class="modal fade" id="view<?php echo $row['Headset']['id'];?>" tabindex="-1" role="dialog">
 
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <i class="glyphicon glyphicon-pencil"></i>
-                Keyboard Information 
+                Headset Information 
             </div>
                 <div class="modal-body">
                 
-                 <label> Property No : <?php echo $row['Keyboard']['kbpropertyno'];?> </label> <br/>
-                  <label>Description : <?php echo $row['Keyboard']['kbdescription'];?> </label> <br/>
-                  <label> Status : <?php $kbstatus = $row['Keyboard']['kbstatus'];
-                        if ($kbstatus == 1){?> Working
+                 <label> Property No : <?php echo $row['Headset']['hspropertyno'];?> </label> <br/>
+                  <label>Description : <?php echo $row['Headset']['hsdescription'];?> </label> <br/>
+                  <label> Status : <?php $hstatus = $row['Headset']['hsstatus'];
+                        if ($hsstatus == 1){?> Working
                         <?php }else{ ?> Defective
                             <?php   }   ?>
                   </label> <br/>
-                  <label> Type : <?php $kbtype = $row['Keyboard']['kbtype'];
-                        if ($kbtype == 1){?> Working
-                        <?php }else{ ?> Defective
+                  <label> Type : <?php $hstype = $row['Headset']['hstype'];
+                        if ($hstype == 1){?> New
+                        <?php }else{ ?> Old
                             <?php   }   ?>
                   </label> <br/>
-                  <label> Availability :      <?php $kbavailability = $row['Keyboard']['kbavailability'];
-                        if ($kbavailability == 1){?> Used
+                  <label> Availability :      <?php $hsavailability = $row['Headset']['hsavailability'];
+                        if ($hsavailability == 1){?> Used
                         <?php }else{ ?> Available
                             <?php   }   ?>
                   </label> <br/>

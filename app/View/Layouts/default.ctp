@@ -38,10 +38,13 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
                 echo $this->Html->script(array(
                     'XRegExp','shCore','shLegacy','shBrushJScript','shBrushXML','jquery.min','selector','typeahead.min'
                 ));
+                 echo $this->Html->script(array('main', 'main2', 'jquery-1.9.1.min', 'livevalidation_standalone'));
                 
 		echo $this->Html->meta('icon');
                 echo $this->Html->css('style.css');
                 echo $this->Html->css('style.js');
+                 echo $this->Html->css('stylevalidate.css');
+                 echo $this->Html->css('validation.css');
 
                 echo $this->Html->css('bootstrap.min');
                 echo $this->Html->css('bootstrap-theme.min');

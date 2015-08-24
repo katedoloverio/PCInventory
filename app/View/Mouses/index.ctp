@@ -56,7 +56,10 @@
                 <li ><a href="<?php echo $this->webroot;?>videocard/index">Videocard<span style="font-size:16px;"></span></a></li>
 
 </li>
+<li>
+                <li ><a href="<?php echo $this->webroot;?>headset/index">Headset<span style="font-size:16px;"></span></a></li>
 
+</li>
  <li>
                 <li ><a href="<?php echo $this->webroot;?>speaker/index">Speakers<span style="font-size:16px;"></span></a></li>
 
@@ -236,11 +239,11 @@
             <div  class="modal-body">
                 <div class="form-group">
                     <label for="mspropertyno">Property No.</label>
-                    <input type="text" name="mspropertyno" id="" class="form-control">
+                    <input type="text" name="mspropertyno"  id="propertyno-input" class="LV_field" class="form-control">
                 </div>
                 <div class="form-group">
                     <label for="msdescription">Description</label>
-                    <input type="text" name="msdescription" id="" class="form-control">
+                    <input type="text" name="msdescription"  id="description-input" class="LV_field" class="form-control">
                 </div>
                   <div class="form-group">
                     <label for="available">Status</label>

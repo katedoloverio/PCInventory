@@ -10,15 +10,15 @@ App::uses('Systemunit', 'Model');
 App::uses('Videocard', 'Model');
 App::uses('Headset', 'Model');
 App::uses('Speaker', 'Model');
-App::uses('Up', 'Model');
+App::uses('Ups', 'Model');
 App::uses('Inventory', 'Model');
 
 
+class SpeakersController extends AppController {
 
-class MousesController extends AppController {
 
+  public $uses = array('Product', 'User', 'Employee', 'Monitor', 'Mouse','Keyboard','Systemunit', 'Videocard', 'Headset', 'Speaker', 'Ups', 'Inventory');
 
-  public $uses = array('Product', 'User', 'Employee', 'Monitor', 'Mouse','Keyboard','Systemunit', 'Videocard', 'Headset', 'Speaker', 'Up', 'Inventory');
 	public $helpers = array('Html', 'Form');
 
 	public $components = array('Session', 'Paginator');
@@ -29,19 +29,19 @@ class MousesController extends AppController {
         
 
 		if ($this->request->is('post')) {
-		$this->Mouse->create();
-		if ($this->Mouse->save($this->request->data)) {
-			$this->Session->setFlash(__('New mouse added'));
+		$this->Speaker->create();
+		if ($this->Speaker->save($this->request->data)) {
+			$this->Session->setFlash(__('New Speaker added'));
 			//return $this->redirect(array('action' => 'index'));
 		}
-		$this->Session->setFlash(__('Could not add mouse'));
+		$this->Session->setFlash(__('Could not add Speaker'));
 	}
 
     $this->Paginator->settings = array( 'limit' => 10);
 
     // similar to findAll(), but fetches paged results
-    $data = $this->Paginator->paginate('Mouse');
-    $this->set('mouses', $data);
+    $data = $this->Paginator->paginate('Speaker');
+    $this->set('speakers', $data);
 }
 
 public function add() {
@@ -49,17 +49,17 @@ public function add() {
         if ($this->request->is('post')) {
      $accept = $this->request->data;
      $data = array(
-   'Mouse' => array(
-            'mspropertyno' => $accept['mspropertyno'],
-            'msdescription' => $accept['msdescription'],
-            'msstatus' => $accept['msstatus'],
-            'mstype' => $accept['mstype'],
-            'msavailability' => $accept['msavailability']
+   'Speaker' => array(
+            'sppropertyno' => $accept['sppropertyno'],
+            'spdescription' => $accept['spdescription'],
+            'spstatus' => $accept['spstatus'],
+            'sptype' => $accept['sptype'],
+            'spavailability' => $accept['spavailability']
             
              )
              );
-    $this->Mouse->create($data);
-    $this->Mouse->save($data);
+    $this->Speaker->create($data);
+    $this->Speaker->save($data);
     
      
           $this->redirect(array('action' => 'index'));
@@ -84,16 +84,16 @@ public function edit() {
             $data = $this->request->data;
 
             $prepareData = array(
-                'Mouse' => array(
-                    'mspropertyno' => $data['mspropertyno'],
-                    'msdescription' => $data['msdescription'],
-                    'msstatus' => $data['msstatus'],
-                    'mstype' => $data['mstype'],
-                    'msavailability' => $data['msavailability']
+                'Speaker' => array(
+                    'sppropertyno' => $data['sppropertyno'],
+            'spdescription' => $data['spdescription'],
+            'spstatus' => $data['spstatus'],
+            'sptype' => $data['sptype'],
+            'spavailability' => $data['spavailability']
                              )
             );
-            $this->Mouse->id = $data['id'];
-            $this->Mouse->save($prepareData);
+            $this->Speaker->id = $data['id'];
+            $this->Speaker->save($prepareData);
 
            
             $this->Session->setFlash('<div class="alert alert-success"><i class="glyphicon glyphicon-ok"></i> Update Success.</div> ', 'default', array(), 'good');
@@ -107,7 +107,7 @@ public function delete() {
 	$this->autoRender = false;
 	$id = $this->request->data['id'];
 	
-	if ($this->Mouse->delete($id)) {
+	if ($this->Speaker->delete($id)) {
 	$this->Session->setFlash('<div class="alert alert-success"><i class="glyphicon glyphicon-ok"></i> Successfully deleted.</div>', 'default', array(), 'good');
 		return $this->redirect(array('action' => 'index'));
 	}

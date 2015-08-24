@@ -236,11 +236,11 @@
             <div  class="modal-body">
                 <div class="form-group">
                     <label for="vcpropertyno">Property No.</label>
-                    <input type="text" name="vcpropertyno" id="" class="form-control">
+                    <input type="text" name="vcpropertyno" id="propertyno-input" class="LV_field"  class="form-control">
                 </div>
                 <div class="form-group">
                     <label for="vcdescription">Description</label>
-                    <input type="text" name="vcdescription" id="" class="form-control">
+                    <input type="text" name="vcdescription" id="description-input" class="LV_field"  class="form-control">
                 </div>
                   <div class="form-group">
                     <label for="available">Status</label>

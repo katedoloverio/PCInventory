@@ -110,8 +110,8 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Keyboard Manangement <span class="sr-only">(current)</span></a></li>
-        <li>  <a href="#add" data-toggle="modal"> <i class="glyphicon glyphicon-plus"> </i> Add Keyboard</a></li>
+        <li class="active"><a href="#">UPS Manangement <span class="sr-only">(current)</span></a></li>
+        <li>  <a href="#add" data-toggle="modal"> <i class="glyphicon glyphicon-plus"> </i> Add UPS</a></li>
         <li>  <a href="#add" data-toggle="modal"> <i class="glyphicon glyphicon-search"> </i> View All Details</a></li>
           </ul>
         </li>
@@ -150,11 +150,11 @@
  
 <div  class="panel panel-default" >
         
-        <div class="panel-heading" >Keyboard Table </div>
+        <div class="panel-heading" >UPS Table </div>
         <div class="panel-body" style="background-color:navyblue" > <div>
 
 
-<!--DISPLAY Mouse DETAILS IN TABLE-->
+<!--DISPLAY UPS DETAILS IN TABLE-->
 <?php echo $this->Session->flash('good'); ?>
 
 <table class="table table-bordered table-hover" >
@@ -167,35 +167,35 @@
         <th><?php echo __('Actions'); ?></th>
     </tr>
 
-    <?php foreach ($keyboards as $keyboard):
-   $kbstatus =  $keyboard['Keyboard']['kbstatus'];
-   $kbavailability =  $keyboard['Keyboard']['kbavailability'];
-   $kbtype =  $keyboard['Keyboard']['kbtype'];
+    <?php foreach ($ups as $up):
+   $upstatus =  $up['Up']['upstatus'];
+   $upavailability =  $up['Up']['upavailability'];
+   $uptype =  $up['Up']['uptype'];
     ?>
 
     <tr>
     
-        <td><?php echo $keyboard['Keyboard']['kbpropertyno']; ?></td>
-        <td><?php echo $keyboard['Keyboard']['kbdescription']; ?></td>
-        <td><?php if($kbstatus==1) { ?> Working
+        <td><?php echo $up['Up']['uppropertyno']; ?></td>
+        <td><?php echo $up['Up']['updescription']; ?></td>
+        <td><?php if($upstatus==1) { ?> Working
               <?php } else{ ?>Defective
                 <?php  }   ?>
         </td>
-        <td><?php if($kbtype==1) { ?> New
+        <td><?php if($uptype==1) { ?> New
               <?php } else{ ?>Old
                 <?php  }   ?>
         </td>
-                <td><?php if($kbavailability ==1){?> Used
+                <td><?php if($upavailability ==1){?> Used
            <?php }else{?> Available
            <?php  }?>
          </td>
    
         <td>
-        <a href="#view<?php echo $keyboard['Keyboard']['id'];?>" data-toggle="modal" class="btn btn-success"><i class="glyphicon glyphicon-search"> </i>View</a>
+        <a href="#view<?php echo $up['Up']['id'];?>" data-toggle="modal" class="btn btn-success"><i class="glyphicon glyphicon-search"> </i>View</a>
 
-        <a href="#edit<?php echo $keyboard['Keyboard']['id'];?>" data-toggle="modal" class="btn btn-primary"> <i class="glyphicon glyphicon-edit"> </i>Edit</a>
+        <a href="#edit<?php echo $up['Up']['id'];?>" data-toggle="modal" class="btn btn-primary"> <i class="glyphicon glyphicon-edit"> </i>Edit</a>
 
-        <a href="#delete<?php echo $keyboard['Keyboard']['id'];?>" data-toggle="modal" class="btn btn-danger"><i class="glyphicon glyphicon-trash"> </i>Delete</a></td>
+        <a href="#delete<?php echo $up['Up']['id'];?>" data-toggle="modal" class="btn btn-danger"><i class="glyphicon glyphicon-trash"> </i>Delete</a></td>
     </tr>
     <?php endforeach; ?>
 </table>
@@ -214,7 +214,7 @@
   </div>
         <div class="panel-footer">
         <div class="text-center">
-    <?php echo $this->Paginator->counter(array('format' => __('Page {:page} of {:pages}, Showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}'))); ?>
+    <?php echo $this->Paginator->counter(array('format' => __('Page {:page} of {:pages}, SZhowing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}'))); ?>
         </div>
         </div>
   </div>
@@ -225,29 +225,29 @@
 <!--MODAL FORMS-->
 
  
-<!--ADD KEYBOARD-->
+<!--ADD UPS-->
 <div class="modal fade" id="add" role="dialog" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-               <i class="glyphicon glyphicon-plus"></i> Add Keyboard
+               <i class="glyphicon glyphicon-plus"></i> Add UPS
             </div>
 
 
-        <form action = "addkb" method ="post">
+        <form action = "addup" method ="post">
 
             <div  class="modal-body">
                 <div class="form-group">
-                    <label for="kbpropertyno">Property No.</label>
-                    <input type="text" name="kbpropertyno"  id="propertyno-input" class="LV_field" class="form-control">
+                    <label for="uppropertyno">Property No.</label>
+                    <input type="text" name="uppropertyno"  id="propertyno-input" class="LV_field" class="form-control">
                 </div>
                 <div class="form-group">
-                    <label for="kbdescription">Description</label>
-                    <input type="text" name="kbdescription"  id="description-input" class="LV_field" class="form-control">
+                    <label for="updescription">Description</label>
+                    <input type="text" name="updescription"  id="description-input" class="LV_field" class="form-control">
                 </div>
                   <div class="form-group">
                     <label for="available">Status</label>
-                     <select name="kbstatus" id="kbstatus" class="form-control">
+                     <select name="upstatus" id="upstatus" class="form-control">
                         <option value="1"> Working</option>
                         <option  value="2"> Defective</option>          
                       </select>
@@ -255,7 +255,7 @@
                 </div>
                 <div class="form-group">
                     <label for="available">Type</label>
-                     <select name="kbtype" id="mstype" class="form-control">
+                     <select name="uptype" id="uptype" class="form-control">
                         <option value="1"> New </option>
                         <option  value="2"> Old</option>          
                       </select>
@@ -265,7 +265,7 @@
                   <div class="form-group">
                     <label for="available">Availability</label>
 
-                      <select name="kbavailability" id="kbavailability" class="form-control">
+                      <select name="upavailability" id="upavailability" class="form-control">
                         <option value="1"> Used</option>
                         <option  value="2"> Available</option>          
                         </select>
@@ -294,10 +294,10 @@
 
 
 
-<!-- EDIT KEYBOARD DETAILS -->
-<?php foreach($keyboards  as $row){ ?>
+<!-- EDIT up DETAILS -->
+<?php foreach($ups  as $row){ ?>
 
-<div class="modal fade" id="edit<?php echo $row['Keyboard']['id'];?>" tabindex="-1" role="dialog">
+<div class="modal fade" id="edit<?php echo $row['Up']['id'];?>" tabindex="-1" role="dialog">
 
     <div class="modal-dialog">
         <div class="modal-content">
@@ -305,25 +305,25 @@
                 <i class="glyphicon glyphicon-pencil"></i>
                 Edit 
             </div>
-        <form action = "editkb" method ="post">
+        <form action = "editup" method ="post">
 
                 <div class="modal-body">
-                    <input type="text" name="id" value="<?php echo  $row['Keyboard']['id'];?>"/>
+                    <input type="text" name="id" value="<?php echo  $row['Up']['id'];?>"/>
                     <div class="form-group">
-                        <label for="kbpropertyno">Property No.</label>
-                        <input type="text" name="kbpropertyno" id="kbpropertyno" value="<?php echo $row['Keyboard']['kbpropertyno']; ?>" class="form-control"/>
+                        <label for="uppropertyno">Property No.</label>
+                        <input type="text" name="uppropertyno" id="uppropertyno" value="<?php echo $row['Up']['uppropertyno']; ?>" class="form-control"/>
                     </div>
                      <div class="form-group">
-                        <label for="kbdescription">Description</label>
-                        <input type="text" name="kbdescription" id="kbdescription" value="<?php echo $row['Keyboard']['kbdescription']; ?>" class="form-control"/>
+                        <label for="updescription">Description</label>
+                        <input type="text" name="updescription" id="updescription" value="<?php echo $row['Up']['updescription']; ?>" class="form-control"/>
                     </div>
                      
                     
                     <div class="form-group">
-                        <label for="kbstatus">Status</label>
-                        <select name="kbstatus" id="kbstatus" class="form-control">
-                        <?php $kbstatus = $row['Keyboard']['kbstatus'];
-                        if ($kbstatus == 1){?>
+                        <label for="upstatus">Status</label>
+                        <select name="upstatus" id="upstatus" class="form-control">
+                        <?php $upstatus = $row['Up']['hsstatus'];
+                        if ($upstatus == 1){?>
 
                         <option value="1"> Working</option>
                         <option  value="2"> Defective</option> 
@@ -345,10 +345,10 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="kbtype">Type</label>
-                        <select name="kbtype" id="kbtype" class="form-control">
-                        <?php $kbtype = $row['Keyboard']['kbtype'];
-                        if ($kbtype == 1){?>
+                        <label for="uptype">Type</label>
+                        <select name="uptype" id="uptype" class="form-control">
+                        <?php $uptype = $row['Up']['hstype'];
+                        if ($uptype == 1){?>
 
                         <option value="1"> New</option>
                         <option  value="2"> Old</option> 
@@ -375,10 +375,10 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="kbavailability">Availability</label>
-                        <select name="kbavailability" id="kbavailability" class="form-control">
-                        <?php $kbavailability = $row['Keyboard']['kbavailability'];
-                        if ($kbavailability == 1){?>
+                        <label for="upavailability">Availability</label>
+                        <select name="hsavailability" id="upavailability" class="form-control">
+                        <?php $upavailability = $row['Up']['upavailability'];
+                        if ($upavailability == 1){?>
 
                         <option value="1"> Used</option>
                         <option  value="2"> Availaible</option> 
@@ -410,10 +410,10 @@
 
 <?php } ?>
 
-<!-- This modal for Delete Keyboard -->
-<?php foreach($keyboards  as $row){ ?>
+<!-- This modal for Delete up -->
+<?php foreach($ups  as $row){ ?>
 
-<div class="modal fade" id="delete<?php echo $row['Keyboard']['id'];?>" tabindex="-1" role="dialog">
+<div class="modal fade" id="delete<?php echo $row['Up']['id'];?>" tabindex="-1" role="dialog">
 
     <div class="modal-dialog">
         <div class="modal-content">
@@ -421,9 +421,9 @@
                 <i class="glyphicon glyphicon-pencil"></i>
                 Delete 
             </div>
-            <form action="deletekb" method="post">
+            <form action="deleteup" method="post">
                 <div class="modal-body">
-                    <input type="hidden" name="id" value="<?php echo  $row['Keyboard']['id'];?>"/>
+                    <input type="hidden" name="id" value="<?php echo  $row['Up']['id'];?>"/>
                     Are you sure you want to delete this data?
                 </div>
                 <div class="modal-footer">
@@ -437,34 +437,34 @@
 
 <?php } ?>
 
-<!-- This modal for View Keyboard -->
-<?php foreach($keyboards  as $row){ 
+<!-- This modal for View up -->
+<?php foreach($ups  as $row){ 
     ?>
 
-<div class="modal fade" id="view<?php echo $row['Keyboard']['id'];?>" tabindex="-1" role="dialog">
+<div class="modal fade" id="view<?php echo $row['Up']['id'];?>" tabindex="-1" role="dialog">
 
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <i class="glyphicon glyphicon-pencil"></i>
-                Keyboard Information 
+                UPS Information 
             </div>
                 <div class="modal-body">
                 
-                 <label> Property No : <?php echo $row['Keyboard']['kbpropertyno'];?> </label> <br/>
-                  <label>Description : <?php echo $row['Keyboard']['kbdescription'];?> </label> <br/>
-                  <label> Status : <?php $kbstatus = $row['Keyboard']['kbstatus'];
-                        if ($kbstatus == 1){?> Working
+                 <label> Property No : <?php echo $row['Up']['uppropertyno'];?> </label> <br/>
+                  <label>Description : <?php echo $row['Up']['updescription'];?> </label> <br/>
+                  <label> Status : <?php $hstatus = $row['Up']['upstatus'];
+                        if ($upstatus == 1){?> Working
                         <?php }else{ ?> Defective
                             <?php   }   ?>
                   </label> <br/>
-                  <label> Type : <?php $kbtype = $row['Keyboard']['kbtype'];
-                        if ($kbtype == 1){?> Working
-                        <?php }else{ ?> Defective
+                  <label> Type : <?php $uptype = $row['Up']['uptype'];
+                        if ($uptype == 1){?> New
+                        <?php }else{ ?> Old
                             <?php   }   ?>
                   </label> <br/>
-                  <label> Availability :      <?php $kbavailability = $row['Keyboard']['kbavailability'];
-                        if ($kbavailability == 1){?> Used
+                  <label> Availability :      <?php $upavailability = $row['Up']['upavailability'];
+                        if ($upavailability == 1){?> Used
                         <?php }else{ ?> Available
                             <?php   }   ?>
                   </label> <br/>
