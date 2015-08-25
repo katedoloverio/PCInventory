@@ -1,10 +1,15 @@
+<?php      
+   echo $this->Html->css('stylevalidate.css');
+   echo $this->Html->css('validation.css');
+  echo $this->Html->script(array('property', 'jquery-1.9.1.min', 'livevalidation_standalone'));
+?>
 
 <div class="container-fluid" background-color="black">
 <div class="row">
 <div class="container-fluid">
 <div class="row">
   <div class="col-sm-2">
-   <div class = "breadcrumb">
+   <div class>
    
    <nav class="navbar navbar-inverse sidebar" role="navigation">
     <div class="container-fluid">
@@ -58,10 +63,10 @@
 </li>
 <li>
                 <li ><a href="<?php echo $this->webroot;?>headset/index">Headset<span style="font-size:16px;"></span></a></li>
+ <li>
 
 </li>
 
- <li>
                 <li ><a href="<?php echo $this->webroot;?>speaker/index">Speakers<span style="font-size:16px;"></span></a></li>
 
 </li>
@@ -156,7 +161,10 @@
 
 
 <!--DISPLAY System Unit  DETAILS IN TABLE-->
+<?php echo $this->Session->flash('systemunit'); ?>
+<?php echo $this->Session->flash('systemunit_error'); ?>
 <?php echo $this->Session->flash('good'); ?>
+<?php echo $this->Session->flash('added'); ?>
 
 <table class="table table-bordered table-hover" >
     <tr>
@@ -200,22 +208,27 @@
     </tr>
     <?php endforeach; ?>
 </table>
-
 <!--PAGINATION-->
- <div class="text-center">
-   <ul class="pagination text-center" >
-     <li><?php echo $this->Paginator->prev(__('Previous'), array(), null, array('class' => 'prev disabled'));?></li>
-   <li><?php echo $this->Paginator->numbers(array('separator' => '')); ?></li>
-   <li><?php echo $this->Paginator->next(__('Next'), array(), null, array('class' => 'next disabled'));?></li>
-   </ul>
-</div>
+  <div class="text-center">
    
+   <?php if ($allSystemunits > 10){ ?>
+    <ul class="pagination" "text-center">
+    <li><?php echo $this->Paginator->prev(__('Previous'), array(), null, array('class' => 'prev disabled'));?></li>
+
+   <li><?php echo $this->Paginator->numbers(array('separator' => '')); ?></li>
+
+   <li> <?php echo $this->Paginator->next(__('Next'), array(), null, array('class' => 'next disabled'));
+    ?></li>
+
+   </ul>
+   <?php } ?>
+</div>
 
 
   </div>
         <div class="panel-footer">
         <div class="text-center">
-    <?php echo $this->Paginator->counter(array('format' => __('Page {:page} of {:pages}, SZhowing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}'))); ?>
+    <?php echo $this->Paginator->counter(array('format' => __('Page {:page} of {:pages}, Showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}'))); ?>
         </div>
         </div>
   </div>
@@ -235,19 +248,19 @@
             </div>
 
 
-        <form action = "addsu" method ="post">
+        <form action = "/PCInventory/systemunit/addsu" method ="post">
 
             <div  class="modal-body">
                 <div class="form-group">
                     <label for="supropertyno">Property No.</label>
-                    <input type="text" name="supropertyno"  id="propertyno-input" class="LV_field" class="form-control">
+                    <input type="text" name="supropertyno"  id="mypropertyno-input" class="LV_field" class="form-control">
                 </div>
                 <div class="form-group">
                     <label for="sudescription">Description</label>
-                    <input type="text" name="sudescription"  id="description-input" class="LV_field" class="form-control">
+                    <input type="text" name="sudescription"  id="mydescription-input" class="LV_field" class="form-control">
                 </div>
                   <div class="form-group">
-                    <label for="available">Status</label>
+                    <label for="sustatus">Status</label>
                      <select name="sustatus" id="sustatus" class="form-control">
                         <option value="1"> Working</option>
                         <option  value="2"> Defective</option>          
@@ -255,7 +268,7 @@
                
                 </div>
                 <div class="form-group">
-                    <label for="available">Type</label>
+                    <label for="sutype">Type</label>
                      <select name="sutype" id="sutype" class="form-control">
                         <option value="1"> Fast </option>
                         <option  value="2"> Slow</option>          
@@ -306,7 +319,7 @@
                 <i class="glyphicon glyphicon-pencil"></i>
                 Edit 
             </div>
-        <form action = "editsu" method ="post">
+        <form action = "/PCInventory/systemunit/editsu" method ="post">
 
                 <div class="modal-body">
                     <input type="text" name="id" value="<?php echo  $row['Systemunit']['id'];?>"/>
@@ -376,8 +389,8 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="msavailability">Availability</label>
-                        <select name="msavailability" id="msavailability" class="form-control">
+                        <label for="suavailability">Availability</label>
+                        <select name="suavailability" id="suavailability" class="form-control">
                         <?php $suavailability = $row['Systemunit']['suavailability'];
                         if ($suavailability == 1){?>
 
@@ -422,7 +435,7 @@
                 <i class="glyphicon glyphicon-pencil"></i>
                 Delete 
             </div>
-            <form action="deletesu" method="post">
+            <form action="/PCInventory/systemunit/deletesu" method="post">
                 <div class="modal-body">
                     <input type="hidden" name="id" value="<?php echo  $row['Systemunit']['id'];?>"/>
                     Are you sure you want to delete this data?

@@ -48,21 +48,30 @@ $(document).unload( unregister );
 
 var validate = function(){	
 
-
-    var propertyno = new LiveValidation('propertyno-input', { validMessage: "Valid!"});
-    propertyno.add(Validate.Presence);
-
-    var description = new LiveValidation('description-input', { validMessage: "Valid!"});
-    description.add(Validate.Presence);
-
-    var serial  = new LiveValidation('serial-input', { validMessage: "Valid!"});
-    serial.add(Validate.Presence);
-
- 
+  
 
 
+	var fname = new LiveValidation('fname-input', { validMessage: "Valid!"});
+    fname.add(Validate.Presence);
+	fname.add(Validate.Format, {pattern: /^[a-zA-Z][a-zA-Z]{2,25}$/});
 
+    var lname = new LiveValidation('lname-input', { validMessage: "Valid!"});
+    lname.add(Validate.Presence);
+    lname.add(Validate.Format, {pattern: /^[a-zA-Z][a-zA-Z]{2,25}$/});
+    
+     var companyID = new LiveValidation('companyID-input', { validMessage: "Valid!"});
+    companyID.add(Validate.Presence);
 
-   
+	var fname_edit = new LiveValidation('fname_edit-input', { validMessage: "Valid!"});
+    fname_edit.add(Validate.Presence);
+    fname_edit.add(Validate.Format, {pattern: /^[a-zA-Z][a-zA-Z]{2,25}$/});
+
+    var lname_edit = new LiveValidation('lname_edit-input', { validMessage: "Valid!"});
+    lname_edit.add(Validate.Presence);
+    lname_edit.add(Validate.Format, {pattern: /^[a-zA-Z][a-zA-Z]{2,25}$/});
+    
+    var companyID_edit = new LiveValidation('companyID_edit-input', { validMessage: "Valid!"});
+    companyID_edit.add(Validate.Presence);
+	
 
 };

@@ -1,4 +1,8 @@
-
+<?php      
+   echo $this->Html->css('stylevalidate.css');
+   echo $this->Html->css('validation.css');
+  echo $this->Html->script(array('main', 'jquery-1.9.1.min', 'livevalidation_standalone'));
+?>
 <div class="container-fluid" background-color="black">
 <div class="row">
 <div class="container-fluid">

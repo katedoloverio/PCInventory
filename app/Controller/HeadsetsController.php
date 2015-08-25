@@ -17,7 +17,7 @@ App::uses('Alert', 'lib');
 class HeadsetsController extends AppController {
 
 
-  public $uses = array('Product', 'User', 'Employee', 'Monitor', 'Mouse','Keyboard','Systemunit', 'Videocard', 'Headset', 'Speaker', 'Up','Inventory');
+   public $uses = array('Product', 'User', 'Employee', 'Monitor', 'Mouse','Keyboard','Systemunit', 'Videocard', 'Headset', 'Speaker', 'Up','Inventory');
 
 	public $helpers = array('Html', 'Form');
 
@@ -35,54 +35,88 @@ class HeadsetsController extends AppController {
 	public function index() {
 
         
+        $all = $this->Headset->find('all');
+        $number= count($all);
+        $this->Set('allHeadsets', $number);
+        
 
-		if ($this->request->is('post')) {
-		$this->Headset->create();
-		if ($this->Headset->save($this->request->data)) {
-			$this->Session->setFlash(__('New Headset added'));
-			//return $this->redirect(array('action' => 'index'));
-		}
-		$this->Session->setFlash(__('Could not add Headset'));
-	}
-
-    $this->Paginator->settings = array( 'limit' => 10);
+         $this->Paginator->settings = array( 'limit' => 10);
 
     // similar to findAll(), but fetches paged results
     $data = $this->Paginator->paginate('Headset');
     $this->set('headsets', $data);
+
+
+
+
+
 }
 
 public function add() {
+
+
     $this->autoRender = false;
+
         if ($this->request->is('post')) {
+
      $accept = $this->request->data;
-     $data = array(
-   'Headset' => array(
-            'hspropertyno' => $accept['hspropertyno'],
-            'hsdescription' => $accept['hsdescription'],
-            'hsstatus' => $accept['hsstatus'],
-            'hstype' => $accept['hstype'],
-            'hsavailability' => $accept['hsavailability']
-            
-             )
+
+     if (empty($accept['hspropertyno']) || empty($accept['hsdescription']) || empty($accept['hsstatus']) ||
+             empty($accept['hstype']) || empty($accept['hsavailability']) ) {
+   $this->Session->setFlash($this->alert->danger('All fields must have values.'),'default', array(), 'headset_error');   
+          $this->redirect($this->referer());
+     }
+
+     else{
+
+                $checkExist = $this->Headset->find('first',
+                array(
+                    'fields' => 'hspropertyno',
+                    'conditions' => array(
+                        'hspropertyno' => $accept['hspropertyno']
+                        )
+                    )
+                );
+
+                if($checkExist){
+
+                    $this->Session->setFlash($this->alert->danger('Update failed. Headset Property no. already exist.'),'default', array(), 'headset');   
+                    
+                } else{
+
+                    $data = array(
+                    'Headset' => array(
+                        'hspropertyno' => $accept['hspropertyno'],
+                        'hsdescription' => $accept['hsdescription'],
+                        'hsstatus' => $accept['hsstatus'],
+                        'hstype' => $accept['hstype'],
+                        'hsavailability' => $accept['hsavailability']
+                    
+                     )
              );
     $this->Headset->create($data);
     $this->Headset->save($data);
-    
-     
-          $this->redirect(array('action' => 'index'));
+    $this->Session->setFlash($this->alert->success('Sucessfully added.'), 'default', array(), 'addeds');
 
+        
+
+         }
+
+     $this->redirect($this->referer());
+            exit();
+      
+      
 
 
         }
-        $this->Session->setFlash(__('Could not add info'));
+       
 
     
 
 
 }
 
-
+}
 
 public function edit() {
   $this->autoRender = false;
@@ -91,10 +125,10 @@ public function edit() {
             
             $data = $this->request->data;
 
-            if( empty($data['hspropertyno']) || empty($data['hsdescription']) || empty($data['hsstatus']) ||
+            if(empty($data['hspropertyno']) || empty($data['hsdescription']) || empty($data['hsstatus']) ||
              empty($data['hstype']) || empty($data['hsavailability']) ) {
 
-                $this->Session->setFlash($this->alert->danger('All fields must have values.'),'default', array(), 'error');   
+                $this->Session->setFlash($this->alert->danger('All fields must have values.'),'default', array(), 'headset_error');   
             }else{
              $checkExist = $this->Headset->find('first',
                    array(
@@ -107,7 +141,7 @@ public function edit() {
 
               if($checkExist){
                 
-                $this->Session->setFlash($this->alert->danger('Headset Property No. already exist.'),'default', array(), 'error');   
+                $this->Session->setFlash($this->alert->danger('Update failed. Headset Property No. already exist.'),'default', array(), 'headset_error');   
                 
                  }else{
 

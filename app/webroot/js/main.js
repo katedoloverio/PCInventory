@@ -50,24 +50,14 @@ var validate = function(){
 
   
     
+	   var propertynoedit= new LiveValidation('propertynoedit-input', { validMessage: "Valid!"});
+    propertynoedit .add(Validate.Presence);
 
+     var descriptionedit = new LiveValidation('descriptionedit-input', { validMessage: "Valid!"});
+   descriptionedit.add(Validate.Presence);
 
-	var firstname = new LiveValidation('firstname-input', { validMessage: "Valid!"});
-    firstname.add(Validate.Presence);
-	firstname.add(Validate.Format, {pattern: /^[a-zA-Z][a-zA-Z]{2,25}$/});
-	
-	var lastname = new LiveValidation('lastname-input', { validMessage: "Valid!"});
-	lastname.add(Validate.Presence);
-    lastname.add(Validate.Format, {pattern: /^[a-zA-Z][a-zA-Z]{2,25}$/});
-
-    var companyid = new LiveValidation('companyid-input', { validMessage: "Valid!"});
-    companyid.add(Validate.Presence);
-
-var propertyno = new LiveValidation('propertyno-input', { validMessage: "Valid!"});
-    propertyno.add(Validate.Presence);
-
-    var description = new LiveValidation('description-input', { validMessage: "Valid!"});
-    description.add(Validate.Presence);
+    var serialedit  = new LiveValidation('serialedit-input', { validMessage: "Valid!"});
+    serialedit.add(Validate.Presence);
 
 
 

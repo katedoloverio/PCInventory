@@ -48,21 +48,20 @@ $(document).unload( unregister );
 
 var validate = function(){	
 
+  
+    
+    var hspropertyno = new LiveValidation('hspropertyno-input', { validMessage: "Valid!"});
+    hspropertyno.add(Validate.Presence);
 
-    var propertyno = new LiveValidation('propertyno-input', { validMessage: "Valid!"});
-    propertyno.add(Validate.Presence);
-
-    var description = new LiveValidation('description-input', { validMessage: "Valid!"});
-    description.add(Validate.Presence);
-
-    var serial  = new LiveValidation('serial-input', { validMessage: "Valid!"});
-    serial.add(Validate.Presence);
-
- 
+     var hsdescription = new LiveValidation('hsdescription-input', { validMessage: "Valid!"});
+    hsdescription.add(Validate.Presence);
 
 
+    var hspropertyno_edit = new LiveValidation('hspropertyno_edit-input', { validMessage: "Valid!"});
+    hspropertyno_edit.add(Validate.Presence);
 
-
-   
+     var hsdescription_edit = new LiveValidation('hsdescription_edit-input', { validMessage: "Valid!"});
+    hsdescription_edit.add(Validate.Presence);
+	
 
 };

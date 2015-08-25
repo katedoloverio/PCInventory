@@ -1,10 +1,18 @@
+<?php      
+   echo $this->Html->css('stylevalidate.css');
+   echo $this->Html->css('validation.css');
+  echo $this->Html->script(array('headset', 'jquery-1.9.1.min', 'livevalidation_standalone'));
+?>
+ 
 
+ 
+ 
 <div class="container-fluid" background-color="black">
 <div class="row">
 <div class="container-fluid">
 <div class="row">
   <div class="col-sm-2">
-   <div class = "breadcrumb">
+   <div>
    
    <nav class="navbar navbar-inverse sidebar" role="navigation">
     <div class="container-fluid">
@@ -155,8 +163,10 @@
 
 
 <!--DISPLAY Headset DETAILS IN TABLE-->
+<?php echo $this->Session->flash('headset'); ?>
+<?php echo $this->Session->flash('headset_error'); ?>
 <?php echo $this->Session->flash('good'); ?>
-
+<?php echo $this->Session->flash('addeds'); ?>
 <table class="table table-bordered table-hover" >
     <tr>
         <th><?php echo $this->Paginator->sort('Property Number'); ?></th>
@@ -202,11 +212,18 @@
 
 <!--PAGINATION-->
  <div class="text-center">
-   <ul class="pagination text-center" >
-     <li><?php echo $this->Paginator->prev(__('Previous'), array(), null, array('class' => 'prev disabled'));?></li>
+   
+   <?php if ($allHeadsets > 10){ ?>
+    <ul class="pagination" "text-center">
+    <li><?php echo $this->Paginator->prev(__('Previous'), array(), null, array('class' => 'prev disabled'));?></li>
+
    <li><?php echo $this->Paginator->numbers(array('separator' => '')); ?></li>
-   <li><?php echo $this->Paginator->next(__('Next'), array(), null, array('class' => 'next disabled'));?></li>
+
+   <li> <?php echo $this->Paginator->next(__('Next'), array(), null, array('class' => 'next disabled'));
+    ?></li>
+
    </ul>
+   <?php } ?>
 </div>
    
 
@@ -214,7 +231,7 @@
   </div>
         <div class="panel-footer">
         <div class="text-center">
-    <?php echo $this->Paginator->counter(array('format' => __('Page {:page} of {:pages}, SZhowing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}'))); ?>
+    <?php echo $this->Paginator->counter(array('format' => __('Page {:page} of {:pages}, Showing {:current} records out of {:count} total, Starting on record {:start}, ending on {:end}'))); ?>
         </div>
         </div>
   </div>
@@ -239,11 +256,11 @@
             <div  class="modal-body">
                 <div class="form-group">
                     <label for="hspropertyno">Property No.</label>
-                    <input type="text" name="hspropertyno"  id="propertyno-input" class="LV_field" class="form-control">
+                    <input type="text" name="hspropertyno" id="hspropertyno-input" class="LV_field"   class="form-control">
                 </div>
                 <div class="form-group">
                     <label for="hsdescription">Description</label>
-                    <input type="text" name="hsdescription"  id="description-input" class="LV_field" class="form-control">
+                    <input type="text" name="hsdescription" id="hsdescription-input" class="LV_field"   class="form-control">
                 </div>
                   <div class="form-group">
                     <label for="available">Status</label>
@@ -305,17 +322,17 @@
                 <i class="glyphicon glyphicon-pencil"></i>
                 Edit 
             </div>
-        <form action = "ediths" method ="post">
+        <form action = "/PCInventory/headset/ediths" method ="post">
 
                 <div class="modal-body">
                     <input type="text" name="id" value="<?php echo  $row['Headset']['id'];?>"/>
                     <div class="form-group">
                         <label for="hspropertyno">Property No.</label>
-                        <input type="text" name="hspropertyno" id="hspropertyno" value="<?php echo $row['Headset']['hspropertyno']; ?>" class="form-control"/>
+                        <input type="text"  name="hspropertyno" id="hspropertyno_edit-input" class="LV_field" value="<?php echo $row['Headset']['hspropertyno']; ?>" class="form-control"/>
                     </div>
                      <div class="form-group">
                         <label for="hsdescription">Description</label>
-                        <input type="text" name="hsdescription" id="hsdescription" value="<?php echo $row['Headset']['hsdescription']; ?>" class="form-control"/>
+                        <input type="text"  name="hsdescription" id="hsdescription_edit-input" class="LV_field" value="<?php echo $row['Headset']['hsdescription']; ?>" class="form-control"/>
                     </div>
                      
                     
@@ -421,7 +438,7 @@
                 <i class="glyphicon glyphicon-pencil"></i>
                 Delete 
             </div>
-            <form action="deletehs" method="post">
+            <form action="/PCInventory/headset/deletehs" method="post">
                 <div class="modal-body">
                     <input type="hidden" name="id" value="<?php echo  $row['Headset']['id'];?>"/>
                     Are you sure you want to delete this data?

@@ -48,21 +48,20 @@ $(document).unload( unregister );
 
 var validate = function(){	
 
+  
+    
+    var mypropertyno = new LiveValidation('mypropertyno-input', { validMessage: "Valid!"});
+    mypropertyno.add(Validate.Presence);
 
-    var propertyno = new LiveValidation('propertyno-input', { validMessage: "Valid!"});
-    propertyno.add(Validate.Presence);
-
-    var description = new LiveValidation('description-input', { validMessage: "Valid!"});
-    description.add(Validate.Presence);
-
-    var serial  = new LiveValidation('serial-input', { validMessage: "Valid!"});
-    serial.add(Validate.Presence);
-
- 
+     var mydescription = new LiveValidation('mydescription-input', { validMessage: "Valid!"});
+    mydescription.add(Validate.Presence);
 
 
+    var mypropertyno_edit = new LiveValidation('mypropertyno_edit-input', { validMessage: "Valid!"});
+    mypropertyno_edit.add(Validate.Presence);
 
-
-   
+     var mydescription_edit = new LiveValidation('mydescription_edit-input', { validMessage: "Valid!"});
+    mydescription_edit.add(Validate.Presence);
+	
 
 };

@@ -12,7 +12,7 @@ App::uses('Headset', 'Model');
 App::uses('Speaker', 'Model');
 App::uses('Up', 'Model');
 App::uses('Inventory', 'Model');
-
+App::uses('Alert', 'lib');
 
 
 class MousesController extends AppController {
@@ -23,85 +23,150 @@ class MousesController extends AppController {
 
 	public $components = array('Session', 'Paginator');
 
+ public function beforeFilter(){
 
-	public function index() {
+     parent::beforeFilter();
+     $this->alert = new Alert();
+     }
+
+  public function index() {
 
         
+        $all = $this->Mouse->find('all');
+        $number= count($all);
+        $this->Set('allMouses', $number);
+        
 
-		if ($this->request->is('post')) {
-		$this->Mouse->create();
-		if ($this->Mouse->save($this->request->data)) {
-			$this->Session->setFlash(__('New mouse added'));
-			//return $this->redirect(array('action' => 'index'));
-		}
-		$this->Session->setFlash(__('Could not add mouse'));
-	}
-
-    $this->Paginator->settings = array( 'limit' => 10);
+         $this->Paginator->settings = array( 'limit' => 10);
 
     // similar to findAll(), but fetches paged results
     $data = $this->Paginator->paginate('Mouse');
     $this->set('mouses', $data);
+
+
+
+
+
 }
 
+
 public function add() {
+
+
     $this->autoRender = false;
+
         if ($this->request->is('post')) {
+
      $accept = $this->request->data;
-     $data = array(
-   'Mouse' => array(
-            'mspropertyno' => $accept['mspropertyno'],
-            'msdescription' => $accept['msdescription'],
-            'msstatus' => $accept['msstatus'],
-            'mstype' => $accept['mstype'],
-            'msavailability' => $accept['msavailability']
-            
-             )
+
+     if (empty($accept['mspropertyno']) || empty($accept['msdescription']) || empty($accept['msstatus']) ||
+             empty($accept['mstype']) || empty($accept['msavailability']) ) {
+   $this->Session->setFlash($this->alert->danger('All fields must have values.'),'default', array(), 'mouse_error');   
+          $this->redirect($this->referer());
+     }
+
+     else{
+
+                $checkExist = $this->Mouse->find('first',
+                array(
+                    'fields' => 'mspropertyno',
+                    'conditions' => array(
+                        'mspropertyno' => $accept['mspropertyno']
+                        )
+                    )
+                );
+
+                if($checkExist){
+
+                    $this->Session->setFlash($this->alert->danger('Update failed. Mouse Property no. already exist.'),'default', array(), 'mouse');   
+                    
+                } else{
+
+                    $data = array(
+                    'Mouse' => array(
+                        'mspropertyno' => $accept['mspropertyno'],
+                        'msdescription' => $accept['msdescription'],
+                        'msstatus' => $accept['msstatus'],
+                        'mstype' => $accept['mstype'],
+                        'msavailability' => $accept['msavailability']
+                    
+                     )
              );
     $this->Mouse->create($data);
     $this->Mouse->save($data);
-    
-     
-          $this->redirect(array('action' => 'index'));
+    $this->Session->setFlash($this->alert->success('Sucessfully added.'), 'default', array(), 'added');
 
+        
+
+         }
+
+     $this->redirect($this->referer());
+            exit();
+      
+      
 
 
         }
-        $this->Session->setFlash(__('Could not add info'));
+       
 
     
 
 
 }
 
-
+}
 
 public function edit() {
-	$this->autoRender = false;
-	
+  $this->autoRender = false;
+  
         if ($this->request->is('post')) {
             
             $data = $this->request->data;
 
-            $prepareData = array(
-                'Mouse' => array(
-                    'mspropertyno' => $data['mspropertyno'],
-                    'msdescription' => $data['msdescription'],
-                    'msstatus' => $data['msstatus'],
-                    'mstype' => $data['mstype'],
-                    'msavailability' => $data['msavailability']
-                             )
-            );
-            $this->Mouse->id = $data['id'];
-            $this->Mouse->save($prepareData);
+            if(empty($data['mspropertyno']) || empty($data['msdescription']) || empty($data['msstatus']) ||
+             empty($data['mstype']) || empty($data['msavailability']) ) {
 
-           
-            $this->Session->setFlash('<div class="alert alert-success"><i class="glyphicon glyphicon-ok"></i> Update Success.</div> ', 'default', array(), 'good');
+                $this->Session->setFlash($this->alert->danger('All fields must have values.'),'default', array(), 'mouse');   
+            }else{
+             $checkExist = $this->Mouse->find('first',
+                   array(
+                    'fields' => 'mspropertyno',
+                    'conditions' => array(
+                      'mspropertyno' => $data['mspropertyno']
+                      )
+                    )
+                  );
+
+              if($checkExist){
+                
+                $this->Session->setFlash($this->alert->danger('Update failed. Mouse Property No. already exist.'),'default', array(), 'mouse_error');   
+                
+                 }else{
+
+                      $prepareData = array(
+                        'Mouse' => array(
+                            'mspropertyno' => $data['mspropertyno'],
+                            'msdescription' => $data['msdescription'],
+                            'msstatus' => $data['msstatus'],
+                            'mstype' => $data['mstype'],
+                            'msavailability' => $data['msavailability']
+
+                        )
+                    );
+                    $this->Mouse->id = $data['id'];
+                    $this->Mouse->save($prepareData);
+                    $this->Session->setFlash($this->alert->success('Update Success.'), 'default', array(), 'good');
+                   }
+  
+
+               } 
+                
+
             $this->redirect($this->referer());
             exit();
 
 
-}
+        }
 }
 public function delete() {
 	$this->autoRender = false;

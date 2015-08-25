@@ -1,10 +1,16 @@
 
+<?php      
+   echo $this->Html->css('stylevalidate.css');
+   echo $this->Html->css('validation.css');
+  echo $this->Html->script(array('property', 'jquery-1.9.1.min', 'livevalidation_standalone'));
+?>
+ 
 <div class="container-fluid" background-color="black">
 <div class="row">
 <div class="container-fluid">
 <div class="row">
   <div class="col-sm-2">
-   <div class = "breadcrumb">
+   <div class>
    
    <nav class="navbar navbar-inverse sidebar" role="navigation">
     <div class="container-fluid">
@@ -156,7 +162,9 @@
 
 <!--DISPLAY Mouse DETAILS IN TABLE-->
 <?php echo $this->Session->flash('good'); ?>
-
+<?php echo $this->Session->flash('error'); ?>
+<?php echo $this->Session->flash('keyboard_error'); ?>
+<?php echo $this->Session->flash('added'); ?>
 <table class="table table-bordered table-hover" >
     <tr>
         <th><?php echo $this->Paginator->sort('Property Number'); ?></th>
@@ -202,13 +210,19 @@
 
 <!--PAGINATION-->
  <div class="text-center">
-   <ul class="pagination text-center" >
-     <li><?php echo $this->Paginator->prev(__('Previous'), array(), null, array('class' => 'prev disabled'));?></li>
-   <li><?php echo $this->Paginator->numbers(array('separator' => '')); ?></li>
-   <li><?php echo $this->Paginator->next(__('Next'), array(), null, array('class' => 'next disabled'));?></li>
-   </ul>
-</div>
    
+   <?php if ($allKeyboards > 10){ ?>
+    <ul class="pagination" "text-center">
+    <li><?php echo $this->Paginator->prev(__('Previous'), array(), null, array('class' => 'prev disabled'));?></li>
+
+   <li><?php echo $this->Paginator->numbers(array('separator' => '')); ?></li>
+
+   <li> <?php echo $this->Paginator->next(__('Next'), array(), null, array('class' => 'next disabled'));
+    ?></li>
+
+   </ul>
+   <?php } ?>
+</div>
 
 
   </div>
@@ -234,16 +248,16 @@
             </div>
 
 
-        <form action = "addkb" method ="post">
+        <form action = "/PCInventory/keyboard/addkb" method ="post">
 
             <div  class="modal-body">
                 <div class="form-group">
                     <label for="kbpropertyno">Property No.</label>
-                    <input type="text" name="kbpropertyno"  id="propertyno-input" class="LV_field" class="form-control">
+                    <input type="text" name="kbpropertyno" id="mypropertyno-input" class="LV_field"   class="form-control">
                 </div>
                 <div class="form-group">
                     <label for="kbdescription">Description</label>
-                    <input type="text" name="kbdescription"  id="description-input" class="LV_field" class="form-control">
+                    <input type="text" name="kbdescription"  id="mydescription-input" class="LV_field"   class="form-control">
                 </div>
                   <div class="form-group">
                     <label for="available">Status</label>
@@ -287,12 +301,6 @@
 
 
 
-   
-
-
-
-
-
 
 <!-- EDIT KEYBOARD DETAILS -->
 <?php foreach($keyboards  as $row){ ?>
@@ -305,17 +313,17 @@
                 <i class="glyphicon glyphicon-pencil"></i>
                 Edit 
             </div>
-        <form action = "editkb" method ="post">
+        <form action = "/PCInventory/keyboard/editkb" method ="post">
 
                 <div class="modal-body">
                     <input type="text" name="id" value="<?php echo  $row['Keyboard']['id'];?>"/>
                     <div class="form-group">
                         <label for="kbpropertyno">Property No.</label>
-                        <input type="text" name="kbpropertyno" id="kbpropertyno" value="<?php echo $row['Keyboard']['kbpropertyno']; ?>" class="form-control"/>
+                        <input type="text" name="kbpropertyno" id="mypropertyno_edit-input" class="LV_field" value="<?php echo $row['Keyboard']['kbpropertyno']; ?>" class="form-control"/>
                     </div>
                      <div class="form-group">
                         <label for="kbdescription">Description</label>
-                        <input type="text" name="kbdescription" id="kbdescription" value="<?php echo $row['Keyboard']['kbdescription']; ?>" class="form-control"/>
+                        <input type="text" name="kbdescription" id="mydescription_edit-input" class="LV_field"  value="<?php echo $row['Keyboard']['kbdescription']; ?>" class="form-control"/>
                     </div>
                      
                     
@@ -421,7 +429,7 @@
                 <i class="glyphicon glyphicon-pencil"></i>
                 Delete 
             </div>
-            <form action="deletekb" method="post">
+            <form action="/PCInventory/keyboard/deletekb" method="post">
                 <div class="modal-body">
                     <input type="hidden" name="id" value="<?php echo  $row['Keyboard']['id'];?>"/>
                     Are you sure you want to delete this data?

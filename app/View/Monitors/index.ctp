@@ -1,13 +1,8 @@
-
-<head>
 <?php      
    echo $this->Html->css('stylevalidate.css');
    echo $this->Html->css('validation.css');
-  echo $this->Html->script(array('main2', 'jquery-1.9.1.min', 'livevalidation_standalone'));
+  echo $this->Html->script(array('property', 'jquery-1.9.1.min', 'livevalidation_standalone'));
 ?>
- 
-  
-</head>
 
 <div class="container-fluid" background-color="black">
 <div class="row">
@@ -170,7 +165,10 @@
 
 
 <!--DISPLAY MONITOR DETAILS IN TABLE-->
+<?php echo $this->Session->flash('monitor'); ?>
+<?php echo $this->Session->flash('monitor_error'); ?>
 <?php echo $this->Session->flash('good'); ?>
+<?php echo $this->Session->flash('added'); ?>
 
 <table class="table table-bordered table-hover" >
     <tr>
@@ -223,14 +221,19 @@ $motype = $monitor['Monitor']['motype'];
 
 
 
-
-     <div class="text-center">
-   <ul class="pagination text-center" >
+ <div class="text-center">
+   
+   <?php if ($allMonitors > 10){ ?>
+    <ul class="pagination" "text-center">
     <li><?php echo $this->Paginator->prev(__('Previous'), array(), null, array('class' => 'prev disabled'));?></li>
+
    <li><?php echo $this->Paginator->numbers(array('separator' => '')); ?></li>
-   <li><?php echo $this->Paginator->next(__('Next'), array(), null, array('class' => 'next disabled'));
+
+   <li> <?php echo $this->Paginator->next(__('Next'), array(), null, array('class' => 'next disabled'));
     ?></li>
-        </ul>
+
+   </ul>
+   <?php } ?>
 </div>
    
 
@@ -259,16 +262,16 @@ $motype = $monitor['Monitor']['motype'];
             <div class="modal-header">
                <i class="glyphicon glyphicon-plus"></i> Add Monitor
             </div>
-<form action = "addmon" method ="post">
+<form action = "/PCInventory/monitor/addmon" method ="post">
 
             <div  class="modal-body">
                 <div class="form-group">
                     <label for="mopropertyno">Property No.</label>
-                    <input type="text" name="mopropertyno" id="propertyno-input" class="LV_field"  class="form-control">
+                    <input type="text" name="mopropertyno" id="mypropertyno-input" class="LV_field"  class="form-control">
                 </div>
                 <div class="form-group">
                     <label for="modescription">Description</label>
-                    <input type="text" name="modescription" id="description-input" class="LV_field" class="form-control">
+                    <input type="text" name="modescription" id="mydescription-input" class="LV_field" class="form-control">
                 </div>
                   <div class="form-group">
                     <label for="available">Status</label>
@@ -333,17 +336,17 @@ $motype = $monitor['Monitor']['motype'];
                 <i class="glyphicon glyphicon-pencil"></i>
                 Edit 
             </div>
-        <form action = "editmon" method ="post">
+        <form action = "/PCInventory/monitor/editmon" method ="post">
 
                 <div class="modal-body">
                     <input type="text" name="id" value="<?php echo  $row['Monitor']['id'];?>"/>
                     <div class="form-group">
                         <label for="mopropertyno">Property No.</label>
-                        <input type="text" name="mopropertyno" id="mopropertyno" value="<?php echo $row['Monitor']['mopropertyno']; ?>" class="form-control"/>
+                        <input type="text" name="mopropertyno"  id="mypropertyno_edit-input" class="LV_field" value="<?php echo $row['Monitor']['mopropertyno']; ?>" class="form-control"/>
                     </div>
                      <div class="form-group">
                         <label for="modescription">Description</label>
-                        <input type="text" name="modescription" id="modescription" value="<?php echo $row['Monitor']['modescription']; ?>" class="form-control"/>
+                        <input type="text" name="modescription" id="mydescription_edit-input" class="LV_field"  value="<?php echo $row['Monitor']['modescription']; ?>" class="form-control"/>
                     </div>
                      
                     
@@ -372,9 +375,9 @@ $motype = $monitor['Monitor']['motype'];
                         
                     </div>
 
- <div class="form-group">
-                        <label for="motype">Status</label>
-                        <select name="mostatus" id="mostatus" class="form-control">
+                        <div class="form-group">
+                        <label for="motype">Type</label>
+                        <select name="motype" id="motype" class="form-control">
                         <?php $motype = $row['Monitor']['motype'];
                         if ($motype == 1){?>
 
@@ -443,7 +446,7 @@ $motype = $monitor['Monitor']['motype'];
                 <i class="glyphicon glyphicon-pencil"></i>
                 Delete 
             </div>
-            <form action="deletemon" method="post">
+            <form action="/PCInventory/monitor/deletemon" method="post">
                 <div class="modal-body">
                     <input type="hidden" name="id" value="<?php echo  $row['Monitor']['id'];?>"/>
                     Are you sure you want to delete this data?

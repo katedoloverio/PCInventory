@@ -10,7 +10,6 @@ App::uses('Alert', 'lib');
 class GadgetsController extends AppController {
 
 
-
 	public $uses = array('Product', 'User', 'Employee', 'Gadget');
 
 	public $helpers = array('Html', 'Form');
@@ -18,6 +17,9 @@ class GadgetsController extends AppController {
 	public $components = array('Session', 'Paginator');
 
 	
+
+
+
     public function beforeFilter(){
 
     parent::beforeFilter();
@@ -59,8 +61,10 @@ public function add() {
 		if ($this->request->is('post')) {
 		$this->Gadget->create();
 
-				if ($this->Gadget->save($this->request->data)) {
-			$this->Session->setFlash(__('New gadget added'));
+
+		if ($this->Gadget->save($this->request->data)) {
+
+			  $this->Session->setFlash($this->alert->success('Sucessfully added.'), 'default', array(), 'added');
 			$this->redirect($this->referer());
 		}
 		$this->Session->setFlash(__('Could not add gadget'));

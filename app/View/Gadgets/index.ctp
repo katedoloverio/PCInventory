@@ -1,9 +1,17 @@
+
+<?php      
+   echo $this->Html->css('stylevalidate.css');
+   echo $this->Html->css('validation.css');
+  echo $this->Html->script(array('gadget', 'jquery-1.9.1.min', 'livevalidation_standalone'));
+?>
+ 
+
 <div class="container-fluid" background-color="black">
 <div class="row">
 <div class="container-fluid">
 <div class="row">
   <div class="col-sm-2">
-   <div class = "breadcrumb">
+   <div >
    
    <nav class="navbar navbar-inverse sidebar" role="navigation">
     <div class="container-fluid">
@@ -154,7 +162,9 @@
         </div>
 
         <div class="panel-body" style="background-color:white" >
-
+<?php echo $this->Session->flash('error'); ?>
+<?php echo $this->Session->flash('good'); ?>
+<?php echo $this->Session->flash('added'); ?>
 <div>
         
 <!--ADD Gadget-->
@@ -165,26 +175,26 @@
                <i class="glyphicon glyphicon-plus"></i> Add Gadget
             </div>
 
-            <form action = "addgdgt" method ="post">
+            <form action = "/PCInventory/gadget/addgdgt" method ="post">
             <div  class="modal-body">
                 <div class="form-group">
                     <label for="ggpropertyno">Property Number</label>
-                    <input type="text" name="data[Gadget][ggpropertyno]" id="propertyno-input" class="LV_field" class="form-control">
+                    <input type="text" name="data[Gadget][ggpropertyno]" id="gdgtpropertyno-input" class="LV_field" class="form-control">
                 </div>
                 <div class="form-group">
                     <label for="ggdescription">Description</label>
-                    <input type="text" name="data[Gadget][ggdescription]" id="description-input" class="LV_field" class="form-control">
+                    <input type="text" name="data[Gadget][ggdescription]" id="gdgtdescription-input" class="LV_field" class="form-control">
                 </div>
                   <div class="form-group">
                     <label for="ggserial">Serial No.</label>
-                    <input type="text" name="data[Gadget][ggserial]" id="description-input" class="LV_field"  class="form-control">
+                    <input type="text" name="data[Gadget][ggserial]" id="gdgtserial-input" class="LV_field"  class="form-control">
                 </div>
                  <div class="form-group">
                     <label for="ggstatus">Status</label>
 
                       <select name="data[Gadget][ggstatus]" id="" class="form-control">
-                        <option value="1"> Active</option>
-                        <option  value="2"> Resign</option>          
+                        <option value="1"> Working</option>
+                        <option  value="2"> Defective</option>          
                         </select>
                
                 </div>
@@ -218,8 +228,7 @@
 <div>
 
 
-<?php echo $this->Session->flash('error'); ?>
-<?php echo $this->Session->flash('good'); ?>
+
 <div class="container">
 <table class="table table-bordered table-hover" >
 	<tr>
@@ -270,19 +279,16 @@
    
 
    <?php if ($allGadgets > 5){ ?>
-<ul class="pagination">
+    <ul class="pagination" "text-center">
     <li><?php echo $this->Paginator->prev(__('Previous'), array(), null, array('class' => 'prev disabled'));?></li>
 
    <li><?php echo $this->Paginator->numbers(array('separator' => '')); ?></li>
 
-  <li> <?php echo $this->Paginator->next(__('Next'), array(), null, array('class' => 'next disabled'));
+   <li> <?php echo $this->Paginator->next(__('Next'), array(), null, array('class' => 'next disabled'));
     ?></li>
 
- 
-
-   
-        </ul>
-           <?php } ?>
+   </ul>
+   <?php } ?>
      
 </div>
 
@@ -295,7 +301,8 @@
 
 
 
-<!-- This modal for Edit Member -->
+<!-- Modal to Edit Gadgets -->
+
 <?php foreach($gadgets  as $row){ ?>
 
 <div class="modal fade" id="edit<?php echo $row['Gadget']['id'];?>" tabindex="-1" role="dialog">
@@ -306,20 +313,20 @@
                 <i class="glyphicon glyphicon-pencil"></i>
                 Edit 
             </div>
-            <form action="editgdgt" method="post">
+            <form action="/PCInventory/gadget/editgdgt" method="post">
                 <div class="modal-body">
                     <input type="text" name="id" value="<?php echo  $row['Gadget']['id'];?>"/>
                     <div class="form-group">
                         <label for="ggpropertyno">Property No.</label>
-                        <input type="text" name="ggpropertyno" id="" value="<?php echo $row['Gadget']['ggpropertyno']; ?>" class="form-control"/>
+                        <input type="text" name="ggpropertyno"  id="gdgtpropertyno_edit-input" class="LV_field" value="<?php echo $row['Gadget']['ggpropertyno']; ?>" class="form-control"/>
                     </div>
                      <div class="form-group">
                         <label for="ggdescription">Description</label>
-                        <input type="textarea" name="ggdescription" id="" value="<?php echo $row['Gadget']['ggdescription']; ?>" class="form-control"/>
+                        <input type="text" name="ggdescription" id="gdgtdescription_edit-input" class="LV_field" value="<?php echo $row['Gadget']['ggdescription']; ?>" class="form-control"/>
                     </div>
                      <div class="form-group">
                         <label for="ggserial">Serial No.</label>
-                        <input type="text" name="ggserial" id="" value="<?php echo $row['Gadget']['ggserial']; ?>" class="form-control"/>
+                        <input type="text" name="ggserial" id="gdgtserial_edit-input" class="LV_field"   value="<?php echo $row['Gadget']['ggserial']; ?>" class="form-control"/>
                     </div>
                    
                     
@@ -328,15 +335,11 @@
                         <select name="ggstatus" id="" class="form-control">
                         <?php $ggstatus = $row['Gadget']['ggstatus'];
                         if ($ggstatus == 1){?>
-
-                        <option value="1"> Active</option>
-                        <option  value="2"> Resign</option> 
-
-<?php
-                        }else{
-                        	?>
-                        <option  value="2"> Resign</option> 
-                        <option value="1"> Active</option>
+                        <option value="1"> Working</option>
+                        <option  value="2"> Defective</option> 
+                    <?php}else{?>
+                        <option  value="2"> Defective</option> 
+                        <option value="1"> Working</option>
                      
                         	<?php 
                         }
@@ -388,11 +391,12 @@
 
 <?php } ?>
 
-<!-- This modal for Delete Member -->
+
+
+<!-- Modal to Delete Gadgets -->
 <?php foreach($gadgets  as $row){ ?>
 
 <div class="modal fade" id="delete<?php echo $row['Gadget']['id'];?>" tabindex="-1" role="dialog">
-
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -415,7 +419,9 @@
 
 <?php } ?>
 
-<!-- This modal for View Member -->
+
+
+<!-- Modal for View Gadgets -->
 <?php foreach($gadgets  as $row){ ?>
 
 <div class="modal fade" id="view<?php echo $row['Gadget']['id'];?>" tabindex="-1" role="dialog">
@@ -424,54 +430,26 @@
         <div class="modal-content">
             <div class="modal-header">
                 <i class="glyphicon glyphicon-pencil"></i>
-                Delete 
+                 <?php echo $row['Gadget']['ggdescription'];?> Information 
             </div>
                 <div class="modal-body">
-                 <label>  Porperty No. : <?php echo $row['Gadget']['ggpropertyno'];?> </label> <br/>
+                  <label>  Porperty No. : <?php echo $row['Gadget']['ggpropertyno'];?> </label> <br/>
                   <label> Descriptiom : <?php echo $row['Gadget']['ggdescription'];?> </label> <br/>
                   <label> Serial No. : <?php echo $row['Gadget']['ggserial'];?> </label> <br/>
                   <label> Status : 
                     <?php $ggstatus = $row['Gadget']['ggstatus'];
                         if ($ggstatus == 1){ ?>
-                  
-                    <?php echo 'Active';?>
-
-<?php
-                        }else{
-                            ?>
- <?php echo 'Resign';?>
-                       
-                            <?php 
-                        }
-
-
-                        ?>
-
-
-
-
-                   </label> <br/>
-                  <label> Status : 
+                        <?php echo 'Working';?>
+                        <?php }else{ ?>
+                        <?php echo 'Defective';?>
+                        <?php }?> </label> <br/>
+                  <label> Availability : 
                     <?php $ggavailability = $row['Gadget']['ggavailability'];
                         if ($ggavailability == 1){ ?>
-                  
-                    <?php echo 'Active';?>
-
-<?php
-                        }else{
-                            ?>
- <?php echo 'Resign';?>
-                       
-                            <?php 
-                        }
-
-
-                        ?>
-
-
-
-
-                   </label> <br/> <br/>
+                        <?php echo 'Availabile';?>
+                        <?php }else{ ?>
+                        <?php echo 'Resign';?>
+                        <?php }?> </label> <br/> <br/>
                 
                 </div>
                 <div class="modal-footer">

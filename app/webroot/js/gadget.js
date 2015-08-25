@@ -48,21 +48,24 @@ $(document).unload( unregister );
 
 var validate = function(){	
 
+  
+    
+    var gdgtpropertyno = new LiveValidation('gdgtpropertyno-input', { validMessage: "Valid!"});
+    gdgtpropertyno.add(Validate.Presence);
 
-    var propertyno = new LiveValidation('propertyno-input', { validMessage: "Valid!"});
-    propertyno.add(Validate.Presence);
+     var gdgtdescription = new LiveValidation('gdgtdescription-input', { validMessage: "Valid!"});
+     gdgtdescription.add(Validate.Presence);
 
-    var description = new LiveValidation('description-input', { validMessage: "Valid!"});
-    description.add(Validate.Presence);
+   var gdgtserial = new LiveValidation('gdgtserial-input', { validMessage: "Valid!"});
+    gdgtserial.add(Validate.Presence);
 
-    var serial  = new LiveValidation('serial-input', { validMessage: "Valid!"});
-    serial.add(Validate.Presence);
+    var gdgtpropertyno_edit = new LiveValidation('gdgtpropertyno_edit-input', { validMessage: "Valid!"});
+    gdgtpropertyno_edit.add(Validate.Presence);
 
- 
-
-
-
-
-   
+     var gdgtdescription_edit = new LiveValidation('gdgtdescription_edit-input', { validMessage: "Valid!"});
+     gdgtdescription_edit.add(Validate.Presence);
+	
+    var gdgtserial_edit = new LiveValidation('gdgtserial_edit-input', { validMessage: "Valid!"});
+    gdgtserial_edit.add(Validate.Presence);
 
 };

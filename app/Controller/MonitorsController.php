@@ -8,9 +8,11 @@ App::uses('Mouse', 'Model');
 App::uses('Keyboard', 'Model');
 App::uses('Systemunit', 'Model');
 App::uses('Videocard', 'Model');
+App::uses('Headset', 'Model');
+App::uses('Speaker', 'Model');
+App::uses('Up', 'Model');
 App::uses('Inventory', 'Model');
-
-
+App::uses('Alert', 'lib');
 
 class MonitorsController extends AppController {
 
@@ -21,85 +23,155 @@ class MonitorsController extends AppController {
 
 	public $components = array('Session', 'Paginator');
 
+ public function beforeFilter(){
 
-	public function index() {
+     parent::beforeFilter();
+     $this->alert = new Alert();
+     }
+
+  public function index() {
 
         
+        $all = $this->Monitor->find('all');
+        $number= count($all);
+        $this->Set('allMonitors', $number);
+        
 
-		if ($this->request->is('post')) {
-		$this->Monitor->create();
-		if ($this->Monitor->save($this->request->data)) {
-			$this->Session->setFlash(__('New monitor added'));
-			//return $this->redirect(array('action' => 'index'));
-		}
-		$this->Session->setFlash(__('Could not add monitor'));
-	}
-
-    $this->Paginator->settings = array( 'limit' => 10);
+         $this->Paginator->settings = array( 'limit' => 10);
 
     // similar to findAll(), but fetches paged results
     $data = $this->Paginator->paginate('Monitor');
     $this->set('monitors', $data);
+
+
+
+
+
 }
 
+
 public function add() {
+
+
     $this->autoRender = false;
+
         if ($this->request->is('post')) {
+
      $accept = $this->request->data;
-     $data = array(
-   'Monitor' => array(
-            'mopropertyno' => $accept['mopropertyno'],
-            'modescription' => $accept['modescription'],
-            'mostatus' => $accept['mostatus'],
-              'motype' => $accept['motype'],
-            'moavailability' => $accept['moavailability']
-            
-             )
+
+     if (empty($accept['mopropertyno']) || empty($accept['modescription']) || empty($accept['mostatus']) ||
+             empty($accept['motype']) || empty($accept['moavailability']) ) {
+
+   $this->Session->setFlash($this->alert->danger('All fields must have values.'),'default', array(), 'monitor_error');   
+          $this->redirect($this->referer());
+     }
+
+     else{
+
+                $checkExist = $this->Monitor->find('first',
+                array(
+                    'fields' => 'mopropertyno',
+                    'conditions' => array(
+                        'mopropertyno' => $accept['mopropertyno']
+                        )
+                    )
+                );
+
+                if($checkExist){
+
+                    $this->Session->setFlash($this->alert->danger('Update failed. Monitor Property no. already exist.'),'default', array(), 'monitor_error');   
+                    
+                } else{
+
+                    $data = array(
+                    'Monitor' => array(
+                        'mopropertyno' => $accept['mopropertyno'],
+                        'modescription' => $accept['modescription'],
+                        'mostatus' => $accept['mostatus'],
+                        'motype' => $accept['motype'],
+                        'moavailability' => $accept['moavailability']
+                    
+                     )
              );
     $this->Monitor->create($data);
     $this->Monitor->save($data);
-    
-     
-          $this->redirect(array('action' => 'index'));
+    $this->Session->setFlash($this->alert->success('Sucessfully added.'), 'default', array(), 'added');
 
+        
+
+         }
+
+     $this->redirect($this->referer());
+            exit();
+      
+      
 
 
         }
-        $this->Session->setFlash(__('Could not register user'));
+       
 
     
 
+
+}
 
 }
 
 
 
 public function edit() {
-	$this->autoRender = false;
-	
+  $this->autoRender = false;
+  
         if ($this->request->is('post')) {
             
             $data = $this->request->data;
 
-            $prepareData = array(
-                'Monitor' => array(
-                    'mopropertyno' => $data['mopropertyno'],
-                    'modescription' => $data['modescription'],
-                    'mostatus' => $data['mostatus'],
-                    'motype' => $data['motype'],
-                    'moavailability' => $data['moavailability']
-                             )
-            );
-            $this->Monitor->id = $data['id'];
-            $this->Monitor->save($prepareData);
+            if(empty($data['mopropertyno']) || empty($data['modescription']) || empty($data['mostatus']) ||
+             empty($data['motype']) || empty($data['moavailability']) ) {
+   
+pr( $data);
+die();
+                $this->Session->setFlash($this->alert->danger('All fields must have values.'),'default', array(), 'monitor_error');   
+            }else{
+             $checkExist = $this->Monitor->find('first',
+                   array(
+                    'fields' => 'mopropertyno',
+                    'conditions' => array(
+                      'mopropertyno' => $data['mopropertyno']
+                      )
+                    )
+                  );
 
-           
-            $this->Session->setFlash('<div class="alert alert-success"><i class="glyphicon glyphicon-ok"></i> Update Success.</div> ', 'default', array(), 'good');
+              if($checkExist){
+                
+                $this->Session->setFlash($this->alert->danger('Update failed. Monitor Property No. already exist.'),'default', array(), 'monitor');   
+                
+                 }else{
+
+                      $prepareData = array(
+                        'Monitor' => array(
+                            'mopropertyno' => $data['mopropertyno'],
+                            'modescription' => $data['modescription'],
+                            'mostatus' => $data['mostatus'],
+                            'motype' => $data['motype'],
+                            'moavailability' => $data['moavailability']
+
+                        )
+                    );
+                    $this->Monitor->id = $data['id'];
+                    $this->Monitor->save($prepareData);
+                    $this->Session->setFlash($this->alert->success('Update Success.'), 'default', array(), 'good');
+                   }
+  
+
+               } 
+                
+
             $this->redirect($this->referer());
             exit();
 
 
-}
+        }
 }
 public function delete() {
 	$this->autoRender = false;

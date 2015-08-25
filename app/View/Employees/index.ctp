@@ -2,7 +2,7 @@
 <?php      
    echo $this->Html->css('stylevalidate.css');
    echo $this->Html->css('validation.css');
-  echo $this->Html->script(array('main', 'jquery-1.9.1.min', 'livevalidation_standalone'));
+  echo $this->Html->script(array('main3', 'jquery-1.9.1.min', 'livevalidation_standalone'));
 ?>
  
   
@@ -267,15 +267,15 @@
             <div  class="modal-body">
                 <div class="form-group">
                     <label for="empfirstname">First Name</label>
-                    <input  type="text" name="empfirstname" id="firstname-input" class="LV_field"  class="form-control" >
+                    <input  type="text" name="empfirstname" id="fname-input" class="LV_field"  class="form-control" >
                 </div>
                 <div class="form-group">
                     <label for="emplastname">Last Name</label>
-                    <input type="text" name="emplastname" id="lastname-input" class="LV_field" class="form-control" >
+                    <input type="text" name="emplastname" id="lname-input" class="LV_field" class="form-control" >
                 </div>
                   <div class="form-group">
                     <label for="empcompanyid">Company ID</label>
-                    <input type="text" name="empcompanyid" id="companyid-input" class="LV_field" class="form-control">
+                    <input type="text" name="empcompanyid" id="companyID-input" class="LV_field" class="form-control">
                 </div>
                 <div class="form-group">
                 <label for="">Photo</label>
@@ -336,15 +336,15 @@
                     <input type="text" name="id" value="<?php echo  $row['Employee']['id'];?>"/>
                     <div class="form-group">
                         <label for="empfirstname">First Name</label>
-                        <input type="text" name="empfirstname" id="empfirstname" value="<?php echo $row['Employee']['empfirstname']; ?>" class="form-control"/>
+                        <input type="text" name="empfirstname" id="fname_edit-input" class="LV_field"  value="<?php echo $row['Employee']['empfirstname']; ?>" class="form-control"/>
                     </div>
                      <div class="form-group">
                         <label for="emplastname">Last Name</label>
-                        <input type="text" name="emplastname" id="emplastname" value="<?php echo $row['Employee']['emplastname']; ?>" class="form-control"/>
+                        <input type="text" name="emplastname" id="lname_edit-input" class="LV_field"  value="<?php echo $row['Employee']['emplastname']; ?>" class="form-control"/>
                     </div>
                      <div class="form-group">
                         <label for="empcompanyid">Company ID</label>
-                        <input type="text" name="empcompanyid" id="empcompanyid" value="<?php echo $row['Employee']['empcompanyid']; ?>" class="form-control"/>
+                        <input type="text" name="empcompanyid" id="companyID_edit-input" class="LV_field"  value="<?php echo $row['Employee']['empcompanyid']; ?>" class="form-control"/>
                     </div>
                        <div class="form-group">
                 <label>Photo <img src="/PCInventory/img/users/user.png" class="img-circle img-for-own-message"/></label>

@@ -1,10 +1,14 @@
-
+<?php      
+   echo $this->Html->css('stylevalidate.css');
+   echo $this->Html->css('validation.css');
+  echo $this->Html->script(array('property', 'jquery-1.9.1.min', 'livevalidation_standalone'));
+?>
 <div class="container-fluid" background-color="black">
 <div class="row">
 <div class="container-fluid">
 <div class="row">
   <div class="col-sm-2">
-   <div class = "breadcrumb">
+   <div >
    
    <nav class="navbar navbar-inverse sidebar" role="navigation">
     <div class="container-fluid">
@@ -155,8 +159,10 @@
 
 
 <!--DISPLAY Mouse DETAILS IN TABLE-->
+<?php echo $this->Session->flash('mouse'); ?>
+<?php echo $this->Session->flash('mouse_error'); ?>
 <?php echo $this->Session->flash('good'); ?>
-
+<?php echo $this->Session->flash('added'); ?>
 <table class="table table-bordered table-hover" >
     <tr>
         <th><?php echo $this->Paginator->sort('Property Number'); ?></th>
@@ -201,12 +207,19 @@
 </table>
 
 <!--PAGINATION-->
- <div class="text-center">
-   <ul class="pagination text-center" >
-     <li><?php echo $this->Paginator->prev(__('Previous'), array(), null, array('class' => 'prev disabled'));?></li>
+  <div class="text-center">
+   
+   <?php if ($allMouses > 10){ ?>
+    <ul class="pagination" "text-center">
+    <li><?php echo $this->Paginator->prev(__('Previous'), array(), null, array('class' => 'prev disabled'));?></li>
+
    <li><?php echo $this->Paginator->numbers(array('separator' => '')); ?></li>
-   <li><?php echo $this->Paginator->next(__('Next'), array(), null, array('class' => 'next disabled'));?></li>
+
+   <li> <?php echo $this->Paginator->next(__('Next'), array(), null, array('class' => 'next disabled'));
+    ?></li>
+
    </ul>
+   <?php } ?>
 </div>
    
 
@@ -234,16 +247,16 @@
             </div>
 
 
-        <form action = "addms" method ="post">
+        <form action = "/PCInventory/mouse/addms" method ="post">
 
             <div  class="modal-body">
                 <div class="form-group">
                     <label for="mspropertyno">Property No.</label>
-                    <input type="text" name="mspropertyno"  id="propertyno-input" class="LV_field" class="form-control">
+                    <input type="text" name="mspropertyno"   id="mypropertyno-input" class="LV_field" class="form-control">
                 </div>
                 <div class="form-group">
                     <label for="msdescription">Description</label>
-                    <input type="text" name="msdescription"  id="description-input" class="LV_field" class="form-control">
+                    <input type="text" name="msdescription"  id="mydescription-input" class="LV_field" class="form-control">
                 </div>
                   <div class="form-group">
                     <label for="available">Status</label>
@@ -305,17 +318,17 @@
                 <i class="glyphicon glyphicon-pencil"></i>
                 Edit 
             </div>
-        <form action = "editms" method ="post">
+        <form action = "/PCInventory/mouse/editms" method ="post">
 
                 <div class="modal-body">
                     <input type="text" name="id" value="<?php echo  $row['Mouse']['id'];?>"/>
                     <div class="form-group">
                         <label for="mspropertyno">Property No.</label>
-                        <input type="text" name="mspropertyno" id="mspropertyno" value="<?php echo $row['Mouse']['mspropertyno']; ?>" class="form-control"/>
+                        <input type="text" name="mspropertyno" id="mypropertyno_edit-input" class="LV_field" value="<?php echo $row['Mouse']['mspropertyno']; ?>" class="form-control"/>
                     </div>
                      <div class="form-group">
                         <label for="msdescription">Description</label>
-                        <input type="text" name="msdescription" id="msdescription" value="<?php echo $row['Mouse']['msdescription']; ?>" class="form-control"/>
+                        <input type="text" name="msdescription" id="mydescription_edit-input" class="LV_field" value="<?php echo $row['Mouse']['msdescription']; ?>" class="form-control"/>
                     </div>
                      
                     
@@ -421,7 +434,7 @@
                 <i class="glyphicon glyphicon-pencil"></i>
                 Delete 
             </div>
-            <form action="deletems" method="post">
+            <form action="/PCInventory/mouse/deletems" method="post">
                 <div class="modal-body">
                     <input type="hidden" name="id" value="<?php echo  $row['Mouse']['id'];?>"/>
                     Are you sure you want to delete this data?
