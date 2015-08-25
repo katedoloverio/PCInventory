@@ -267,21 +267,20 @@
             <div  class="modal-body">
                 <div class="form-group">
                     <label for="empfirstname">First Name</label>
-                    <input  type="text" name="empfirstname" id="fname-input" class="LV_field"  class="form-control" >
+                    <input  type="text" name="empfirstname" id="fname-input"   class="form-control" >
                 </div>
                 <div class="form-group">
                     <label for="emplastname">Last Name</label>
-                    <input type="text" name="emplastname" id="lname-input" class="LV_field" class="form-control" >
+                    <input type="text" name="emplastname" id="lname-input" class="form-control" >
                 </div>
                   <div class="form-group">
                     <label for="empcompanyid">Company ID</label>
-                    <input type="text" name="empcompanyid" id="companyID-input" class="LV_field" class="form-control">
+                    <input type="text" name="empcompanyid" id="companyID-input" class="form-control">
                 </div>
                 <div class="form-group">
                 <label for="">Photo</label>
                <div class="input file" ><label for="PageImage"></label>
-             
-<?php echo $this->Form->input('empphoto', array('type' => 'file', 'class' => 'form-control', 'value' => '')); ?>
+<div class="input file"><input type="file" name="data[Employee][empphoto]"  class="form-control LV_field" id="EmployeeEmpphoto"/></div>              
               </div>
 
                 </div>
@@ -291,7 +290,7 @@
 
                       <select name="empstatus" id="available" class="form-control" id="status-input" class="LV_field">
                         <option value="1"> Active</option>
-                        <option  value="2"> Resign</option>          
+                                  
                         </select>
                
                 </div>
@@ -351,7 +350,7 @@
                
                <div class="input file"><label for="PageImage"></label>
              
-<?php echo $this->Form->input('empphoto', array('type' => 'file', 'class' => 'form-control', 'value' => '')); ?>
+<?php echo $this->Form->input('empphoto', array('type' => 'file', 'class' => 'form-control LV_field', 'value' => '')); ?>
               </div>
 
                 </div>

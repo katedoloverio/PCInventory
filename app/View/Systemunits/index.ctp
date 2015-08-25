@@ -325,11 +325,11 @@
                     <input type="text" name="id" value="<?php echo  $row['Systemunit']['id'];?>"/>
                     <div class="form-group">
                         <label for="supropertyno">Property No.</label>
-                        <input type="text" name="supropertyno" id="supropertyno" value="<?php echo $row['Systemunit']['supropertyno']; ?>" class="form-control"/>
+                        <input type="text" name="supropertyno" id="mypropertyno_edit-input" class="LV_field" value="<?php echo $row['Systemunit']['supropertyno']; ?>" class="form-control"/>
                     </div>
                      <div class="form-group">
                         <label for="sudescription">Description</label>
-                        <input type="text" name="sudescription" id="sudescription" value="<?php echo $row['Systemunit']['sudescription']; ?>" class="form-control"/>
+                        <input type="text" name="sudescription" id="mydescription_edit-input" class="LV_field"  value="<?php echo $row['Systemunit']['sudescription']; ?>" class="form-control"/>
                     </div>
                      
                     
