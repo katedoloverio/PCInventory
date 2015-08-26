@@ -156,20 +156,16 @@ public function delete() {
     
  	 $match= $this->Gadget->find('all',
 				array(
-					
 					'conditions' => array(
-						    'Gadget.ggpropertyno'=> $searchInput,
-						    'OR' => array(
-						        "MATCH(Gadget.ggdescription) ('". $searchInput."' IN BOOLEAN MODE)",
-						        "MATCH(Gadget.ggserial) ('". $searchInput."' IN BOOLEAN MODE)"
-						    )
+						 'Gadget.ggpropertyno LIKE' => '%'. $searchInput. '%',
+						// 'Gadget.ggdescription LIKE' => '%'. $searchInput. '%',
+						// 'Gadget.ggserial LIKE' => '%'. $searchInput. '%',
+						// 'Gadget.ggstatus LIKE' => '%'. $searchInput. '%', 
+						// 'Gadget.ggavailability LIKE' => '%'. $searchInput. '%'
 						)
-
-
 					)
-
 				);
-pr($match);
+
      $this->Set('showGadget', $match);
      
 
