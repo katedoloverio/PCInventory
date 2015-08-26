@@ -17,11 +17,11 @@ App::uses('Alert', 'lib');
 class MonitorsController extends AppController {
 
 
-
-	  public $uses = array('Product', 'User', 'Employee', 'Monitor', 'Mouse','Keyboard','Systemunit', 'Videocard', 'Inventory');
+    public $uses = array('Product', 'User', 'Employee', 'Monitor', 'Mouse','Keyboard','Systemunit', 'Videocard','Headset','Speaker','Up','Inventory');
 	public $helpers = array('Html', 'Form');
-
 	public $components = array('Session', 'Paginator');
+
+
 
  public function beforeFilter(){
 
@@ -128,9 +128,7 @@ public function edit() {
 
             if(empty($data['mopropertyno']) || empty($data['modescription']) || empty($data['mostatus']) ||
              empty($data['motype']) || empty($data['moavailability']) ) {
-   
-pr( $data);
-die();
+
                 $this->Session->setFlash($this->alert->danger('All fields must have values.'),'default', array(), 'monitor_error');   
             }else{
              $checkExist = $this->Monitor->find('first',

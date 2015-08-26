@@ -124,6 +124,7 @@
         Router::connect('/gadget/addgdgt', array('controller' => 'gadgets', 'action' => 'add'));
         Router::connect('/gadget/editgdgt', array('controller' => 'gadgets', 'action' => 'edit'));
         Router::connect('/gadget/deletegdgt', array('controller' => 'gadgets', 'action' => 'delete'));
+        Router::connect('/gadget/searchGadss', array('controller' => 'gadgets', 'action' => 'searchGadss'));
         // Router::connect('/gadget/get_all_gadgets', array('controller' => 'gadgets', 'action' => 'get_all_gadgets'));
         // Router::connect('/gadget/get_ajaxified_gadgets', array('controller' => 'gadgets', 'action' => 'get_ajaxified_gadgets'));
 

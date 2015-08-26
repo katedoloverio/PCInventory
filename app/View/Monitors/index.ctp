@@ -224,18 +224,16 @@ $motype = $monitor['Monitor']['motype'];
  <div class="text-center">
    
    <?php if ($allMonitors > 10){ ?>
-    <ul class="pagination" "text-center">
-    <li><?php echo $this->Paginator->prev(__('Previous'), array(), null, array('class' => 'prev disabled'));?></li>
+    <ul class="pagination pagination-large">
 
-   <li><?php echo $this->Paginator->numbers(array('separator' => '')); ?></li>
+    <li><?php  echo $this->Paginator->prev(__('prev'), array('tag' => 'li'), null, array('tag' => 'li','class' => 'disabled','disabledTag' => 'a'));?></li>
 
-   <li> <?php echo $this->Paginator->next(__('Next'), array(), null, array('class' => 'next disabled'));
-    ?></li>
-
+    <li><?php  echo $this->Paginator->numbers(array('separator' => '','currentTag' => 'a', 'currentClass' => 'active','tag' => 'li','first' => 1)); ?></li>
+    <li> <?php  echo $this->Paginator->next(__('next'), array('tag' => 'li','currentClass' => 'disabled'), null, array('tag' => 'li','class' => 'disabled','disabledTag' => 'a'));?></li>
+   
    </ul>
    <?php } ?>
-</div>
-   
+
 
 
         </div>

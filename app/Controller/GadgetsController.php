@@ -40,7 +40,7 @@ class GadgetsController extends AppController {
     // similar to findAll(), but fetches paged results
     $data = $this->Paginator->paginate('Gadget');
     $this->set('gadgets', $data);
-}
+	}
 
 public function addgdgt() {
 		if ($this->request->is('post')) {
@@ -149,5 +149,32 @@ public function delete() {
 	$this->redirect($this->referer());
 }
 
+	public function searchGadss(){
 
+	//$this->autoRender = false;
+     $searchInput = $this->request->data['input'];
+    
+ 	 $match= $this->Gadget->find('all',
+				array(
+					
+					'conditions' => array(
+						    'Gadget.ggpropertyno'=> $searchInput,
+						    'OR' => array(
+						        "MATCH(Gadget.ggdescription) ('". $searchInput."' IN BOOLEAN MODE)",
+						        "MATCH(Gadget.ggserial) ('". $searchInput."' IN BOOLEAN MODE)"
+						    )
+						)
+
+
+					)
+
+				);
+pr($match);
+     $this->Set('showGadget', $match);
+     
+
+	}
+
+
+	
 }

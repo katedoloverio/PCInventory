@@ -5,15 +5,52 @@ input[type=text], input[type=button], input[type=password] {
     width: 100%;
 }
 
+
+body { 
+ background: url('/PCInventory/img/bc.jpg') no-repeat center center fixed; 
+ -webkit-background-size: cover;
+ -moz-background-size: cover;
+ -o-background-size: cover;
+ background-size: cover;
+}
+
+.panel-default {
+ opacity: 0.9;
+ margin-top:30px;
+}
+
+.form-group.last {
+ margin-bottom:0px;
+}
+
+label {
+ color: white;
+font-weight: bold;
+}
+
+.panel-transparent {
+        background: none;
+    }
+
+    .panel-transparent .panel-heading{
+        background: rgba(122, 130, 136, 0.2)!important;
+    }
+
+   
+    .panel-transparent .panel-footer{
+        background: rgba(122, 130, 136, 0.2)!important;
+    }
+
 </style>
+
 
 
 <div class="container">
  <div class="row">
   <div class="col-sm-4 col-sm-offset-4">
-   <div class="panel panel-default" style="margin-top:200px;">
+   <div class="panel  panel-transparent" style="margin-top:200px;">
     <div class="panel-heading">
-     <b>Login</b>
+     <label>Login</label>
     </div>
     <div class="panel-body">
      <form action="/PCInventory/users/login"  method="post">

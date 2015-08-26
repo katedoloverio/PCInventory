@@ -123,12 +123,47 @@
           </ul>
         </li>
       </ul>
-      <form class="navbar-form navbar-left" role="search">
+
+     
+      <form class="navbar-form navbar-left" role="search" method="post">
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="Search">
+          <input type="text" name ="search" id="search" class="form-control" placeholder="Search">
         </div>
-        <button type="submit" class="btn btn-default">Submit</button>
+        <button type="submit" id="submit" class="btn btn-default">Search</button>
       </form>
+
+<script>
+ $(document).ready(function(){
+  $('#submit').click(function(){
+   var search = $('#search').val();
+   
+   if (search != '') {
+            $.ajax({                   
+              url: 'searchGadss',
+              cache: false,
+              type: 'POST',
+              dataType: 'HTML',
+           data: {
+             input: search
+            },
+              success: function (clients) {
+               $('#gad').html(clients);
+              }
+             });
+          $('.mytable').hide();
+          return false;
+   }  else {
+    return false;
+   }
+          
+          
+  });
+
+  }
+ );
+</script>
+
+
       <ul class="nav navbar-nav navbar-right">
         
         <li class="dropdown">
@@ -158,7 +193,7 @@
 
 
         <div class="panel-heading">
-                Gadget Table
+                Gadget Table  
         </div>
 
         <div class="panel-body" style="background-color:white" >
@@ -230,6 +265,7 @@
 
 
 <div class="container">
+<div class="mytable">
 <table class="table table-bordered table-hover" >
 	<tr>
 		<th><?php echo $this->Paginator->sort('Property No.'); ?></th>
@@ -249,9 +285,9 @@
      ?>
 
 
-	<tr>
-		<td><?php echo $gadget['Gadget']['ggpropertyno']; ?></td>
-		<td><?php echo $gadget['Gadget']['ggdescription']; ?></td>
+	   <tr>
+		   <td><?php echo $gadget['Gadget']['ggpropertyno']; ?></td>
+		    <td><?php echo $gadget['Gadget']['ggdescription']; ?></td>
         <td><?php echo $gadget['Gadget']['ggserial']; ?></td>
         <td><?php echo $gadget['Gadget']['ggstatus']; ?></td>
         <td><?php echo $gadget['Gadget']['ggavailability']; ?></td>
@@ -260,7 +296,7 @@
       
 
 		<td>
-        <a href="#view<?php echo $gadget['Gadget']['id'];?>" data-toggle="modal" class="btn btn-success"><i class="glyphicon glyphicon-search"> </i>View</a>
+    <a href="#view<?php echo $gadget['Gadget']['id'];?>" data-toggle="modal" class="btn btn-success"><i class="glyphicon glyphicon-search"> </i>View</a>
 
 		<a href="#edit<?php echo $gadget['Gadget']['id'];?>" data-toggle="modal" class="btn btn-primary"> <i class="glyphicon glyphicon-edit"> </i>Edit</a>
 
@@ -275,8 +311,9 @@
 </table>
 
     <?php echo $this->Paginator->counter(array('format' => __('Page {:page} of {:pages}, showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}'))); ?>
+    </div>
 
-   
+   <div id="gad"> </div>
 
    <?php if ($allGadgets > 5){ ?>
     <ul class="pagination" "text-center">
@@ -460,5 +497,4 @@
 </div>
 
 <?php } ?>
-
 

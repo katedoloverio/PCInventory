@@ -151,7 +151,7 @@
 <div  class="panel panel-default" >
         
         <div class="panel-heading" >PC Table </div>
-        <div class="panel-body" style="background-color:navyblue" > <div>
+        <div class="panel-body"  > <div>
 
 
 <!--DISPLAY PC DETAILS IN TABLE-->
@@ -196,19 +196,21 @@
  
 <td><a href="#viewmo<?php echo $inventory['Inventory']['monitor_id']?>" data-toggle="modal"><?php echo $inventory['Monitor']['mopropertyno'] ?></a></td>
        
-
 <td><a href="#viewvc<?php echo $inventory['Inventory']['videocard_id']?>" data-toggle="modal"><?php echo $inventory['Videocard']['vcpropertyno'] ?></a></td>
-       
 
 <td><a href="#viewms<?php echo $inventory['Inventory']['mouse_id']?>" data-toggle="modal"><?php echo $inventory['Mouse']['mspropertyno'] ?></a></td>
+       
+<td><a href="#viewkb<?php echo $inventory['Inventory']['keyboard_id']?>" data-toggle="modal"><?php echo $inventory['Keyboard']['kbpropertyno'] ?></a></td>
+       
+<td><a href="#viewhs<?php echo $inventory['Inventory']['headset_id']?>" data-toggle="modal"><?php echo $inventory['Headset']['hspropertyno'] ?></a></td>
+       
+<td><a href="#viewsp<?php echo $inventory['Inventory']['speaker_id']?>" data-toggle="modal"><?php echo $inventory['Speakers']['sppropertyno'] ?></a></td>
+       
+<td><a href="#viewup<?php echo $inventory['Inventory']['up_id']?>" data-toggle="modal"><?php echo $inventory['Up']['uppropertyno'] ?></a></td>
+       
 
 
- <td><a href="#viewkb<?php echo $inventory['Inventory']['keyboard_id']?>" data-toggle="modal">
-<?php echo $inventory['Keyboard']['kbpropertyno'] ?></a></td>
-        
-        <td><?php echo $inventory['Inventory']['headset_id']; ?></td>
-        <td><?php echo $inventory['Inventory']['speaker_id']; ?></td>
-        <td><?php echo $inventory['Inventory']['ups_id']; ?></td>
+
         <td><?php echo $inventory['Inventory']['os_id']; ?></td>
         <td><?php echo $inventory['Inventory']['pcosserialno']; ?></td>
         <td><?php echo $inventory['Inventory']['pcadditionalinfo']; ?></td>
