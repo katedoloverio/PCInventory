@@ -16,7 +16,6 @@ App::uses('Alert', 'lib');
 
 class EmployeesController extends AppController {
 
-
     public $uses = array(
           'Product', 
           'User', 
@@ -36,6 +35,7 @@ class EmployeesController extends AppController {
       'Form');
 
     public $components = array('Session', 'Paginator');
+
 
     public function beforeFilter(){
       parent::beforeFilter();
