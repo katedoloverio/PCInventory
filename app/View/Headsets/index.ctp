@@ -256,11 +256,11 @@
             <div  class="modal-body">
                 <div class="form-group">
                     <label for="hspropertyno">Property No.</label>
-                    <input type="text" name="hspropertyno" id="hspropertyno-input" class="LV_field"   class="form-control">
+                    <input type="text" name="hspropertyno" id="hspropertyno-input"  class="form-control">
                 </div>
                 <div class="form-group">
                     <label for="hsdescription">Description</label>
-                    <input type="text" name="hsdescription" id="hsdescription-input" class="LV_field"   class="form-control">
+                    <input type="text" name="hsdescription" id="hsdescription-input"  class="form-control">
                 </div>
                   <div class="form-group">
                     <label for="available">Status</label>
@@ -328,11 +328,11 @@
                     <input type="text" name="id" value="<?php echo  $row['Headset']['id'];?>"/>
                     <div class="form-group">
                         <label for="hspropertyno">Property No.</label>
-                        <input type="text"  name="hspropertyno" id="hspropertyno_edit-input" class="LV_field" value="<?php echo $row['Headset']['hspropertyno']; ?>" class="form-control"/>
+                        <input type="text"  name="hspropertyno" id="hspropertyno_edit-input"  value="<?php echo $row['Headset']['hspropertyno']; ?>" class="form-control"/>
                     </div>
                      <div class="form-group">
                         <label for="hsdescription">Description</label>
-                        <input type="text"  name="hsdescription" id="hsdescription_edit-input" class="LV_field" value="<?php echo $row['Headset']['hsdescription']; ?>" class="form-control"/>
+                        <input type="text"  name="hsdescription" id="hsdescription_edit-input"  value="<?php echo $row['Headset']['hsdescription']; ?>" class="form-control"/>
                     </div>
                      
                     

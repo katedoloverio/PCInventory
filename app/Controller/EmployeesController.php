@@ -17,125 +17,126 @@ App::uses('Alert', 'lib');
 class EmployeesController extends AppController {
 
 
-  public $uses = array('Product', 'User', 'Employee', 'Monitor', 'Mouse','Keyboard','Systemunit', 'Videocard', 'Inventory');
-	
-  public $helpers = array('Html', 'Form');
+    public $uses = array(
+          'Product', 
+          'User', 
+          'Employee', 
+          'Monitor', 
+          'Mouse',
+          'Keyboard',
+          'Systemunit', 
+          'Videocard', 
+          'Headset', 
+          'Speaker', 
+          'Up',
+          'Inventory');
+          
+    public $helpers = array(
+      'Html',   
+      'Form');
 
-	public $components = array('Session', 'Paginator');
+    public $components = array('Session', 'Paginator');
 
-
-  public function beforeFilter(){
-
-       parent::beforeFilter();
-       $this->alert = new Alert();
+    public function beforeFilter(){
+      parent::beforeFilter();
+        $this->alert = new Alert();
   }
 
-	public function index() {
+  public function index() {
 
-        $all = $this->Employee->find('all');
+    $all = $this->Employee->find('all');
         $number= count($all);
-        $this->Set('allEmployees', $number);
-        
-
-         $this->Paginator->settings = array( 'limit' => 10);
-
-   
-          $data = $this->Paginator->paginate('Employee');
-          $this->set('employees', $data);
-
+        $this->Set('allEmployees', $number);    
+        $this->Paginator->settings = array( 'limit' => 10);
+        $data = $this->Paginator->paginate('Employee');
+        $this->set('employees', $data);
 
     }
 
     public function add() {
 
+        $this->autoRender = false;    
 
-        $this->autoRender = false;
-            if ($this->request->is('post')) {
-         $accept = $this->request->data;
-         if( empty($accept['empfirstname']) ||  empty($accept['emplastname']) ||  empty($accept['empcompanyid']) ||  empty($accept['Employee']['empphoto']['name']) ||  empty($accept['empstatus'])  ){
-          
-          $this->Session->setFlash($this->alert->danger('All fields must have values.'),'default', array(), 'error');   
-          $this->redirect($this->referer());
-         }
+        if ($this->request->is('post')) {
+        $accept = $this->request->data;
+         
+          if( empty($accept['empfirstname']) ||  empty($accept['emplastname']) ||  empty($accept['empcompanyid']) ||  empty($accept['Employee']['empphoto']['name']) ||  empty($accept['empstatus'])  ){
+            $this->Session->setFlash($this->alert->danger('All fields must have values.'),'default', array(), 'error');   
+            $this->redirect($this->referer());
 
-          else{
+          } else {
 
                 $checkExist = $this->Employee->find('first',
                 array(
                     'fields' => 'empcompanyid',
-                    'conditions' => array(
-                        'empcompanyid' => $accept['empcompanyid']
-                        )
+                      'conditions' => array(
+                       'empcompanyid' => $accept['empcompanyid']
+                       )
                     )
                 );
 
-                if($checkExist){
+                if ($checkExist) {
 
                     $this->Session->setFlash($this->alert->danger('Update failed. Employee company ID already exist.'),'default', array(), 'error');   
                     
-                } else{
+                } else {
 
-         $data = array(
-       'Employee' => array(
-                'empfirstname' => $accept['empfirstname'],
-                'emplastname' => $accept['emplastname'],
-                'empcompanyid' => $accept['empcompanyid'],
-                'empphoto' => $accept['Employee']['empphoto']['name'],
-                'empstatus' => $accept['empstatus']
-                
-                 )
-                 );
-        $this->Employee->create($data);
-        $this->Employee->save($data);
-        $path = WWW_ROOT . 'img/users/'.$accept['Employee']['empphoto']['name'];
-        $upload = move_uploaded_file($accept['Employee']['empphoto']['tmp_name'], $path);
+                 $data = array(
+                        'Employee' => array(
+                          'empfirstname' => $accept['empfirstname'],
+                          'emplastname' => $accept['emplastname'],
+                          'empcompanyid' => $accept['empcompanyid'],
+                          'empphoto' => $accept['Employee']['empphoto']['name'],
+                          'empstatus' => $accept['empstatus']
+                              )
+                        );
 
-          $this->Session->setFlash($this->alert->success('Sucessfully added.'), 'default', array(), 'added');
-         }
-         
+                    $this->Employee->create($data);
+                    $this->Employee->save($data);
+                    $path = WWW_ROOT . 'img/users/'.$accept['Employee']['empphoto']['name'];
+                    $upload = move_uploaded_file($accept['Employee']['empphoto']['tmp_name'], $path);
+                    $this->Session->setFlash($this->alert->success('Sucessfully added.'), 'default', array(), 'added');
 
-
-  $this->redirect($this->referer());
+                 }
+               $this->redirect($this->referer());
             }
 
            
-          }
-            $this->Session->setFlash(__('Could not register user'));
+        }
+               $this->Session->setFlash(__('Could not register user'));
 
-        
-
-
-}
+    }
 
 
 
-public function edit() {
+  public function edit() {
     
- $this->autoRender = false;
+     $this->autoRender = false;
   
         if ($this->request->is('post')) {
-            
             $data = $this->request->data;
 
-            if(empty($data['empfirstname']) || empty($data['emplastname']) || empty($data['empcompanyid'])
-             || empty($data['empstatus']) ) {
+            if(empty($data['empfirstname']) || empty($data['emplastname']) || empty($data['empcompanyid']) || empty($data['empstatus']) ) {
 
                 $this->Session->setFlash($this->alert->danger('All fields must have values.'),'default', array(), 'error');   
-            }else{
-             $checkExist = $this->Employee->find('first',
+           
+            } else {
+
+              $checkExist = $this->Employee->find('first',
+                   
                    array(
                     'fields' => 'empcompanyid',
-                    'conditions' => array(
-                      'empcompanyid' => $data['empcompanyid']
-                      )
-                    )
-                  );
+                      'conditions' => array(
+                        'empcompanyid' => $data['empcompanyid']
+                        )
+                   )
+              );
 
               if($checkExist){
                 
                 $this->Session->setFlash($this->alert->danger('Update failed. Employee company ID already exist.'),'default', array(), 'error');   
                 
-                 }else{
+              } else {
 
                       $prepareData = array(
                          'Employee' => array(
@@ -143,29 +144,29 @@ public function edit() {
                                 'emplastname' => $data['emplastname'],
                                 'empcompanyid' => $data['empcompanyid'],
                                 'empstatus' => $data['empstatus']
+                          )
+                      );
 
-                        )
-                    );
                     $this->Employee->id = $data['id'];
                     $this->Employee->save($prepareData);
                      
                     $this->Session->setFlash($this->alert->success('Update Success.'), 'default', array(), 'good');
                     
-                   }
+                      }
   
 
-               } 
+              } 
                 
-
             $this->redirect($this->referer());
             exit();
 
 
         }
-}
+  }
 
 
-public function editphoto() {
+  public function editphoto() {
+
        $this->autoRender = false;
   
         if ($this->request->is('post')) {
@@ -175,51 +176,62 @@ public function editphoto() {
             if(empty($data['Employee']['empphoto']['name'])) {
 
                 $this->Session->setFlash($this->alert->danger('No file choosen.'),'default', array(), 'error');   
-            }else{
-
-
+          
+            } else {
 
                       $prepareData = array(
                          'Employee' => array(
-                               
-                                'empphoto' => $data['Employee']['empphoto']['name']
+                         'empphoto' => $data['Employee']['empphoto']['name']
+                          )
+                      );
 
-                        )
-                    );
-                    $this->Employee->id = $data['Employee']['id'];
-                    $this->Employee->save($prepareData);
-                     $path = WWW_ROOT . 'img/users/'. $data['Employee']['empphoto']['name'];
-                     $upload = move_uploaded_file( $data['Employee']['empphoto']['tmp_name'], $path);
 
-                    $this->Session->setFlash($this->alert->success('Update Success.'), 'default', array(), 'good');
+                      $this->Employee->id = $data['Employee']['id'];
+                      $this->Employee->save($prepareData);
+                      $path = WWW_ROOT . 'img/users/'. $data['Employee']['empphoto']['name'];
+                      $upload = move_uploaded_file( $data['Employee']['empphoto']['tmp_name'], $path);
+
+                      $this->Session->setFlash($this->alert->success('Update Success.'), 'default', array(), 'good');
                     
                    }
-  
-
-               } 
+            } 
                 
-
             $this->redirect($this->referer());
             exit();
-
-
-        }
+  }
 
 
   public function delete() {
-      	$this->autoRender = false;
-      	$id = $this->request->data['id'];
-      	
-      	if ($this->Employee->delete($id)) {
-      	$this->Session->setFlash('<div class="alert alert-success"><i class="glyphicon glyphicon-ok"></i> Successfully deleted.</div>', 'default', array(), 'good');
-      		return $this->redirect(array('action' => 'index'));
-      	}
-      	$this->Session->setFlash(__('Could not remove employee'));
-      	$this->redirect($this->referer());
+
+        $this->autoRender = false;
+        $id = $this->request->data['id'];
+        if ($this->Employee->delete($id)) {
+
+        $this->Session->setFlash('<div class="alert alert-success"><i class="glyphicon glyphicon-ok"></i> Successfully deleted.</div>', 'default', array(), 'good');
+        
+        return $this->redirect(array('action' => 'index'));
+        
+        }
+
+        $this->Session->setFlash(__('Could not remove employee'));
+        $this->redirect($this->referer());
+  }
+
+    public function searchEmployee() {
+
+     $searchInput = $this->request->data['input'];
+      
+     $match= $this->Employee->find('all',
+          array(
+            'conditions' => array(
+               'Employee.empfirstname LIKE' => '%'. $searchInput. '%',
+              )
+            )
+          );
+
+       $this->Set('showEmployee', $match);  
+    }
+
 }
 
-
-
-
-
-}
+?>

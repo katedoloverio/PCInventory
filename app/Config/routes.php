@@ -40,7 +40,7 @@
          Router::connect('/employee/editemp', array('controller' => 'employees', 'action' => 'edit'));
          Router::connect('/employee/deleteemp', array('controller' => 'employees', 'action' => 'delete'));
          Router::connect('/employee/home', array('controller' => 'employees', 'action' => 'home'));
-
+         Router::connect('/employee/searchEmployee', array('controller' => 'employees', 'action' => 'searchEmployee'));
          //MONITOR  - Property 
          Router::connect('/monitor/index', array('controller' => 'monitors', 'action' => 'index'));
          Router::connect('/monitor/addmon', array('controller' => 'monitors', 'action' => 'add'));
@@ -86,7 +86,7 @@
          Router::connect('/headset/deletehs', array('controller' => 'headsets', 'action' => 'delete'));
          Router::connect('/headset/home', array('controller' => 'headsets', 'action' => 'home'));
     
-      //Speakers - Property 
+        //Speakers - Property 
          Router::connect('/speaker/index', array('controller' => 'speakers', 'action' => 'index'));
          Router::connect('/speaker/addsp', array('controller' => 'speakers', 'action' => 'add'));
          Router::connect('/speaker/editsp', array('controller' => 'speakers', 'action' => 'edit'));
@@ -125,9 +125,7 @@
         Router::connect('/gadget/editgdgt', array('controller' => 'gadgets', 'action' => 'edit'));
         Router::connect('/gadget/deletegdgt', array('controller' => 'gadgets', 'action' => 'delete'));
         Router::connect('/gadget/searchGadss', array('controller' => 'gadgets', 'action' => 'searchGadss'));
-        // Router::connect('/gadget/get_all_gadgets', array('controller' => 'gadgets', 'action' => 'get_all_gadgets'));
-        // Router::connect('/gadget/get_ajaxified_gadgets', array('controller' => 'gadgets', 'action' => 'get_ajaxified_gadgets'));
-
+       
         Router::connect('/page/index', array('controller' => 'Pages', 'action' => 'index'));
 /**
  * ...and connect the rest of 'Pages' controller's urls.

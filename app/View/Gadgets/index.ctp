@@ -214,15 +214,15 @@
             <div  class="modal-body">
                 <div class="form-group">
                     <label for="ggpropertyno">Property Number</label>
-                    <input type="text" name="data[Gadget][ggpropertyno]" id="gdgtpropertyno-input" class="LV_field" class="form-control">
+                    <input type="text" name="data[Gadget][ggpropertyno]" id="gdgtpropertyno-input" class="form-control">
                 </div>
                 <div class="form-group">
                     <label for="ggdescription">Description</label>
-                    <input type="text" name="data[Gadget][ggdescription]" id="gdgtdescription-input" class="LV_field" class="form-control">
+                    <input type="text" name="data[Gadget][ggdescription]" id="gdgtdescription-input" class="form-control">
                 </div>
                   <div class="form-group">
                     <label for="ggserial">Serial No.</label>
-                    <input type="text" name="data[Gadget][ggserial]" id="gdgtserial-input" class="LV_field"  class="form-control">
+                    <input type="text" name="data[Gadget][ggserial]" id="gdgtserial-input" class="form-control">
                 </div>
                  <div class="form-group">
                     <label for="ggstatus">Status</label>
@@ -355,15 +355,15 @@
                     <input type="text" name="id" value="<?php echo  $row['Gadget']['id'];?>"/>
                     <div class="form-group">
                         <label for="ggpropertyno">Property No.</label>
-                        <input type="text" name="ggpropertyno"  id="gdgtpropertyno_edit-input" class="LV_field" value="<?php echo $row['Gadget']['ggpropertyno']; ?>" class="form-control"/>
+                        <input type="text" name="ggpropertyno"  id="gdgtpropertyno_edit-input"  value="<?php echo $row['Gadget']['ggpropertyno']; ?>" class="form-control"/>
                     </div>
                      <div class="form-group">
                         <label for="ggdescription">Description</label>
-                        <input type="text" name="ggdescription" id="gdgtdescription_edit-input" class="LV_field" value="<?php echo $row['Gadget']['ggdescription']; ?>" class="form-control"/>
+                        <input type="text" name="ggdescription" id="gdgtdescription_edit-input"  value="<?php echo $row['Gadget']['ggdescription']; ?>" class="form-control"/>
                     </div>
                      <div class="form-group">
                         <label for="ggserial">Serial No.</label>
-                        <input type="text" name="ggserial" id="gdgtserial_edit-input" class="LV_field"   value="<?php echo $row['Gadget']['ggserial']; ?>" class="form-control"/>
+                        <input type="text" name="ggserial" id="gdgtserial_edit-input"    value="<?php echo $row['Gadget']['ggserial']; ?>" class="form-control"/>
                     </div>
                    
                     
