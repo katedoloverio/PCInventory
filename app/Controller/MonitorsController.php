@@ -17,19 +17,32 @@ App::uses('Alert', 'lib');
 class MonitorsController extends AppController {
 
 
-    public $uses = array('Product', 'User', 'Employee', 'Monitor', 'Mouse','Keyboard','Systemunit', 'Videocard','Headset','Speaker','Up','Inventory');
-	public $helpers = array('Html', 'Form');
-	public $components = array('Session', 'Paginator');
+     public $uses = array(
+          'Product', 
+          'User', 
+          'Employee', 
+          'Monitor', 
+          'Mouse',
+          'Keyboard',
+          'Systemunit', 
+          'Videocard', 
+          'Headset', 
+          'Speaker', 
+          'Up',
+          'Inventory');
+          
+    public $helpers = array(
+      'Html',   
+      'Form');
+
+    public $components = array('Session', 'Paginator');
 
 
-
- public function beforeFilter(){
-
-     parent::beforeFilter();
-     $this->alert = new Alert();
-     }
-
-  public function index() {
+    public function beforeFilter(){
+      parent::beforeFilter();
+        $this->alert = new Alert();
+    }
+    public function index() {
 
         
         $all = $this->Monitor->find('all');

@@ -17,7 +17,7 @@ App::uses('Alert', 'lib');
 class HeadsetsController extends AppController {
 
 
-   public $uses = array('Product', 'User', 'Employee', 'Monitor', 'Mouse','Keyboard','Systemunit', 'Videocard', 'Headset', 'Speaker', 'Up','Inventory');
+    public $uses = array('Product', 'User', 'Employee', 'Monitor', 'Mouse','Keyboard','Systemunit', 'Videocard', 'Headset', 'Speaker', 'Up','Inventory');
 
 	public $helpers = array('Html', 'Form');
 

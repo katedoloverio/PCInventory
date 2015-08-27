@@ -41,6 +41,7 @@
          Router::connect('/employee/deleteemp', array('controller' => 'employees', 'action' => 'delete'));
          Router::connect('/employee/home', array('controller' => 'employees', 'action' => 'home'));
          Router::connect('/employee/searchEmployee', array('controller' => 'employees', 'action' => 'searchEmployee'));
+         
          //MONITOR  - Property 
          Router::connect('/monitor/index', array('controller' => 'monitors', 'action' => 'index'));
          Router::connect('/monitor/addmon', array('controller' => 'monitors', 'action' => 'add'));
@@ -106,9 +107,8 @@
          Router::connect('/inventory/editpc', array('controller' => 'inventorys', 'action' => 'edit'));
          Router::connect('/inventory/deletepc', array('controller' => 'inventorys', 'action' => 'delete'));
          Router::connect('/inventory/home', array('controller' => 'inventorys', 'action' => 'home'));
-    
-
-
+         Router::connect('/inventory/searchInventory', array('controller' => 'inventory', 'action' => 'searchInventory'));
+         
 
 
 
@@ -119,7 +119,7 @@
         Router::connect('/product/deleteprod', array('controller' => 'Products', 'action' => 'delete'));
      
 
-
+        //GADGET
         Router::connect('/gadget/index', array('controller' => 'gadgets', 'action' => 'index'));
         Router::connect('/gadget/addgdgt', array('controller' => 'gadgets', 'action' => 'add'));
         Router::connect('/gadget/editgdgt', array('controller' => 'gadgets', 'action' => 'edit'));

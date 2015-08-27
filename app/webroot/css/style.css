@@ -159,3 +159,8 @@
   section{
     padding-left: 15px;
   }
+
+.search-table-outter { overflow-x: scroll; }
+th, td { min-width: 200px; }
+.search-table{table-layout: fixed; margin:40px auto 0px auto;  overflow-x:scroll; }
+.search-table, td, th{border-collapse:collapse; border:1px solid #777;}

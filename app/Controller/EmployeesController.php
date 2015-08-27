@@ -42,7 +42,7 @@ class EmployeesController extends AppController {
         $this->alert = new Alert();
   }
 
-  public function index() {
+    public function index() {
 
     $all = $this->Employee->find('all');
         $number= count($all);
@@ -60,7 +60,7 @@ class EmployeesController extends AppController {
         if ($this->request->is('post')) {
         $accept = $this->request->data;
          
-          if( empty($accept['empfirstname']) ||  empty($accept['emplastname']) ||  empty($accept['empcompanyid']) ||  empty($accept['Employee']['empphoto']['name']) ||  empty($accept['empstatus'])  ){
+          if( empty($accept['empfirstname']) ||  empty($accept['emplastname']) ||  empty($accept['empcompanyid']) ||  empty($accept['empstatus'])  ){
             $this->Session->setFlash($this->alert->danger('All fields must have values.'),'default', array(), 'error');   
             $this->redirect($this->referer());
 
@@ -110,61 +110,57 @@ class EmployeesController extends AppController {
 
 
   public function edit() {
-    
-     $this->autoRender = false;
+  $this->autoRender = false;
   
         if ($this->request->is('post')) {
+            
             $data = $this->request->data;
 
-            if(empty($data['empfirstname']) || empty($data['emplastname']) || empty($data['empcompanyid']) || empty($data['empstatus']) ) {
+            if(empty($data['empfirstname']) || empty($data['emplastname']) || empty($data['empcompanyid']) ||
+             empty($data['empstatus']) ) {
 
                 $this->Session->setFlash($this->alert->danger('All fields must have values.'),'default', array(), 'error');   
-           
-            } else {
-
-              $checkExist = $this->Employee->find('first',
-                   
+            }else{
+             $checkExist = $this->Employee->find('first',
                    array(
                     'fields' => 'empcompanyid',
-                      'conditions' => array(
-                        'empcompanyid' => $data['empcompanyid']
-                        )
-                   )
-              );
+                    'conditions' => array(
+                      'empcompanyid' => $data['empcompanyid']
+                      )
+                    )
+                  );
 
               if($checkExist){
                 
-                $this->Session->setFlash($this->alert->danger('Update failed. Employee company ID already exist.'),'default', array(), 'error');   
+                $this->Session->setFlash($this->alert->danger('Update failed. Company ID already exist.'),'default', array(), 'error');   
                 
-              } else {
+                 }else{
 
                       $prepareData = array(
-                         'Employee' => array(
-                                'empfirstname' => $data['empfirstname'],
-                                'emplastname' => $data['emplastname'],
-                                'empcompanyid' => $data['empcompanyid'],
-                                'empstatus' => $data['empstatus']
-                          )
-                      );
+                        'Employee' => array(
+                            'empfirstname' => $data['empfirstname'],
+                            'emplastname' => $data['emplastname'],
+                            'empcompanyid' => $data['empcompanyid'],
+                            'empstatus' => $data['empstatus']
 
+                        )
+                    );
                     $this->Employee->id = $data['id'];
-                    $this->Employee->save($prepareData);
-                     
+                    $this->Employee->set($prepareData);
+                    $this->Employee->save();
                     $this->Session->setFlash($this->alert->success('Update Success.'), 'default', array(), 'good');
-                    
-                      }
+                   }
   
 
-              } 
+               } 
                 
+
             $this->redirect($this->referer());
             exit();
 
 
         }
-  }
-
-
+}
   public function editphoto() {
 
        $this->autoRender = false;
@@ -204,17 +200,11 @@ class EmployeesController extends AppController {
   public function delete() {
 
         $this->autoRender = false;
-        $id = $this->request->data['id'];
-        if ($this->Employee->delete($id)) {
-
-        $this->Session->setFlash('<div class="alert alert-success"><i class="glyphicon glyphicon-ok"></i> Successfully deleted.</div>', 'default', array(), 'good');
-        
-        return $this->redirect(array('action' => 'index'));
-        
-        }
-
-        $this->Session->setFlash(__('Could not remove employee'));
-        $this->redirect($this->referer());
+         $id = $this->request->data['input'] ;
+          $this->Employee->delete($id);
+ 
+      //    echo '<div class="alert alert-success"><i class="glyphicon glyphicon-ok"></i> Successfully deleted.</div>';
+      
   }
 
     public function searchEmployee() {
@@ -224,7 +214,11 @@ class EmployeesController extends AppController {
      $match= $this->Employee->find('all',
           array(
             'conditions' => array(
-               'Employee.empfirstname LIKE' => '%'. $searchInput. '%',
+              'OR' =>array(
+                'Employee.empfirstname LIKE' => '%'. $searchInput. '%',
+                'Employee.emplastname LIKE' => '%'. $searchInput. '%',
+                'Employee.empcompanyid LIKE' => '%'. $searchInput. '%'
+                )
               )
             )
           );

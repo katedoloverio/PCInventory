@@ -2,7 +2,7 @@
 <?php      
    echo $this->Html->css('stylevalidate.css');
    echo $this->Html->css('validation.css');
-  echo $this->Html->script(array('gadget', 'jquery-1.9.1.min', 'livevalidation_standalone'));
+  echo $this->Html->script(array('gadget', 'jquery-1.9.1.min', 'livevalidation_standalone', 'bootbox.min'));
 ?>
  
 
@@ -125,11 +125,11 @@
       </ul>
 
      
-      <form class="navbar-form navbar-left" role="search" method="post">
+       <form class="navbar-form navbar-left" role="search" method="post" style="margin-top:0px">
         <div class="form-group">
           <input type="text" name ="search" id="search" class="form-control" placeholder="Search">
         </div>
-        <button type="submit" id="submit" class="btn btn-default">Search</button>
+        <button type="submit" id="submit" class="btn btn-default " style="margin-top:5px">Search</button>   
       </form>
 
 <script>
@@ -257,16 +257,12 @@
 
 
 <div>
-
+ <div id="message"></div>
 <div class="panel-body">
-
 <div>
-
-
-
 <div class="container">
 <div class="mytable">
-<table class="table table-bordered table-hover" >
+<table class=" table table-bordered table-hover" >
 	<tr>
 		<th><?php echo $this->Paginator->sort('Property No.'); ?></th>
 		<th><?php echo $this->Paginator->sort('Description'); ?></th>
@@ -296,11 +292,14 @@
       
 
 		<td>
-    <a href="#view<?php echo $gadget['Gadget']['id'];?>" data-toggle="modal" class="btn btn-success"><i class="glyphicon glyphicon-search"> </i>View</a>
+    <a href="#view<?php echo $gadget['Gadget']['id'];?>" data-toggle="modal" class="btn btn-success" title="View"><i class="glyphicon glyphicon-search"> </i></a>
 
-		<a href="#edit<?php echo $gadget['Gadget']['id'];?>" data-toggle="modal" class="btn btn-primary"> <i class="glyphicon glyphicon-edit"> </i>Edit</a>
+    <button id="<?php echo $gadget['Gadget']['id'];?>" class="btn btn-primary " onclick="editGadget(<?php echo $gadget['Gadget']['id']; ?>, '<?php echo $gadget['Gadget']['ggpropertyno']; ?>','<?php echo $gadget['Gadget']['ggdescription']; ?>','<?php echo $gadget['Gadget']['ggserial']; ?>', <?php echo $gadget['Gadget']['ggstatus']; ?>,<?php echo $gadget['Gadget']['ggavailability']; ?>)" 
+      title ="Edit"><i class="glyphicon glyphicon-edit"> </i> 
+    Edit
+    </button>
 
-		<a href="#delete<?php echo $gadget['Gadget']['id'];?>" data-toggle="modal" class="btn btn-danger"><i class="glyphicon glyphicon-trash"> </i>Delete</a></td>
+		<a href="#delete<?php echo $gadget['Gadget']['id'];?>" data-toggle="modal" class="btn btn-danger"  title="Delete"><i class="glyphicon glyphicon-trash"> </i></a></td>
 
 
 
@@ -315,19 +314,16 @@
 
    <div id="gad"> </div>
 
-   <?php if ($allGadgets > 5){ ?>
-    <ul class="pagination" "text-center">
-    <li><?php echo $this->Paginator->prev(__('Previous'), array(), null, array('class' => 'prev disabled'));?></li>
-
-   <li><?php echo $this->Paginator->numbers(array('separator' => '')); ?></li>
-
-   <li> <?php echo $this->Paginator->next(__('Next'), array(), null, array('class' => 'next disabled'));
-    ?></li>
-
-   </ul>
-   <?php } ?>
-     
-</div>
+   
+           <div class="text-center">
+             <?php if ($allGadgets > 5){ ?>
+             <ul class="pagination pagination-large">
+              <li><?php  echo $this->Paginator->prev(__('prev'), array('tag' => 'li'), null, array('tag' => 'li','class' => 'disabled','disabledTag' => 'a'));?></li>
+              <li><?php  echo $this->Paginator->numbers(array('separator' => '','currentTag' => 'a', 'currentClass' => 'active','tag' => 'li','first' => 1)); ?></li>
+              <li> <?php  echo $this->Paginator->next(__('next'), array('tag' => 'li','currentClass' => 'disabled'), null, array('tag' => 'li','class' => 'disabled','disabledTag' => 'a'));?></li>
+             </ul>
+             <?php } ?>
+            </div>
 
    </div>
 
@@ -352,7 +348,7 @@
             </div>
             <form action="/PCInventory/gadget/editgdgt" method="post">
                 <div class="modal-body">
-                    <input type="text" name="id" value="<?php echo  $row['Gadget']['id'];?>"/>
+                    <input type="hidden" name="id" value="<?php echo  $row['Gadget']['id'];?>"/>
                     <div class="form-group">
                         <label for="ggpropertyno">Property No.</label>
                         <input type="text" name="ggpropertyno"  id="gdgtpropertyno_edit-input"  value="<?php echo $row['Gadget']['ggpropertyno']; ?>" class="form-control"/>
@@ -498,3 +494,122 @@
 
 <?php } ?>
 
+<!-- DELETE SCRIPT-->
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.delete').click(function(){
+     var id = $(this).attr("id");
+       bootbox.confirm("Are you sure you want to delete this data?", function(result) {
+          if(result == true){
+           $.ajax({                   
+                  url: 'deletegdgt',
+                  cache: false,
+                  type: 'POST',
+                  dataType: 'HTML',
+               data: {
+                 input: id
+                },
+                  success: function () {
+                  
+                   bootbox.alert("Record successfully deleted.");
+                  }
+                 });
+                  $('.remove'+id).hide('fade');
+          }
+          
+
+        }); 
+
+
+      return false;
+            
+    });
+
+  });
+
+</script>
+
+<!-- EDIT SCRIPT-->
+
+<script type="text/javascript">
+  
+
+   function editGadget(id, ggpropertyno,ggdescription, ggserial, ggstatus, ggavailability){
+
+
+        bootbox.dialog({
+                title: "<i class='fa fa-pencil'></i> Edit Gadget",
+                message: '<div>'+
+                            '<form action="" method="post">'+
+
+                                '<div class="form-control">'+
+                                    '<input type="hidden" name="id" id="id" value="'+id+'"/>'+ 
+                                '</div>'+
+
+                                '<div class="form-control">'+
+                                    '<input type="text" name="ggpropertyno" id="ggpropertyno" value="'+ggpropertyno+'" class="form-control"/>'+
+                                '</div>'+
+
+                                 '<div class="form-control">'+
+                                    '<input type="text" name="ggdescription" id="ggdescription" value="'+ggdescription+'"class="form-control"/>'+
+                                  '</div>'+
+
+
+                                 '<div class="form-control">'+
+                                    '<input type="text" name="ggserial" id="ggserial" value="'+ggserial+'" class="form-control"/>'+
+                                  '</div>'+
+
+                                  '<div class="form-control">'+
+                                    '<input type="text" name="ggstatus" id="ggdescription" value="'+ggstatus+'"class="form-control"/>'+
+                                  '</div>'+
+
+                                  
+                                 '<div class="form-control">'+
+                                    '<input type="text" name="ggavailability" id="ggavailability" value="'+ggavailability+'"class="form-control"/>'+
+                                '</div>'+
+                            '</form>'+
+                         '</div>',
+                buttons: {
+                    success: {
+                        label: "<i class='fa fa-pencil'></i> Update",
+                        className: "btn-success",
+                        callback: function () {
+                            var id = $('#id').val();
+                            var ggpropertyno = $('#ggpropertyno').val();
+                            var ggdescription = $('#ggdescription').val();
+                            var ggserial = $('#ggserial').val();
+                            var ggstatus = $('#ggstatus').val();
+                            var ggavailability = $('#ggavailability').val();
+                            $.ajax({                   
+                                    url: 'editgdgt',
+                                    type: 'POST',
+                                    cache: false,
+                                    dataType: 'HTML',
+                                    data: {
+                                      id: id,
+                                      name: name
+                                    },
+                                    success: function () {
+                                     bootbox.alert('Record successfully updated.', function(){
+                                            displayPositions(1);
+                                     });
+                                     
+                                    }
+                            });
+                           
+                        }
+                        
+                    }
+                } // close of button
+                
+            }
+                    
+        );
+
+  
+
+   }
+
+
+</script>

@@ -155,16 +155,16 @@ public function delete() {
      $searchInput = $this->request->data['input'];
     
  	 $match= $this->Gadget->find('all',
-				array(
-					'conditions' => array(
-						 'Gadget.ggpropertyno LIKE' => '%'. $searchInput. '%',
-						// 'Gadget.ggdescription LIKE' => '%'. $searchInput. '%',
-						// 'Gadget.ggserial LIKE' => '%'. $searchInput. '%',
-						// 'Gadget.ggstatus LIKE' => '%'. $searchInput. '%', 
-						// 'Gadget.ggavailability LIKE' => '%'. $searchInput. '%'
-						)
-					)
-				);
+          array(
+            'conditions' => array(
+              'OR' =>array(
+                'Gadget.ggpropertyno LIKE' => '%'. $searchInput. '%',
+                'Gadget.ggdescription LIKE' => '%'. $searchInput. '%'
+              
+                )
+              )
+            )
+          );
 
      $this->Set('showGadget', $match);
      
