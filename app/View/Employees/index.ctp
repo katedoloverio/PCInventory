@@ -188,7 +188,10 @@
 
     <tr>
     <td><a href="#changephoto<?php echo $employee['Employee']['id'];?>" data-toggle="modal" class="btn btn-default"  title ="View"><i class="glyphicon glyphicon-user" > </i></a></td>
-    <td> <img src="/PCInventory/img/users/<?php echo $imagedisplay; ?>" class="img-circle img-for-own-message"></td>
+    <td>
+      <img src="<?php echo $this->Html->url('/img/users/'.$imagedisplay); ?>" class="img-circle img-for-own-message">
+    </td>
+
     <td><?php echo $employee['Employee']['empfirstname']; ?>&nbsp; <?php echo $employee['Employee']['emplastname']; ?> </td>
        <td><?php $pctype =  $employee['Inventory']['pctype'] ;
        if($pctype==1) { ?> Fast
