@@ -157,48 +157,50 @@
 <!--DISPLAY UPS DETAILS IN TABLE-->
 <?php echo $this->Session->flash('good'); ?>
 
-<table class="table table-bordered table-hover" >
-    <tr>
-        <th><?php echo $this->Paginator->sort('Property Number'); ?></th>
-        <th><?php echo $this->Paginator->sort('Description'); ?></th>
-        <th><?php echo $this->Paginator->sort('Status'); ?></th>
-        <th><?php echo $this->Paginator->sort('Type'); ?></th>
-        <th><?php echo $this->Paginator->sort('Availability'); ?></th>
-        <th><?php echo __('Actions'); ?></th>
-    </tr>
+<div class="table-responsive">
+    <table class="table table-bordered table-hover" >
+        <tr>
+            <th><?php echo $this->Paginator->sort('Property Number'); ?></th>
+            <th><?php echo $this->Paginator->sort('Description'); ?></th>
+            <th><?php echo $this->Paginator->sort('Status'); ?></th>
+            <th><?php echo $this->Paginator->sort('Type'); ?></th>
+            <th><?php echo $this->Paginator->sort('Availability'); ?></th>
+            <th><?php echo __('Actions'); ?></th>
+        </tr>
 
-    <?php foreach ($ups as $up):
-   $upstatus =  $up['Up']['upstatus'];
-   $upavailability =  $up['Up']['upavailability'];
-   $uptype =  $up['Up']['uptype'];
-    ?>
+        <?php foreach ($ups as $up):
+       $upstatus =  $up['Up']['upstatus'];
+       $upavailability =  $up['Up']['upavailability'];
+       $uptype =  $up['Up']['uptype'];
+        ?>
 
-    <tr>
-    
-        <td><?php echo $up['Up']['uppropertyno']; ?></td>
-        <td><?php echo $up['Up']['updescription']; ?></td>
-        <td><?php if($upstatus==1) { ?> Working
-              <?php } else{ ?>Defective
-                <?php  }   ?>
-        </td>
-        <td><?php if($uptype==1) { ?> New
-              <?php } else{ ?>Old
-                <?php  }   ?>
-        </td>
-                <td><?php if($upavailability ==1){?> Used
-           <?php }else{?> Available
-           <?php  }?>
-         </td>
-   
-        <td>
-        <a href="#view<?php echo $up['Up']['id'];?>" data-toggle="modal" class="btn btn-success"><i class="glyphicon glyphicon-search"> </i>View</a>
+        <tr>
+        
+            <td><?php echo $up['Up']['uppropertyno']; ?></td>
+            <td><?php echo $up['Up']['updescription']; ?></td>
+            <td><?php if($upstatus==1) { ?> Working
+                  <?php } else{ ?>Defective
+                    <?php  }   ?>
+            </td>
+            <td><?php if($uptype==1) { ?> New
+                  <?php } else{ ?>Old
+                    <?php  }   ?>
+            </td>
+                    <td><?php if($upavailability ==1){?> Used
+               <?php }else{?> Available
+               <?php  }?>
+             </td>
+       
+            <td>
+            <a href="#view<?php echo $up['Up']['id'];?>" data-toggle="modal" class="btn btn-success"><i class="glyphicon glyphicon-search"> </i>View</a>
 
-        <a href="#edit<?php echo $up['Up']['id'];?>" data-toggle="modal" class="btn btn-primary"> <i class="glyphicon glyphicon-edit"> </i>Edit</a>
+            <a href="#edit<?php echo $up['Up']['id'];?>" data-toggle="modal" class="btn btn-primary"> <i class="glyphicon glyphicon-edit"> </i>Edit</a>
 
-        <a href="#delete<?php echo $up['Up']['id'];?>" data-toggle="modal" class="btn btn-danger"><i class="glyphicon glyphicon-trash"> </i>Delete</a></td>
-    </tr>
-    <?php endforeach; ?>
-</table>
+            <a href="#delete<?php echo $up['Up']['id'];?>" data-toggle="modal" class="btn btn-danger"><i class="glyphicon glyphicon-trash"> </i>Delete</a></td>
+        </tr>
+        <?php endforeach; ?>
+    </table>
+</div>
 
 <!--PAGINATION-->
  <div class="text-center">

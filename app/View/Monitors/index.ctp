@@ -176,7 +176,9 @@
 
 
 
-<div class="mytable">
+
+<div class="mytable table-responsive">
+
 <table class="table table-bordered table-hover" >
     <tr>
        <th><?php echo $this->Paginator->sort('Property Number'); ?></th>
@@ -223,6 +225,7 @@
     </tr>
     <?php endforeach; ?>
 </table>
+</div>
 
 
 

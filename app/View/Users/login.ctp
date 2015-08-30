@@ -1,49 +1,45 @@
 <style type="text/css">
 
 input[type=text], input[type=button], input[type=password] {
-   
-    width: 100%;
+  width: 100%;
 }
 
 
 body { 
- background: url('/PCInventory/img/bc.jpg') no-repeat center center fixed; 
- -webkit-background-size: cover;
- -moz-background-size: cover;
- -o-background-size: cover;
- background-size: cover;
+  background: url('/PCInventory/img/bc.jpg') no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
 .panel-default {
- opacity: 0.9;
- margin-top:30px;
+  opacity: 0.9;
+  margin-top:30px;
 }
 
 .form-group.last {
- margin-bottom:0px;
+  margin-bottom:0px;
 }
 
 label {
- color: white;
-font-weight: bold;
+  color: white;
+  font-weight: bold;
 }
 
 .panel-transparent {
-        background: none;
-    }
+  background: none;
+}
 
-    .panel-transparent .panel-heading{
-        background: rgba(122, 130, 136, 0.2)!important;
-    }
+.panel-transparent .panel-heading{
+  background: rgba(122, 130, 136, 0.2)!important;
+}
 
-   
-    .panel-transparent .panel-footer{
-        background: rgba(122, 130, 136, 0.2)!important;
-    }
 
+.panel-transparent .panel-footer{
+  background: rgba(122, 130, 136, 0.2)!important;
+}
 </style>
-
-
 
 <div class="container">
  <div class="row">
@@ -53,7 +49,7 @@ font-weight: bold;
      <label>Login</label>
     </div>
     <div class="panel-body">
-     <form action="/PCInventory/users/login"  method="post">
+     <form action="<?php echo $this->Html->url('/users/login'); ?>"  method="post">
       <div class="form-group">
        <label for="username">Username</label>
        <input type="text" name="data[User][username]"  id="username" class="form-control" placeholder="Username"/>

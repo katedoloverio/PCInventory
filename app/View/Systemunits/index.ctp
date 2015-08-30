@@ -166,48 +166,51 @@
 <?php echo $this->Session->flash('good'); ?>
 <?php echo $this->Session->flash('added'); ?>
 
-<table class="table table-bordered table-hover" >
-    <tr>
-        <th><?php echo $this->Paginator->sort('Property Number'); ?></th>
-        <th><?php echo $this->Paginator->sort('Description'); ?></th>
-        <th><?php echo $this->Paginator->sort('Status'); ?></th>
-        <th><?php echo $this->Paginator->sort('Type'); ?></th>
-        <th><?php echo $this->Paginator->sort('Availability'); ?></th>
-        <th><?php echo __('Actions'); ?></th>
-    </tr>
+<div class="table-responsive">
+    <table class="table table-bordered table-hover" >
+        <tr>
+            <th><?php echo $this->Paginator->sort('Property Number'); ?></th>
+            <th><?php echo $this->Paginator->sort('Description'); ?></th>
+            <th><?php echo $this->Paginator->sort('Status'); ?></th>
+            <th><?php echo $this->Paginator->sort('Type'); ?></th>
+            <th><?php echo $this->Paginator->sort('Availability'); ?></th>
+            <th><?php echo __('Actions'); ?></th>
+        </tr>
 
-    <?php foreach ($systemunits as $systemunit):
-   $sustatus =  $systemunit['Systemunit']['sustatus'];
-   $suavailability =  $systemunit['Systemunit']['suavailability'];
-   $sutype =  $systemunit['Systemunit']['sutype'];
-    ?>
+        <?php foreach ($systemunits as $systemunit):
+       $sustatus =  $systemunit['Systemunit']['sustatus'];
+       $suavailability =  $systemunit['Systemunit']['suavailability'];
+       $sutype =  $systemunit['Systemunit']['sutype'];
+        ?>
 
-    <tr>
-    
-        <td><?php echo $systemunit['Systemunit']['supropertyno']; ?></td>
-        <td><?php echo $systemunit['Systemunit']['sudescription']; ?></td>
-        <td><?php if($sustatus==1) { ?> Working
-              <?php } else{ ?>Defective
-                <?php  }   ?>
-        </td>
-        <td><?php if($sutype==1) { ?> Fast
-              <?php } else{ ?>Slow
-                <?php  }   ?>
-        </td>
-                <td><?php if($suavailability ==1){?> Used
-           <?php }else{?> Available
-           <?php  }?>
-         </td>
-   
-        <td>
-        <a href="#view<?php echo $systemunit['Systemunit']['id'];?>" data-toggle="modal" class="btn btn-success"><i class="glyphicon glyphicon-search"> </i>View</a>
+        <tr>
+        
+            <td><?php echo $systemunit['Systemunit']['supropertyno']; ?></td>
+            <td><?php echo $systemunit['Systemunit']['sudescription']; ?></td>
+            <td><?php if($sustatus==1) { ?> Working
+                  <?php } else{ ?>Defective
+                    <?php  }   ?>
+            </td>
+            <td><?php if($sutype==1) { ?> Fast
+                  <?php } else{ ?>Slow
+                    <?php  }   ?>
+            </td>
+                    <td><?php if($suavailability ==1){?> Used
+               <?php }else{?> Available
+               <?php  }?>
+             </td>
+       
+            <td>
+            <a href="#view<?php echo $systemunit['Systemunit']['id'];?>" data-toggle="modal" class="btn btn-success"><i class="glyphicon glyphicon-search"> </i>View</a>
 
-        <a href="#edit<?php echo $systemunit['Systemunit']['id'];?>" data-toggle="modal" class="btn btn-primary"> <i class="glyphicon glyphicon-edit"> </i>Edit</a>
+            <a href="#edit<?php echo $systemunit['Systemunit']['id'];?>" data-toggle="modal" class="btn btn-primary"> <i class="glyphicon glyphicon-edit"> </i>Edit</a>
 
-        <a href="#delete<?php echo $systemunit['Systemunit']['id'];?>" data-toggle="modal" class="btn btn-danger"><i class="glyphicon glyphicon-trash"> </i>Delete</a></td>
-    </tr>
-    <?php endforeach; ?>
-</table>
+            <a href="#delete<?php echo $systemunit['Systemunit']['id'];?>" data-toggle="modal" class="btn btn-danger"><i class="glyphicon glyphicon-trash"> </i>Delete</a></td>
+        </tr>
+        <?php endforeach; ?>
+    </table>
+</div>
+
 <!--PAGINATION-->
   <div class="text-center">
    

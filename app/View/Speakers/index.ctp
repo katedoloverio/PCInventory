@@ -163,48 +163,50 @@
 <?php echo $this->Session->flash('good'); ?>
 <?php echo $this->Session->flash('added'); ?>
 
-<table class="table table-bordered table-hover" >
-    <tr>
-        <th><?php echo $this->Paginator->sort('Property Number'); ?></th>
-        <th><?php echo $this->Paginator->sort('Description'); ?></th>
-        <th><?php echo $this->Paginator->sort('Status'); ?></th>
-        <th><?php echo $this->Paginator->sort('Type'); ?></th>
-        <th><?php echo $this->Paginator->sort('Availability'); ?></th>
-        <th><?php echo __('Actions'); ?></th>
-    </tr>
+<div class="table-responsive">
+    <table class="table table-bordered table-hover" >
+        <tr>
+            <th><?php echo $this->Paginator->sort('Property Number'); ?></th>
+            <th><?php echo $this->Paginator->sort('Description'); ?></th>
+            <th><?php echo $this->Paginator->sort('Status'); ?></th>
+            <th><?php echo $this->Paginator->sort('Type'); ?></th>
+            <th><?php echo $this->Paginator->sort('Availability'); ?></th>
+            <th><?php echo __('Actions'); ?></th>
+        </tr>
 
-    <?php foreach ($speakers as $speaker):
-   $spstatus =  $speaker['Speaker']['spstatus'];
-   $spavailability =  $speaker['Speaker']['spavailability'];
-   $sptype =  $speaker['Speaker']['sptype'];
-    ?>
+        <?php foreach ($speakers as $speaker):
+       $spstatus =  $speaker['Speaker']['spstatus'];
+       $spavailability =  $speaker['Speaker']['spavailability'];
+       $sptype =  $speaker['Speaker']['sptype'];
+        ?>
 
-    <tr>
-    
-        <td><?php echo $speaker['Speaker']['sppropertyno']; ?></td>
-        <td><?php echo $speaker['Speaker']['spdescription']; ?></td>
-        <td><?php if($spstatus==1) { ?> Working
-              <?php } else{ ?>Defective
-                <?php  }   ?>
-        </td>
-        <td><?php if($sptype==1) { ?> New
-              <?php } else{ ?>Old
-                <?php  }   ?>
-        </td>
-                <td><?php if($spavailability ==1){?> Used
-           <?php }else{?> Available
-           <?php  }?>
-         </td>
-   
-        <td>
-        <a href="#view<?php echo $speaker['Speaker']['id'];?>" data-toggle="modal" class="btn btn-success"><i class="glyphicon glyphicon-search"> </i>View</a>
+        <tr>
+        
+            <td><?php echo $speaker['Speaker']['sppropertyno']; ?></td>
+            <td><?php echo $speaker['Speaker']['spdescription']; ?></td>
+            <td><?php if($spstatus==1) { ?> Working
+                  <?php } else{ ?>Defective
+                    <?php  }   ?>
+            </td>
+            <td><?php if($sptype==1) { ?> New
+                  <?php } else{ ?>Old
+                    <?php  }   ?>
+            </td>
+                    <td><?php if($spavailability ==1){?> Used
+               <?php }else{?> Available
+               <?php  }?>
+             </td>
+       
+            <td>
+            <a href="#view<?php echo $speaker['Speaker']['id'];?>" data-toggle="modal" class="btn btn-success"><i class="glyphicon glyphicon-search"> </i>View</a>
 
-        <a href="#edit<?php echo $speaker['Speaker']['id'];?>" data-toggle="modal" class="btn btn-primary"> <i class="glyphicon glyphicon-edit"> </i>Edit</a>
+            <a href="#edit<?php echo $speaker['Speaker']['id'];?>" data-toggle="modal" class="btn btn-primary"> <i class="glyphicon glyphicon-edit"> </i>Edit</a>
 
-        <a href="#delete<?php echo $speaker['Speaker']['id'];?>" data-toggle="modal" class="btn btn-danger"><i class="glyphicon glyphicon-trash"> </i>Delete</a></td>
-    </tr>
-    <?php endforeach; ?>
-</table>
+            <a href="#delete<?php echo $speaker['Speaker']['id'];?>" data-toggle="modal" class="btn btn-danger"><i class="glyphicon glyphicon-trash"> </i>Delete</a></td>
+        </tr>
+        <?php endforeach; ?>
+    </table>
+</div>
 
 <!--PAGINATION-->
   <div class="text-center">

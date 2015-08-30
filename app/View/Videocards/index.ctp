@@ -158,48 +158,50 @@
 <!--DISPLAY Video Card  DETAILS IN TABLE-->
 <?php echo $this->Session->flash('good'); ?>
 
-<table class="table table-bordered table-hover" >
-    <tr>
-        <th><?php echo $this->Paginator->sort('Property Number'); ?></th>
-        <th><?php echo $this->Paginator->sort('Description'); ?></th>
-        <th><?php echo $this->Paginator->sort('Status'); ?></th>
-        <th><?php echo $this->Paginator->sort('Type'); ?></th>
-        <th><?php echo $this->Paginator->sort('Availability'); ?></th>
-        <th><?php echo __('Actions'); ?></th>
-    </tr>
+<div class="table-responsive">
+    <table class="table table-bordered table-hover" >
+        <tr>
+            <th><?php echo $this->Paginator->sort('Property Number'); ?></th>
+            <th><?php echo $this->Paginator->sort('Description'); ?></th>
+            <th><?php echo $this->Paginator->sort('Status'); ?></th>
+            <th><?php echo $this->Paginator->sort('Type'); ?></th>
+            <th><?php echo $this->Paginator->sort('Availability'); ?></th>
+            <th><?php echo __('Actions'); ?></th>
+        </tr>
 
-    <?php foreach ($videocards as $videocard):
-   $vcstatus =  $videocard['Videocard']['vcstatus'];
-   $vcavailability =  $videocard['Videocard']['vcavailability'];
-   $vctype =  $videocard['Videocard']['vctype'];
-    ?>
+        <?php foreach ($videocards as $videocard):
+       $vcstatus =  $videocard['Videocard']['vcstatus'];
+       $vcavailability =  $videocard['Videocard']['vcavailability'];
+       $vctype =  $videocard['Videocard']['vctype'];
+        ?>
 
-    <tr>
-    
-        <td><?php echo $videocard['Videocard']['vcpropertyno']; ?></td>
-        <td><?php echo $videocard['Videocard']['vcdescription']; ?></td>
-        <td><?php if($vcstatus==1) { ?> Working
-              <?php } else{ ?>Defective
-                <?php  }   ?>
-        </td>
-        <td><?php if($vctype==1) { ?> New
-              <?php } else{ ?>Old
-                <?php  }   ?>
-        </td>
-                <td><?php if($vcavailability ==1){?> Used
-           <?php }else{?> Available
-           <?php  }?>
-         </td>
-   
-        <td>
-        <a href="#view<?php echo $videocard['Videocard']['id'];?>" data-toggle="modal" class="btn btn-success"><i class="glyphicon glyphicon-search"> </i>View</a>
+        <tr>
+        
+            <td><?php echo $videocard['Videocard']['vcpropertyno']; ?></td>
+            <td><?php echo $videocard['Videocard']['vcdescription']; ?></td>
+            <td><?php if($vcstatus==1) { ?> Working
+                  <?php } else{ ?>Defective
+                    <?php  }   ?>
+            </td>
+            <td><?php if($vctype==1) { ?> New
+                  <?php } else{ ?>Old
+                    <?php  }   ?>
+            </td>
+                    <td><?php if($vcavailability ==1){?> Used
+               <?php }else{?> Available
+               <?php  }?>
+             </td>
+       
+            <td>
+            <a href="#view<?php echo $videocard['Videocard']['id'];?>" data-toggle="modal" class="btn btn-success"><i class="glyphicon glyphicon-search"> </i>View</a>
 
-        <a href="#edit<?php echo $videocard['Videocard']['id'];?>" data-toggle="modal" class="btn btn-primary"> <i class="glyphicon glyphicon-edit"> </i>Edit</a>
+            <a href="#edit<?php echo $videocard['Videocard']['id'];?>" data-toggle="modal" class="btn btn-primary"> <i class="glyphicon glyphicon-edit"> </i>Edit</a>
 
-        <a href="#delete<?php echo $videocard['Videocard']['id'];?>" data-toggle="modal" class="btn btn-danger"><i class="glyphicon glyphicon-trash"> </i>Delete</a></td>
-    </tr>
-    <?php endforeach; ?>
-</table>
+            <a href="#delete<?php echo $videocard['Videocard']['id'];?>" data-toggle="modal" class="btn btn-danger"><i class="glyphicon glyphicon-trash"> </i>Delete</a></td>
+        </tr>
+        <?php endforeach; ?>
+    </table>
+</div>
 
 <!--PAGINATION-->
  <div class="text-center">

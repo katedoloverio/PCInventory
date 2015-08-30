@@ -218,24 +218,46 @@ class EmployeesController extends AppController {
       
   }
 
-    public function searchEmployee() {
+  public function searchEmployee() {
 
-     $searchInput = $this->request->data['input'];
-      
-     $match= $this->Employee->find('all',
-          array(
-            'conditions' => array(
-              'OR' =>array(
-                'Employee.empfirstname LIKE' => '%'. $searchInput. '%',
-                'Employee.emplastname LIKE' => '%'. $searchInput. '%',
-                'Employee.empcompanyid LIKE' => '%'. $searchInput. '%'
-                )
+    $searchInput = $this->request->data['input'];
+    
+    $match= $this->Employee->find('all',
+        array(
+          'conditions' => array(
+            'OR' =>array(
+              'Employee.empfirstname LIKE' => '%'. $searchInput. '%',
+              'Employee.emplastname LIKE' => '%'. $searchInput. '%',
+              'Employee.empcompanyid LIKE' => '%'. $searchInput. '%'
               )
             )
-          );
+          )
+    );
+    $this->Set('showEmployee', $match);  
+  }
 
-       $this->Set('showEmployee', $match);  
+  public function viewAjax(){
+    $this->autoRender = false;
+    $query = $this->request->query;
+    $content = "";
+    $error = false;
+    if (isset($query['headsetId'])) {
+      $hId = $query['headsetId'];
+      $headset = $this->Headset->findById($hId);
+      if ($headset) {
+        $error = false;
+        $content = $headset;
+      } else {
+        $error = true;
+        $content = "no_hs";
+      }
+    } else {
+      $error = true;
+      $content = "no_id";
     }
+    echo json_encode(array('error' => $error, 'content' => $content));
+    exit();
+  }
 
 }
 

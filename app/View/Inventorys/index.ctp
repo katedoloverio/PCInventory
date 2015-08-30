@@ -135,7 +135,7 @@
 <!--DISPLAY PC DETAILS IN TABLE-->
 <?php echo $this->Session->flash('good'); ?>
 
-<div class="mytable">
+<div class="mytable table-responsive">
 <table class="table table-bordered table-hover search-table inner" >
     <tr>
         <th><?php echo $this->Paginator->sort('Employee'); ?></th>
@@ -214,7 +214,7 @@
 
         <a href="#edit<?php echo $inventory['Inventory']['id'];?>" data-toggle="modal" class="btn btn-primary btn-xs"  title="Edit"> <i class="glyphicon glyphicon-edit"> </i>Edit</a>
 
-         <button id="<?php echo $inventory['Inventory']['id'];?>" data-toggle="modal" class="btn btn-danger delete" title ="Delete"><i class="glyphicon glyphicon-trash"> </i>Delete</button></a></td>
+         <button id="<?php echo $inventory['Inventory']['id'];?>" data-toggle="modal" class="btn btn-danger delete btn-xs" title ="Delete"><i class="glyphicon glyphicon-trash"> </i>Delete</button></a></td>
     </tr>
     <?php endforeach; ?>
 </table>

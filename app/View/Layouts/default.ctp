@@ -60,13 +60,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 </head>
 <body style="background-color:#bbbb" >
 	<div class="container-fluid">
-            
-            
-            
-            
-            
-            
-            <?php echo $this->fetch('content'); ?>	
+        <?php echo $this->fetch('content'); ?>	
 	</div>
     
     

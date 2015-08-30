@@ -159,7 +159,7 @@
             <?php echo $this->Session->flash('good'); ?>
             <?php echo $this->Session->flash('added'); ?>
 
-            <div class="mytable">
+            <div class="mytable table-responsive">
             <table class="table table-bordered table-hover" >
                 <tr> 
                    <th><?php echo $this->Paginator->sort('Edit Photo'); ?></th>
@@ -408,31 +408,25 @@
 <script type="text/javascript">
   $(document).ready(function(){
     $('.delete').click(function(){
-     var id = $(this).attr("id");
-       bootbox.confirm("Are you sure you want to delete this data?", function(result) {
-          if(result == true){
-           $.ajax({                   
-                  url: 'deleteemp',
-                  cache: false,
-                  type: 'POST',
-                  dataType: 'HTML',
-               data: {
-                 input: id
-                },
-                  success: function () {
-                  
-                   bootbox.alert("Record successfully deleted.");
-                  }
-                 });
-                  $('.remove'+id).hide('fade');
-          }
-          
-
-        }); 
-
-
-      return false;
-            
+      var id = $(this).attr("id");
+      bootbox.confirm("Are you sure you want to delete this data?", function(result) {
+        if(result == true){
+          $.ajax({                   
+            url: 'deleteemp',
+            cache: false,
+            type: 'POST',
+            dataType: 'HTML',
+            data: {
+              input: id
+            },
+            success: function () {
+              bootbox.alert("Record successfully deleted.");
+            }
+          });
+          $('.remove'+id).hide('fade');
+        }
+      }); 
+      return false;   
     });
 
   });
