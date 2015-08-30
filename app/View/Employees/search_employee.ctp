@@ -27,12 +27,7 @@
     <td><?php echo $show['Inventory']['monitor_id']; ?></td>
 
     <td>
-        <a href="#view<?php echo $show['Employee']['id'];?>" data-toggle="modal" class="btn btn-success"  title ="View"><i class="glyphicon glyphicon-search" > </i>View</a>
-
-        <a href="#edit<?php echo $show['Employee']['id'];?>" data-toggle="modal" class="btn btn-primary" title ="Edit"> <i class="glyphicon glyphicon-edit"> </i>Edit</a>
-
-        <a href="#delete<?php echo $show['Employee']['id'];?>" data-toggle="modal" class="btn btn-danger" title ="Delete"><i class="glyphicon glyphicon-trash"> </i>Delete</a>
-    </td>
+         <a href="/PCInventory/employee/index" data-toggle="modal" class="btn btn-success" title="View All Employee"><i class="glyphicon glyphicon-search"> </i>View All Employee</a>    </td>
 
   </tr>
 

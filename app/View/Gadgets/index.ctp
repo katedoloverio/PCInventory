@@ -132,36 +132,7 @@
         <button type="submit" id="submit" class="btn btn-default " style="margin-top:5px">Search</button>   
       </form>
 
-<script>
- $(document).ready(function(){
-  $('#submit').click(function(){
-   var search = $('#search').val();
-   
-   if (search != '') {
-            $.ajax({                   
-              url: 'searchGadss',
-              cache: false,
-              type: 'POST',
-              dataType: 'HTML',
-           data: {
-             input: search
-            },
-              success: function (clients) {
-               $('#gad').html(clients);
-              }
-             });
-          $('.mytable').hide();
-          return false;
-   }  else {
-    return false;
-   }
-          
-          
-  });
 
-  }
- );
-</script>
 
 
       <ul class="nav navbar-nav navbar-right">
@@ -200,7 +171,11 @@
 <?php echo $this->Session->flash('error'); ?>
 <?php echo $this->Session->flash('good'); ?>
 <?php echo $this->Session->flash('added'); ?>
-<div>
+
+<div id="allGadgets"></div>
+   <div id="gad"> </div>
+</div></div>
+
         
 <!--ADD Gadget-->
 <div class="modal fade" id="add" role="dialog" tabindex="-1">
@@ -261,58 +236,10 @@
 <div class="panel-body">
 <div>
 <div class="container">
-<div class="mytable">
-<table class=" table table-bordered table-hover" >
-	<tr>
-		<th><?php echo $this->Paginator->sort('Property No.'); ?></th>
-		<th><?php echo $this->Paginator->sort('Description'); ?></th>
-
-        <th><?php echo $this->Paginator->sort('Serial'); ?></th>
-        <th><?php echo $this->Paginator->sort('Status'); ?></th>
-        <th><?php echo $this->Paginator->sort('Availability'); ?></th>
-
-
-		<th><?php echo __('Actions'); ?></th>
-	</tr>
-
-     
-	<?php foreach ($gadgets as $gadget):
-
-     ?>
-
-
-	   <tr>
-		   <td><?php echo $gadget['Gadget']['ggpropertyno']; ?></td>
-		    <td><?php echo $gadget['Gadget']['ggdescription']; ?></td>
-        <td><?php echo $gadget['Gadget']['ggserial']; ?></td>
-        <td><?php echo $gadget['Gadget']['ggstatus']; ?></td>
-        <td><?php echo $gadget['Gadget']['ggavailability']; ?></td>
-  
-      
-      
-
-		<td>
-    <a href="#view<?php echo $gadget['Gadget']['id'];?>" data-toggle="modal" class="btn btn-success" title="View"><i class="glyphicon glyphicon-search"> </i></a>
-
-    <button id="<?php echo $gadget['Gadget']['id'];?>" class="btn btn-primary " onclick="editGadget(<?php echo $gadget['Gadget']['id']; ?>, '<?php echo $gadget['Gadget']['ggpropertyno']; ?>','<?php echo $gadget['Gadget']['ggdescription']; ?>','<?php echo $gadget['Gadget']['ggserial']; ?>', <?php echo $gadget['Gadget']['ggstatus']; ?>,<?php echo $gadget['Gadget']['ggavailability']; ?>)" 
-      title ="Edit"><i class="glyphicon glyphicon-edit"> </i> 
-    Edit
-    </button>
-
-		<a href="#delete<?php echo $gadget['Gadget']['id'];?>" data-toggle="modal" class="btn btn-danger"  title="Delete"><i class="glyphicon glyphicon-trash"> </i></a></td>
 
 
 
 
-
-	</tr>
-	<?php endforeach; ?>
-</table>
-
-    <?php echo $this->Paginator->counter(array('format' => __('Page {:page} of {:pages}, showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}'))); ?>
-    </div>
-
-   <div id="gad"> </div>
 
    
            <div class="text-center">
@@ -334,7 +261,7 @@
 
 
 
-<!-- Modal to Edit Gadgets -->
+<!-- Modal to Edit Gadgets 
 
 <?php foreach($gadgets  as $row){ ?>
 
@@ -424,9 +351,9 @@
 
 <?php } ?>
 
+-->
 
-
-<!-- Modal to Delete Gadgets -->
+<!-- Modal to Delete Gadgets
 <?php foreach($gadgets  as $row){ ?>
 
 <div class="modal fade" id="delete<?php echo $row['Gadget']['id'];?>" tabindex="-1" role="dialog">
@@ -451,7 +378,7 @@
 </div>
 
 <?php } ?>
-
+-->
 
 
 <!-- Modal for View Gadgets -->
@@ -493,6 +420,65 @@
 </div>
 
 <?php } ?>
+
+
+<!-- LOAD TABLE SCRIPT-->
+
+<script type="text/javascript">
+  
+$(function () {
+                $.get("allGadgets", function (data) {
+                    $("#allGadgets").append(data);
+                });
+            });
+
+
+</script>
+<!-- VIEW SCRIPT
+
+<script type="text/javascript">
+  
+$(function () {
+                $.get("allGadgets", function (data) {
+                    $("#allGadgets").append(data);
+                });
+            });
+
+
+</script>-->
+
+<!--SEARCH SCRIPT-->
+
+<script>
+ $(document).ready(function(){
+  $('#submit').click(function(){
+   var search = $('#search').val();
+   
+   if (search != '') {
+            $.ajax({                   
+              url: 'searchGadss',
+              cache: false,
+              type: 'POST',
+              dataType: 'HTML',
+           data: {
+             input: search
+            },
+              success: function (clients) {
+               $('#gad').html(clients);
+              }
+             });
+          $('#allGadgets').hide();
+          return false;
+   }  else {
+    return false;
+   }
+
+          
+  });
+
+  }
+ );
+</script>
 
 <!-- DELETE SCRIPT-->
 
@@ -539,38 +525,67 @@
 
 
         bootbox.dialog({
-                title: "<i class='fa fa-pencil'></i> Edit Gadget",
-                message: '<div>'+
-                            '<form action="" method="post">'+
-
-                                '<div class="form-control">'+
-                                    '<input type="hidden" name="id" id="id" value="'+id+'"/>'+ 
-                                '</div>'+
-
-                                '<div class="form-control">'+
-                                    '<input type="text" name="ggpropertyno" id="ggpropertyno" value="'+ggpropertyno+'" class="form-control"/>'+
-                                '</div>'+
-
-                                 '<div class="form-control">'+
-                                    '<input type="text" name="ggdescription" id="ggdescription" value="'+ggdescription+'"class="form-control"/>'+
-                                  '</div>'+
+                title: "Edit Gadget Information",
+                message: '<div class="row">  ' +
+                    '<div class="col-md-12"> ' +
+                    '<form class="form-horizontal"> ' +
 
 
-                                 '<div class="form-control">'+
-                                    '<input type="text" name="ggserial" id="ggserial" value="'+ggserial+'" class="form-control"/>'+
-                                  '</div>'+
+                    '<div class="form-group"> ' +
+                    '<label class="col-md-4 control-label" for="name">Property No.</label> ' +
+                    '<div class="col-md-4"> ' +
+                    '<input type="hidden" name="id" id="id" value="'+id+'"/>'+ 
+                    '<input type="text" name="ggpropertyno" id="ggpropertyno" value="'+ggpropertyno+'" class="form-control input-md"/>'+
+                    '</div> ' +
+                    '</div> ' +
 
-                                  '<div class="form-control">'+
-                                    '<input type="text" name="ggstatus" id="ggdescription" value="'+ggstatus+'"class="form-control"/>'+
-                                  '</div>'+
 
-                                  
-                                 '<div class="form-control">'+
-                                    '<input type="text" name="ggavailability" id="ggavailability" value="'+ggavailability+'"class="form-control"/>'+
-                                '</div>'+
-                            '</form>'+
-                         '</div>',
+                    '<div class="form-group"> ' +
+                    '<label class="col-md-4 control-label" for="name">Description</label> ' +
+                    '<div class="col-md-4"> ' +
+                    '<input type="text" name="ggdescription" id="ggdescription" value="'+ggdescription+'" class="form-control input-md"/>'+
+                    '</div> ' +
+                    '</div> ' +
+
+
+                    '<div class="form-group"> ' +
+                    '<label class="col-md-4 control-label" for="name">Serial</label> ' +
+                    '<div class="col-md-4"> ' +
+                    '<input type="text" name="ggserial" id="ggserial" value="'+ggserial+'" class="form-control input-md"/>'+
+                    '</div> ' +
+                    '</div> ' +
+
+
+                    '<div class="form-group"> ' +
+                    '<label class="col-md-4 control-label" for="name">Status</label> ' +
+                    '<div class="col-md-4"> ' +
+                    '<select name="ggstatus" id="ggstatus" class="form-control input-md">'+
+                        '<option value="1">Working</option>' +
+                        '<option  value="2">Defective</option> ' +
+                    ' </select>' +
+                    '</div> ' +
+                    '</div> ' +
+
+
+
+
+                    '<div class="form-group"> ' +
+                    '<label class="col-md-4 control-label" for="name">Availability</label> ' +
+                    '<div class="col-md-4"> ' +
+                    '<select name="ggavailability" id="ggavailabilitys" class="form-control input-md">'+
+                       '<option value="1">Available</option>' +
+                       '<option value="2">Used</option> ' +
+                    ' </select>' +
+                    '</div> ' +
+                    '</div> ' +
+
+
+
+
+                    '</form> </div>  </div>',
                 buttons: {
+
+
                     success: {
                         label: "<i class='fa fa-pencil'></i> Update",
                         className: "btn-success",
@@ -580,7 +595,8 @@
                             var ggdescription = $('#ggdescription').val();
                             var ggserial = $('#ggserial').val();
                             var ggstatus = $('#ggstatus').val();
-                            var ggavailability = $('#ggavailability').val();
+                            var ggavailability = $('#ggavailabilitys').val();
+
                             $.ajax({                   
                                     url: 'editgdgt',
                                     type: 'POST',
@@ -588,13 +604,30 @@
                                     dataType: 'HTML',
                                     data: {
                                       id: id,
-                                      name: name
+                                      ggpropertyno: ggpropertyno,
+                                      ggdescription: ggdescription,
+                                      ggserial: ggserial,
+                                      ggstatus: ggstatus,
+                                      ggavailability: ggavailability
+
                                     },
-                                    success: function () {
-                                     bootbox.alert('Record successfully updated.', function(){
-                                            displayPositions(1);
-                                     });
+                                   
+
+                                      success: function () {
+                                    
+                                     bootbox.alert('Record successfully updated.', function()
+                                     {
+                                      $("#gadget").remove();
                                      
+
+                                      $.get("allGadgets", function(data) {
+                                      $("#allGadgets").append(data);
+
+
+                                      });
+
+                                     });
+                                          
                                     }
                             });
                            

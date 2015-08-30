@@ -53,6 +53,17 @@ class EmployeesController extends AppController {
 
     }
 
+
+    public function allEmployees(){
+
+      $all = $this->Employee->find('all');
+      $number= count($all);
+      $this->Set('allEmployees', $number);
+      $this->Paginator->settings = array( 'limit' => 5);
+      $data = $this->Paginator->paginate('Employee');
+      $this->set('employees', $data);
+  }
+
     public function add() {
 
         $this->autoRender = false;    

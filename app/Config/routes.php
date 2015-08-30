@@ -41,6 +41,7 @@
          Router::connect('/employee/deleteemp', array('controller' => 'employees', 'action' => 'delete'));
          Router::connect('/employee/home', array('controller' => 'employees', 'action' => 'home'));
          Router::connect('/employee/searchEmployee', array('controller' => 'employees', 'action' => 'searchEmployee'));
+         Router::connect('/employee/allEmployees', array('controller' => 'employees', 'action' => 'allEmployees'));
          
          //MONITOR  - Property 
          Router::connect('/monitor/index', array('controller' => 'monitors', 'action' => 'index'));
@@ -125,6 +126,7 @@
         Router::connect('/gadget/editgdgt', array('controller' => 'gadgets', 'action' => 'edit'));
         Router::connect('/gadget/deletegdgt', array('controller' => 'gadgets', 'action' => 'delete'));
         Router::connect('/gadget/searchGadss', array('controller' => 'gadgets', 'action' => 'searchGadss'));
+        Router::connect('/gadget/allGadgets', array('controller' => 'gadgets', 'action' => 'allGadgets'));
        
         Router::connect('/page/index', array('controller' => 'Pages', 'action' => 'index'));
 /**

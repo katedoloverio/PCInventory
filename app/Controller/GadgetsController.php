@@ -42,7 +42,8 @@ class GadgetsController extends AppController {
     $this->set('gadgets', $data);
 	}
 
-public function addgdgt() {
+
+	public function addgdgt() {
 		if ($this->request->is('post')) {
 		$this->Gadget->create();
 		if ($this->Gadget->save($this->request->data)) {
@@ -83,11 +84,10 @@ public function edit() {
             
             $data = $this->request->data;
 
-
+//pr($data);
 		
 
-            if( empty($data['ggpropertyno']) || empty($data['ggdescription']) || empty($data['ggserial']) ||
-             empty($data['ggstatus']) || empty($data['ggavailability']) ) {
+            if( empty($data['ggpropertyno']) || empty($data['ggdescription']) || empty($data['ggserial'])|| empty($data['ggstatus'])|| empty($data['ggavailability']) ) {
 
            	    $this->Session->setFlash($this->alert->danger('All fields must have values.'),'default', array(), 'error');   
             }
@@ -127,8 +127,6 @@ public function edit() {
             } 
   			        
 
-            $this->redirect($this->referer());
-            exit();
 
 
 }
@@ -171,6 +169,18 @@ public function delete() {
 
 	}
 
+
+	public function allGadgets(){
+		$all = $this->Gadget->find('all');
+		$number= count($all);
+		$this->Set('allGadgets', $number);
+		
+
+		 $this->Paginator->settings = array( 'limit' => 5);
+
+    $data = $this->Paginator->paginate('Gadget');
+    $this->set('gadgets', $data);
+	}
 
 	
 }
