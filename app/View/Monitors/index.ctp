@@ -1,7 +1,7 @@
 <?php      
    echo $this->Html->css('stylevalidate.css');
    echo $this->Html->css('validation.css');
-  echo $this->Html->script(array('property', 'jquery-1.9.1.min', 'livevalidation_standalone'));
+  echo $this->Html->script(array('property', 'jquery-1.9.1.min', 'livevalidation_standalone', 'bootbox.min'));
 ?>
 
 <div class="container-fluid" background-color="black">
@@ -9,7 +9,7 @@
 <div class="container-fluid">
 <div class="row">
   <div class="col-sm-2">
-   <div class = "breadcrumb">
+   <div>
    
    <nav class="navbar navbar-inverse sidebar" role="navigation">
     <div class="container-fluid">
@@ -117,16 +117,20 @@
       <ul class="nav navbar-nav">
         <li class="active"><a href="#">Monitor Manangement <span class="sr-only">(current)</span></a></li>
         <li>  <a href="#add" data-toggle="modal"> <i class="glyphicon glyphicon-plus"> </i> Add Mointor</a></li>
-        <li>  <a href="#add" data-toggle="modal"> <i class="glyphicon glyphicon-search"> </i> View All Details</a></li>
-          </ul>
+       
         </li>
       </ul>
-      <form class="navbar-form navbar-left" role="search">
+
+
+<form class="navbar-form navbar-left" role="search" method="post" style="margin-top:0px">
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="Search">
+          <input type="text" name ="search" id="search" class="form-control" placeholder="Search">
         </div>
-        <button type="submit" class="btn btn-default">Submit</button>
+        <button type="submit" id="submit" class="btn btn-default " style="margin-top:5px">Search</button>   
       </form>
+
+
+
       <ul class="nav navbar-nav navbar-right">
         
         <li class="dropdown">
@@ -170,6 +174,9 @@
 <?php echo $this->Session->flash('good'); ?>
 <?php echo $this->Session->flash('added'); ?>
 
+
+
+<div class="mytable">
 <table class="table table-bordered table-hover" >
     <tr>
        <th><?php echo $this->Paginator->sort('Property Number'); ?></th>
@@ -183,9 +190,9 @@
     </tr>
 
     <?php foreach ($monitors as $monitor):
-$mostatus = $monitor['Monitor']['mostatus'];
-$moavailability = $monitor['Monitor']['moavailability'];
-$motype = $monitor['Monitor']['motype'];
+        $mostatus = $monitor['Monitor']['mostatus'];
+        $moavailability = $monitor['Monitor']['moavailability'];
+        $motype = $monitor['Monitor']['motype'];
     ?>
 
     <tr>
@@ -204,12 +211,11 @@ $motype = $monitor['Monitor']['motype'];
                             <?php   }   ?></td>
 
         <td>
-        <a href="#view<?php echo $monitor['Monitor']['id'];?>" data-toggle="modal" class="btn btn-success"><i class="glyphicon glyphicon-search"> </i>View</a>
+        <a href="#view<?php echo $monitor['Monitor']['id'];?>" data-toggle="modal" class="btn btn-success" title="View"><i class="glyphicon glyphicon-search"> </i></a>
 
-        <a href="#edit<?php echo $monitor['Monitor']['id'];?>" data-toggle="modal" class="btn btn-primary"> <i class="glyphicon glyphicon-edit"> </i>Edit</a>
-
-        <a href="#delete<?php echo $monitor['Monitor']['id'];?>" data-toggle="modal" class="btn btn-danger"><i class="glyphicon glyphicon-trash"> </i>Delete</a></td>
-
+        <a href="#edit<?php echo $monitor['Monitor']['id'];?>" data-toggle="modal" class="btn btn-primary" title="Edit"> <i class="glyphicon glyphicon-edit"> </i></a>
+ 
+        <button id="<?php echo $monitor['Monitor']['id'];?>" data-toggle="modal" class="btn btn-danger delete" title ="Delete"><i class="glyphicon glyphicon-trash"> </i></button>
 
 
 
@@ -226,17 +232,15 @@ $motype = $monitor['Monitor']['motype'];
    <?php if ($allMonitors > 10){ ?>
     <ul class="pagination pagination-large">
 
-    <li><?php  echo $this->Paginator->prev(__('prev'), array('tag' => 'li'), null, array('tag' => 'li','class' => 'disabled','disabledTag' => 'a'));?></li>
-
-    <li><?php  echo $this->Paginator->numbers(array('separator' => '','currentTag' => 'a', 'currentClass' => 'active','tag' => 'li','first' => 1)); ?></li>
-    <li> <?php  echo $this->Paginator->next(__('next'), array('tag' => 'li','currentClass' => 'disabled'), null, array('tag' => 'li','class' => 'disabled','disabledTag' => 'a'));?></li>
-   
+        <li><?php  echo $this->Paginator->prev(__('prev'), array('tag' => 'li'), null, array('tag' => 'li','class' => 'disabled','disabledTag' => 'a'));?></li>
+        <li><?php  echo $this->Paginator->numbers(array('separator' => '','currentTag' => 'a', 'currentClass' => 'active','tag' => 'li','first' => 1)); ?></li>
+        <li> <?php  echo $this->Paginator->next(__('next'), array('tag' => 'li','currentClass' => 'disabled'), null, array('tag' => 'li','class' => 'disabled','disabledTag' => 'a'));?></li>
+       
    </ul>
    <?php } ?>
+</div>
 
 
-
-        </div>
         <div class="panel-footer">
         <div class="text-center">
     <?php echo $this->Paginator->counter(array('format' => __('Page {:page} of {:pages}, showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}'))); ?>
@@ -244,8 +248,9 @@ $motype = $monitor['Monitor']['motype'];
    
         </div>
     
- 
-        
+<!-- Show  Search results-->
+   <div id="mon"> </div>
+
     </div>
     
 </div>
@@ -265,11 +270,11 @@ $motype = $monitor['Monitor']['motype'];
             <div  class="modal-body">
                 <div class="form-group">
                     <label for="mopropertyno">Property No.</label>
-                    <input type="text" name="mopropertyno" id="mypropertyno-input" class="LV_field"  class="form-control">
+                    <input type="text" name="mopropertyno" id="mypropertyno-input" class="form-control">
                 </div>
                 <div class="form-group">
                     <label for="modescription">Description</label>
-                    <input type="text" name="modescription" id="mydescription-input" class="LV_field" class="form-control">
+                    <input type="text" name="modescription" id="mydescription-input"  class="form-control">
                 </div>
                   <div class="form-group">
                     <label for="available">Status</label>
@@ -337,14 +342,14 @@ $motype = $monitor['Monitor']['motype'];
         <form action = "/PCInventory/monitor/editmon" method ="post">
 
                 <div class="modal-body">
-                    <input type="text" name="id" value="<?php echo  $row['Monitor']['id'];?>"/>
+                    <input type="hidden" name="id" value="<?php echo  $row['Monitor']['id'];?>"/>
                     <div class="form-group">
                         <label for="mopropertyno">Property No.</label>
-                        <input type="text" name="mopropertyno"  id="mypropertyno_edit-input" class="LV_field" value="<?php echo $row['Monitor']['mopropertyno']; ?>" class="form-control"/>
+                        <input type="text" name="mopropertyno"  id="mypropertyno_edit-input"  value="<?php echo $row['Monitor']['mopropertyno']; ?>" class="form-control"/>
                     </div>
                      <div class="form-group">
                         <label for="modescription">Description</label>
-                        <input type="text" name="modescription" id="mydescription_edit-input" class="LV_field"  value="<?php echo $row['Monitor']['modescription']; ?>" class="form-control"/>
+                        <input type="text" name="modescription" id="mydescription_edit-input"  value="<?php echo $row['Monitor']['modescription']; ?>" class="form-control"/>
                     </div>
                      
                     
@@ -433,7 +438,7 @@ $motype = $monitor['Monitor']['motype'];
 
 <?php } ?>
 
-<!-- This modal for Delete Member -->
+<!-- This modal for Delete Member 
 <?php foreach($monitors  as $row){ ?>
 
 <div class="modal fade" id="delete<?php echo $row['Monitor']['id'];?>" tabindex="-1" role="dialog">
@@ -459,7 +464,7 @@ $motype = $monitor['Monitor']['motype'];
 </div>
 
 <?php } ?>
-
+-->
 <!-- This modal for View Monitor -->
 <?php foreach($monitors  as $row){ 
     ?>
@@ -509,3 +514,76 @@ $motype = $monitor['Monitor']['motype'];
   </div>
  </div>
 </div>
+
+
+<!-- DELETE SCRIPT-->
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.delete').click(function(){
+     var id = $(this).attr("id");
+       bootbox.confirm("Are you sure you want to delete this data?", function(result) {
+          if(result == true){
+           $.ajax({                   
+                  url: 'deletemon',
+                  cache: false,
+                  type: 'POST',
+                  dataType: 'HTML',
+               data: {
+                 input: id
+                },
+                  success: function () {
+                  
+                   bootbox.alert("Record successfully deleted.");
+                  }
+                 });
+                  $('.remove'+id).hide('fade');
+          }
+          
+
+        }); 
+
+
+      return false;
+            
+    });
+
+  });
+
+</script>
+
+<!-- SEARCH SCRIPT-->
+
+ <script>
+     $(document).ready(function(){
+      $('#submit').click(function(){
+       var search = $('#search').val();
+       
+       if (search != '') {
+
+                $.ajax({                   
+                  url: 'searchMonitor',
+                  cache: false,
+                  type: 'POST',
+                  dataType: 'HTML',
+               data: {
+                 input: search
+                },
+                  success: function (clients) {
+                   $('#mon').html(clients);
+                   
+                  }
+                 });
+              $('.mytable').hide();
+              return false;
+       } else {
+        return false;
+       }
+              
+              
+      });
+
+      }
+     );
+
+    </script>

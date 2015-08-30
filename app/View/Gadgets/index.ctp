@@ -161,22 +161,35 @@
    
       
 <div  class="panel panel-default">
-
-
         <div class="panel-heading">
-                Gadget Table  
+            Gadget Table  
         </div>
+<div class="panel-body" style="background-color:white" >
+        <?php echo $this->Session->flash('error'); ?>
+        <?php echo $this->Session->flash('good'); ?>
+        <?php echo $this->Session->flash('added'); ?>
 
-        <div class="panel-body" style="background-color:white" >
-<?php echo $this->Session->flash('error'); ?>
-<?php echo $this->Session->flash('good'); ?>
-<?php echo $this->Session->flash('added'); ?>
+      <div id="allGadgets"></div>
+        <div id="gad"> </div>
+           <div class="text-center">
+                   <?php if ($allGadgets > 5){ ?>
+                   <ul class="pagination pagination-large">
+                    <li><?php  echo $this->Paginator->prev(__('prev'), array('tag' => 'li'), null, array('tag' => 'li','class' => 'disabled','disabledTag' => 'a'));?></li>
+                    <li><?php  echo $this->Paginator->numbers(array('separator' => '','currentTag' => 'a', 'currentClass' => 'active','tag' => 'li','first' => 1)); ?></li>
+                    <li> <?php  echo $this->Paginator->next(__('next'), array('tag' => 'li','currentClass' => 'disabled'), null, array('tag' => 'li','class' => 'disabled','disabledTag' => 'a'));?></li>
+                   </ul>
+                   <?php } ?>
+                  </div>
 
-<div id="allGadgets"></div>
-   <div id="gad"> </div>
-</div></div>
+    </div>
+</div>
 
-        
+
+
+
+
+
+       
 <!--ADD Gadget-->
 <div class="modal fade" id="add" role="dialog" tabindex="-1">
     <div class="modal-dialog">
@@ -231,37 +244,10 @@
 
 
 
-<div>
- <div id="message"></div>
-<div class="panel-body">
-<div>
-<div class="container">
 
 
 
-
-
-   
-           <div class="text-center">
-             <?php if ($allGadgets > 5){ ?>
-             <ul class="pagination pagination-large">
-              <li><?php  echo $this->Paginator->prev(__('prev'), array('tag' => 'li'), null, array('tag' => 'li','class' => 'disabled','disabledTag' => 'a'));?></li>
-              <li><?php  echo $this->Paginator->numbers(array('separator' => '','currentTag' => 'a', 'currentClass' => 'active','tag' => 'li','first' => 1)); ?></li>
-              <li> <?php  echo $this->Paginator->next(__('next'), array('tag' => 'li','currentClass' => 'disabled'), null, array('tag' => 'li','class' => 'disabled','disabledTag' => 'a'));?></li>
-             </ul>
-             <?php } ?>
-            </div>
-
-   </div>
-
-
-
-
-
-
-
-
-<!-- Modal to Edit Gadgets 
+<!-- Modal to Edit Gadgets -->
 
 <?php foreach($gadgets  as $row){ ?>
 
@@ -351,9 +337,9 @@
 
 <?php } ?>
 
--->
 
-<!-- Modal to Delete Gadgets
+
+<!-- Modal to Delete Gadgets -->
 <?php foreach($gadgets  as $row){ ?>
 
 <div class="modal fade" id="delete<?php echo $row['Gadget']['id'];?>" tabindex="-1" role="dialog">
@@ -378,7 +364,7 @@
 </div>
 
 <?php } ?>
--->
+
 
 
 <!-- Modal for View Gadgets -->

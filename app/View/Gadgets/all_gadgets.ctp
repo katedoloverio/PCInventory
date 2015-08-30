@@ -1,4 +1,5 @@
 
+
 <table class=" table table-bordered table-hover" id="gadget">
 	<tr>
 		<th><?php echo $this->Paginator->sort('Property No.'); ?></th>
@@ -34,20 +35,16 @@
       
 
 		<td>
-    <a href="#view<?php echo $gadget['Gadget']['id'];?>" data-toggle="modal" class="btn btn-success" title="View"><i class="glyphicon glyphicon-search"> </i>View</a>
+		    <a href="#view<?php echo $gadget['Gadget']['id'];?>" data-toggle="modal" class="btn btn-success" title="View"><i class="glyphicon glyphicon-search"> </i></a>
+	   		<button id="<?php echo $gadget['Gadget']['id'];?>" class="btn btn-primary " onclick="editGadget(<?php echo $gadget['Gadget']['id']; ?>, '<?php echo $gadget['Gadget']['ggpropertyno']; ?>','<?php echo $gadget['Gadget']['ggdescription']; ?>','<?php echo $gadget['Gadget']['ggserial']; ?>', <?php echo $gadget['Gadget']['ggstatus']; ?>,<?php echo $gadget['Gadget']['ggavailability']; ?>)" 
+	     		 title ="Edit"><i class="glyphicon glyphicon-edit"> </i> 
+	    	</button>
+	   		<button id="<?php echo $gadget['Gadget']['id'];?>" data-toggle="modal" class="btn btn-danger delete" title ="Delete"><i class="glyphicon glyphicon-trash"> </i></button>
 
-    <button id="<?php echo $gadget['Gadget']['id'];?>" class="btn btn-primary " onclick="editGadget(<?php echo $gadget['Gadget']['id']; ?>, '<?php echo $gadget['Gadget']['ggpropertyno']; ?>','<?php echo $gadget['Gadget']['ggdescription']; ?>','<?php echo $gadget['Gadget']['ggserial']; ?>', <?php echo $gadget['Gadget']['ggstatus']; ?>,<?php echo $gadget['Gadget']['ggavailability']; ?>)" 
-      title ="Edit"><i class="glyphicon glyphicon-edit"> </i> 
-    Edit
-    </button>
-
-
-		<a href="#delete<?php echo $gadget['Gadget']['id'];?>" data-toggle="modal" class="btn btn-danger"  title="Delete"><i class="glyphicon glyphicon-trash"> </i>Delete</a></td>
-
-
-
+		</td>
 
 
 	</tr>
 	<?php endforeach; ?>
 </table>
+

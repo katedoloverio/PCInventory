@@ -439,7 +439,7 @@
 
 </script>
 
-<!-- EDIT SCRIPT -->
+<!-- SEARCHS SCRIPT -->
 
   <script>
      $(document).ready(function(){

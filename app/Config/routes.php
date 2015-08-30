@@ -49,6 +49,9 @@
          Router::connect('/monitor/editmon', array('controller' => 'monitors', 'action' => 'edit'));
          Router::connect('/monitor/deletemon', array('controller' => 'monitors', 'action' => 'delete'));
          Router::connect('/monitor/home', array('controller' => 'monitors', 'action' => 'home'));
+         Router::connect('/monitor/searchMonitor', array('controller' => 'monitors', 'action' => 'searchMonitor'));
+         Router::connect('/monitor/allMonitors', array('controller' => 'monitors', 'action' => 'allMonitors'));
+         
 
           //MOUSE  - Property 
          Router::connect('/mouse/index', array('controller' => 'mouses', 'action' => 'index'));

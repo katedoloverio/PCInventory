@@ -36,56 +36,43 @@ class GadgetsController extends AppController {
 		
 
 		 $this->Paginator->settings = array( 'limit' => 5);
-
-    // similar to findAll(), but fetches paged results
-    $data = $this->Paginator->paginate('Gadget');
-    $this->set('gadgets', $data);
+         $data = $this->Paginator->paginate('Gadget');
+         $this->set('gadgets', $data);
 	}
 
 
-	public function addgdgt() {
-		if ($this->request->is('post')) {
-		$this->Gadget->create();
-		if ($this->Gadget->save($this->request->data)) {
-			$this->Session->setFlash(__('New gadget added'));
-			return $this->redirect(array('action' => 'index'));
-		}
-		$this->Session->setFlash(__('Could not add gadget'));
-	}
-
-
-}
-
-public function add() {
-	$this->autoRender = false;
-
-		if ($this->request->is('post')) {
-		$this->Gadget->create();
-
-
-		if ($this->Gadget->save($this->request->data)) {
-
-			  $this->Session->setFlash($this->alert->success('Sucessfully added.'), 'default', array(), 'added');
-			$this->redirect($this->referer());
-		}
-		$this->Session->setFlash(__('Could not add gadget'));
-	}
-
-
-}
-
-
-
-
-public function edit() {
-	$this->autoRender = false;
 	
-        if ($this->request->is('post')) {
-            
-            $data = $this->request->data;
 
-//pr($data);
+	public function add() {
+		$this->autoRender = false;
+
+			if ($this->request->is('post')) {
+			$this->Gadget->create();
+
+
+			if ($this->Gadget->save($this->request->data)) {
+
+				  $this->Session->setFlash($this->alert->success('Sucessfully added.'), 'default', array(), 'added');
+				$this->redirect($this->referer());
+			}
+			$this->Session->setFlash(__('Could not add gadget'));
+		}
+
+
+	}
+
+
+
+
+	public function edit() {
+		$this->autoRender = false;
 		
+	        if ($this->request->is('post')) {
+	            
+	            $data = $this->request->data;
+
+	//pr($data);
+			
 
             if( empty($data['ggpropertyno']) || empty($data['ggdescription']) || empty($data['ggserial'])|| empty($data['ggstatus'])|| empty($data['ggavailability']) ) {
 

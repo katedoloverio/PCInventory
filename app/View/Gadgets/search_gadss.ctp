@@ -15,7 +15,10 @@
 	</tr>
 
      
-	<?php foreach ($showGadget as $show):?>
+	<?php foreach ($showGadget as $show):
+		$ggstatus = $show['Gadget']['ggstatus'];
+		$ggavailability = $show['Gadget']['ggavailability'];
+	?>
 
 
 	<tr>
@@ -23,8 +26,12 @@
 		<td><?php echo $show['Gadget']['ggpropertyno']; ?></td>
 		<td><?php echo $show['Gadget']['ggdescription']; ?></td>
         <td><?php echo $show['Gadget']['ggserial']; ?></td>
-        <td><?php echo $show['Gadget']['ggstatus']; ?></td>
-        <td><?php echo $show['Gadget']['ggavailability']; ?></td>
+        <td><?php  if ($ggstatus == 1){?> Working
+            <?php }else{ ?> Defective
+            <?php   }   ?></td>
+        <td><?php  if ($ggavailability == 1){?> Available
+            <?php }else{ ?> Used
+            <?php   }   ?></td>
   		<td>
    		 <a href="/PCInventory/gadget/index" data-toggle="modal" class="btn btn-success" title="View All Gadgets"><i class="glyphicon glyphicon-search"> </i>View All Gadgets</a>
 
