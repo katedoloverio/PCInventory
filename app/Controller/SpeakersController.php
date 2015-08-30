@@ -189,8 +189,31 @@ public function delete() {
 	$this->redirect($this->referer());
 }
 
+        public function viewAjax(){
+            $this->autoRender = false;
+            $query = $this->request->query;
+            $content = "";
+            $error = false;
+            if (isset($query['speakersId'])) {
+              $sId = $query['speakersId'];
+              $speaker = $this->Speaker->findById($sId);
+              if ($speaker) {
+                $error = false;
+                $content = $speaker;
+              } else {
+                $error = true;
+                $content = "no_sp";
+              }
+            } else {
+              $error = true;
+              $content = "no_id";
+            }
+            echo json_encode(array('error' => $error, 'content' => $content));
+            exit();
+          }
+
+        }
 
 
 
-
-}
+?>
