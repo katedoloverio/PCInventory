@@ -163,6 +163,8 @@
 <?php echo $this->Session->flash('mouse_error'); ?>
 <?php echo $this->Session->flash('good'); ?>
 <?php echo $this->Session->flash('added'); ?>
+
+<div class="table-responsive">
 <table class="table table-bordered table-hover" >
     <tr>
         <th><?php echo $this->Paginator->sort('Property Number'); ?></th>
@@ -205,6 +207,7 @@
     </tr>
     <?php endforeach; ?>
 </table>
+</div>
 
 <!--PAGINATION-->
   <div class="text-center">

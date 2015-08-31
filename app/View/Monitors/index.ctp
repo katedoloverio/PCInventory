@@ -170,6 +170,7 @@
 <?php echo $this->Session->flash('good'); ?>
 <?php echo $this->Session->flash('added'); ?>
 
+<div class="table-responsive">
 <table class="table table-bordered table-hover" >
     <tr>
        <th><?php echo $this->Paginator->sort('Property Number'); ?></th>
@@ -217,6 +218,7 @@ $motype = $monitor['Monitor']['motype'];
     </tr>
     <?php endforeach; ?>
 </table>
+</div>
 
 
 
