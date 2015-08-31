@@ -436,7 +436,7 @@
             </div>
             <form action="/PCInventory/keyboard/deletekb" method="post">
                 <div class="modal-body">
-                   <input type="hidden" name="id" id="kid" />
+                   <input type="hidden" name="id" id="deletekid" />
                     Are you sure you want to delete this data?
                 </div>
                 <div class="modal-footer">
@@ -492,7 +492,7 @@
                         if (data.error == false) {
                             var content = data.content.Keyboard;
                       
-                            document.getElementById("kid").value = kId;
+                           document.getElementById("deletekid").value = kId;
                           
                             $('#delete-keyboard-object').modal('show');
                         } else {
