@@ -39,6 +39,8 @@
          Router::connect('/employee/addemp', array('controller' => 'employees', 'action' => 'add'));
          Router::connect('/employee/editemp', array('controller' => 'employees', 'action' => 'edit'));
          Router::connect('/employee/deleteemp', array('controller' => 'employees', 'action' => 'delete'));
+         //Router::connect('/employees/index/page:2', array('controller' => 'employees', 'action' => 'delete'));
+        
          Router::connect('/employee/home', array('controller' => 'employees', 'action' => 'home'));
          Router::connect('/employee/searchEmployee', array('controller' => 'employees', 'action' => 'searchEmployee'));
          Router::connect('/employee/allEmployees', array('controller' => 'employees', 'action' => 'allEmployees'));
@@ -130,7 +132,7 @@
         Router::connect('/gadget/deletegdgt', array('controller' => 'gadgets', 'action' => 'delete'));
         Router::connect('/gadget/searchGadss', array('controller' => 'gadgets', 'action' => 'searchGadss'));
         Router::connect('/gadget/allGadgets', array('controller' => 'gadgets', 'action' => 'allGadgets'));
-       
+       Router::connect('/gadget/*', array('controller' => 'gadgets', 'action' => 'index'));
         Router::connect('/page/index', array('controller' => 'Pages', 'action' => 'index'));
 /**
  * ...and connect the rest of 'Pages' controller's urls.

@@ -145,7 +145,7 @@ public function edit() {
 
               if($checkExist){
                 
-                $this->Session->setFlash($this->alert->danger('Update failed. Headset Property No. already exist.'),'default', array(), 'keyboard_error');   
+                $this->Session->setFlash($this->alert->danger('Update failed. Keyboard Property No. already exist.'),'default', array(), 'keyboard_error');   
                 
                  }else{
 
@@ -159,6 +159,7 @@ public function edit() {
 
                         )
                     );
+
                     $this->Keyboard->id = $data['id'];
                     $this->Keyboard->save($prepareData);
                     $this->Session->setFlash($this->alert->success('Update Success.'), 'default', array(), 'good');
@@ -185,10 +186,31 @@ public function delete() {
 	$this->Session->setFlash('<div class="alert alert-success"><i class="glyphicon glyphicon-ok"></i> Successfully deleted.</div>', 'default', array(), 'good');
 		return $this->redirect(array('action' => 'index'));
 	}
-	$this->Session->setFlash(__('Could not remove info'));
 	$this->redirect($this->referer());
 }
 
+  public function viewAjax(){
+    $this->autoRender = false;
+    $query = $this->request->query;
+    $content = "";
+    $error = false;
+    if (isset($query['keyboardId'])) {
+      $kId = $query['keyboardId'];
+      $keyboard = $this->Keyboard->findById($kId);
+      if ($keyboard) {
+        $error = false;
+        $content = $keyboard;
+      } else {
+        $error = true;
+        $content = "no_kb";
+      }
+    } else {
+      $error = true;
+      $content = "no_id";
+    }
+    echo json_encode(array('error' => $error, 'content' => $content));
+    exit();
+  }
 
 
 

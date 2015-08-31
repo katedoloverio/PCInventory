@@ -3,7 +3,7 @@
 <?php      
    echo $this->Html->css('stylevalidate.css');
    echo $this->Html->css('validation.css');
-  echo $this->Html->script(array('employee', 'jquery-1.9.1.min', 'livevalidation_standalone', 'bootbox.min'));
+  echo $this->Html->script(array('employee', 'jquery-1.9.1.min', 'livevalidation_standalone', 'bootbox.min','angular.min'));
 ?> 
 
 </head>
@@ -147,20 +147,26 @@
   </div><!-- /.container-fluid -->
 </nav>
 </div>   
-      <div id="message"></div>
- 
+   
 <div  class="panel panel-default" >
 
     <div class="panel-heading" > Employee Table </div>
         <div class="panel-body"  >
           <div >
 
+
+       
+
+
+
             <?php echo $this->Session->flash('error'); ?>
             <?php echo $this->Session->flash('good'); ?>
             <?php echo $this->Session->flash('added'); ?>
 
+  
+      
             <div class="mytable table-responsive">
-            <table class="table table-bordered table-hover" >
+            <table class="table table-bordered table-hover" id="employee" >
                 <tr> 
                    <th><?php echo $this->Paginator->sort('Edit Photo'); ?></th>
                    <th><?php echo $this->Paginator->sort('Photo'); ?></th>
@@ -188,10 +194,14 @@
               <td><?php echo $employee['Inventory']['monitor_id']; ?></td>
 
               <td>
-              <a href="#view<?php echo $employee['Employee']['id'];?>" data-toggle="modal" class="btn btn-success"  title ="View"><i class="glyphicon glyphicon-search" > </i>View</a>
+              <button id="<?php echo $employee['Employee']['id'];?>"  class="btn btn-success " onclick="viewEmployee('<?php echo $employee['Employee']['id'];?>','<?php echo $employee['Employee']['empfirstname'];?>','<?php echo $employee['Employee']['emplastname'];?>','<?php echo $employee['Employee']['empcompanyid'];?>','<?php echo $employee['Employee']['empstatus'];?>','<?php echo $imagedisplay;?>')" title ="View"><i class="glyphicon glyphicon-search"> View</i> 
+              </button>
 
+               <button id="<?php echo $employee['Employee']['id'];?>"  class="btn btn-primary " onclick="editEmployee('<?php echo $employee['Employee']['id'];?>','<?php echo $employee['Employee']['empfirstname'];?>','<?php echo $employee['Employee']['emplastname'];?>','<?php echo $employee['Employee']['empcompanyid'];?>','<?php echo $employee['Employee']['empstatus'];?>')"    
+                 title ="Edit"><i class="glyphicon glyphicon-edit">Edit </i> 
+             </button>
 
-              <a href="#edit<?php echo $employee['Employee']['id'];?>" data-toggle="modal" class="btn btn-primary" title ="Edit"> <i class="glyphicon glyphicon-edit"> </i>Edit</a>
+            <!--  <a href="#edit<?php echo $employee['Employee']['id'];?>" data-toggle="modal" class="btn btn-primary" title ="Edit"> <i class="glyphicon glyphicon-edit"> </i>Edit</a>-->
 
               <button id="<?php echo $employee['Employee']['id'];?>" data-toggle="modal" class="btn btn-danger delete" title ="Delete"><i class="glyphicon glyphicon-trash"> </i>Delete</button>
               </td>
@@ -308,94 +318,6 @@
 <?php } ?>
 
 
-<!--EDIT MODAL FORM-->
-
-      <?php foreach($employees  as $row){ ?>
-
-      <div class="modal fade" id="edit<?php echo $row['Employee']['id'];?>" tabindex="-1" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <i class="glyphicon glyphicon-pencil"></i>Edit 
-                </div>
-
-         <form action = "/PCInventory/employee/editemp" method ="post">
-                <div class="modal-body">
-                   <input type="hidden" name="id"  value="<?php echo $row['Employee']['id']; ?>" class="form-control"/>
-                    <div class="form-group">
-                        <label for="empfirstname">First Name</label>
-                        <input type="text" name="empfirstname" id="fname_edit-input"  value="<?php echo $row['Employee']['empfirstname']; ?>" class="form-control"/>
-                    </div>
-                    <div class="form-group">
-                        <label for="emplastname">Last Name</label>
-                        <input type="text" name="emplastname" id="lname_edit-input"  value="<?php echo $row['Employee']['emplastname']; ?>" class="form-control"/>
-                    </div>
-                    <div class="form-group">
-                        <label for="empcompanyid">Company ID</label>
-                        <input type="text" name="empcompanyid" id="companyID_edit-input"  value="<?php echo $row['Employee']['empcompanyid']; ?>" class="form-control"/>
-                    </div>
-                    <div class="form-group">
-                        <label for="empstatus">Status</label>
-
-                        <select name="empstatus" id="empstatus" class="form-control">
-                        <?php $empstatus = $row['Employee']['empstatus'];
-                        if ($empstatus == 1){?>
-                        <option value="1"> Active</option>
-                        <option  value="2"> Resign</option> 
-                        <?php }else{ ?>
-                        <option  value="2"> Resign</option> 
-                        <option value="1"> Active</option>
-                        <?php } ?>
-                        </select>   
-                    </div>
-                </div>
-
-                <div class="modal-footer">
-                    <button class="btn btn-primary" type="submit">Update</button>
-                    <button class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
-
-            </form>
-        </div>
-    </div>
-</div>
-
-<?php } ?>
-
-
-
-
-      <!--VIEW MODAL FORM-->
-
-      <?php foreach($employees  as $row){ 
-      $imagedisplay= $row['Employee']['empphoto'] ;?>
-
-      <div class="modal fade" id="view<?php echo $row['Employee']['id'];?>" tabindex="-1" role="dialog">
-         <div class="modal-dialog">
-           <div class="modal-content">
-             <div class="modal-header">
-                <i class="glyphicon glyphicon-pencil"></i>
-                Employee Information 
-             </div>
-                <div class="modal-body">
-                <label><img src="/PCInventory/img/users/<?php echo $imagedisplay; ?>" class="img-circle img-for-own-message"></label> <br/>
-                   <label> First Name : <?php echo $row['Employee']['empfirstname'];?> </label> <br/>
-                   <label> Last Name : <?php echo $row['Employee']['emplastname'];?> </label> <br/>
-                   <label> Company ID : <?php echo $row['Employee']['empcompanyid'];?> </label> <br/>
-                   <label> Status : <?php $empstatus = $row['Employee']['empstatus'];
-                        if ($empstatus == 1){?> Active
-                        <?php }else{ ?> Resign
-                            <?php   }   ?>
-                   </label> <br/>                
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-default" data-dismiss="modal">OK</button>
-                </div>
-            </div>
-        </div>
-      </div>
-
-<?php } ?>
 
     </div>
   </div>
@@ -412,18 +334,20 @@
       bootbox.confirm("Are you sure you want to delete this data?", function(result) {
         if(result == true){
           $.ajax({                   
-            url: 'deleteemp',
+            url: 'http://localhost/PCInventory/employee/deleteemp',
             cache: false,
             type: 'POST',
             dataType: 'HTML',
             data: {
               input: id
             },
-            success: function () {
-              bootbox.alert("Record successfully deleted.");
+            success: function (msg) {
+              bootbox.alert(msg+"Record successfully deleted.");
+
             }
           });
           $('.remove'+id).hide('fade');
+          window.location.href = "http://localhost/PCInventory/employee/index";
         }
       }); 
       return false;   
@@ -433,7 +357,7 @@
 
 </script>
 
-<!-- SEARCHS SCRIPT -->
+<!-- SEARCH SCRIPT -->
 
   <script>
      $(document).ready(function(){
@@ -467,3 +391,149 @@
      );
 
     </script>
+
+    <!-- VIEW SCRIPT-->
+
+    <script type="text/javascript">
+
+    function viewEmployee(id,empfirstname,emplastname,empcompanyid,empstatus,empphoto){
+            
+          if(empstatus==1){
+            var status = 'Active';
+          }else{
+            var status = 'Resign';
+          }
+          bootbox.dialog({
+            title: "Edit Employee Information",
+            message: '<div class= "text-center"><img src="/PCInventory/img/users/'+empphoto+'" width="100px"/><br/><br/><b>Firstname : </b>'+empfirstname+'<br/> <br/> <b>Lastname :  </b>'+emplastname+' <br/> <br/> <b>Company ID : </b>'+empcompanyid+'<br/>  <br/><b>Status : </b>'+status+'</div>'
+          });
+    }
+
+    </script>
+
+    <script type="text/javascript">
+  
+
+   function editEmployee(id,empfirstname,emplastname,empcompanyid,empstatus){
+
+
+          if(empstatus==1){
+            var status = 'Active';
+          }else{
+            var status = 'Resign';
+          }
+        
+
+        bootbox.dialog({
+                title: "Edit Employee Information",
+                message: '<div class="row">  ' +
+                    '<div class="col-md-12"> ' +
+                    '<form class="form-horizontal"> ' +
+
+
+                    '<div class="form-group"> ' +
+                     '<input type="hidden" name="id" id="id" value="'+id+'"/>'+ 
+                    '<label class="col-md-4 control-label" for="name">First Name:</label> ' +
+                    '<div  class="col-md-6"> ' +
+                    '<input type="text" name="empfirstname" id="empfirstname" value="'+empfirstname+'" class="form-control input-md"/>'+
+                    '<p id="demo"></p>'+
+                    '</div> ' +
+                    '</div> ' +
+
+                    '<div class="form-group"> ' +
+                    '<label class="col-md-4 control-label" for="name">Last Name:</label> ' +
+                    '<div class="col-md-6"> ' +
+                    '<input type="text" name="emplastname" id="emplastname" value="'+emplastname+'" class="form-control input-md"/>'+
+                    '</div> ' +
+                    '</div> ' +
+
+                    '<div class="form-group"> ' +
+                    '<label class="col-md-4 control-label" for="name">Company Id:</label> ' +
+                    '<div class="col-md-6"> ' +
+                    '<input type="text" name="empcompanyid" id="empcompanyid" value="'+empcompanyid+'" class="form-control input-md"/>'+
+                    '</div> ' +
+                    '</div> ' +
+
+                     '<div class="form-group"> ' +
+                    '<label class="col-md-4 control-label" for="name">Status:</label> ' +
+                    '<div class="col-md-5"> ' +
+                    '<select name="empstatus" id="empstatus" class="form-control input-md">'+
+                        '<option value="1">Active</option>' +
+                        '<option  value="2">Resign</option> ' +
+                    ' </select>' +
+                    '</div> ' +
+                    '</div> ' +
+
+
+
+
+
+                    '</form> </div>  </div>',
+                buttons: {
+
+
+                    success: {
+                        label: "<i class='fa fa-pencil'></i> Update",
+                        className: "btn-success",
+                        callback: function () {
+                            var id = $('#id').val();
+                            var empfirstname = $('#empfirstname').val();
+                            var emplastname = $('#emplastname').val();
+                            var empcompanyid = $('#empcompanyid').val();
+                            var empstatus = $('#empstatus').val();
+                        
+                              if(empfirstname==''||emplastname==''||empcompanyid==''||empstatus==''){
+                                
+                            document.getElementById("demo").innerHTML ="Hello Dolly.";
+
+                              }else{
+
+                            $.ajax({                   
+                                    url: 'http://localhost/PCInventory/employee/editemp',
+                                    type: 'POST',
+                                    cache: false,
+                                    dataType: 'HTML',
+                                    data: {
+                                      id: id,
+                                      empfirstname: empfirstname,
+                                      emplastname: emplastname,
+                                      empcompanyid: empcompanyid,
+                                      empstatus: empstatus
+
+                                    },
+
+                                      success: function () {
+                                    
+                                     bootbox.alert('Record successfully updated.', function()
+                                     {
+                                      location.reload();
+                                     // $("#employee").remove();
+                                     
+
+                                    $.get("allEmployees", function(data) {
+                                    // $("#allEmployees").append(data);
+
+
+                                      });
+
+                                     });
+                                          
+                                    }
+                            });
+                           
+                        }
+
+                        }
+                    }
+                } // close of button
+                
+            }
+                    
+        );
+
+  
+
+   }
+
+
+</script>

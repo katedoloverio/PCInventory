@@ -1,6 +1,6 @@
 
 <?php  if ($showGadget) {?>
-
+<div class="table-responsive">
 <table id="searchGad"  class="table table-bordered table-hover" >
 	<tr>
 		<th>Property No.</th>
@@ -34,12 +34,12 @@
             <?php   }   ?></td>
   		<td>
    		 <a href="/PCInventory/gadget/index" data-toggle="modal" class="btn btn-success" title="View All Gadgets"><i class="glyphicon glyphicon-search"> </i>View All Gadgets</a>
-
+</td>
 
 	</tr>
 	<?php endforeach; ?>
 </table>
-
+</div>
 <?php }  else{?>
 
   <div>NO RESULTS FOUND! </div>

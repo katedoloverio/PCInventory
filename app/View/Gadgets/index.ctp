@@ -42,44 +42,17 @@
                
                 <li   class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Properties <span class="pull-right hidden-xs showopacity glyphicon glyphicon-list"></span><span style="font-size:16px;" ></span></a>
-                    <ul class="dropdown-menu forAnimate" role="menu">
-                        <li>
-                <li ><a href="<?php echo $this->webroot;?>monitor/index">Monitor<span style="font-size:16px;"></span></a></li>
-
-</li>
-                         <li ><a href="<?php echo $this->webroot;?>mouse/index">Mouse<span style="font-size:16px;" ></span></a></li>
-
-
-</li>
- <li>
-                <li ><a href="<?php echo $this->webroot;?>keyboard/index">Keyboard<span style="font-size:16px;"></span></a></li>
-
-</li>
- <li>
-                <li ><a href="<?php echo $this->webroot;?>systemunit/index">System Unit<span style="font-size:16px;"></span></a></li>
-
-</li>
- <li>
-                <li ><a href="<?php echo $this->webroot;?>videocard/index">Videocard<span style="font-size:16px;"></span></a></li>
-
-</li>
-<li>
-                <li ><a href="<?php echo $this->webroot;?>headset/index">Headset<span style="font-size:16px;"></span></a></li>
-
-</li>
- <li>
-                <li ><a href="<?php echo $this->webroot;?>speaker/index">Speakers<span style="font-size:16px;"></span></a></li>
-
-</li>
-
- <li>
-                <li ><a href="<?php echo $this->webroot;?>ups/index">UPS<span style="font-size:16px;"></span></a></li>
-</li>
-
-
-
-                    </ul>
-                       <li class="active" ><a href="<?php echo $this->webroot;?>gadget/index">Gadget<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-phone"></span></a></li>
+                 <ul class="dropdown-menu forAnimate" role="menu">
+                                        <li><a href="<?php echo $this->webroot;?>monitor/index">Monitor<span style="font-size:16px;"></span></a></li>
+                                        <li><a href="<?php echo $this->webroot;?>mouse/index">Mouse<span style="font-size:16px;" ></span></a></li>
+                                        <li><a href="<?php echo $this->webroot;?>keyboard/index">Keyboard<span style="font-size:16px;"></span></a></li>
+                                        <li><a href="<?php echo $this->webroot;?>systemunit/index">System Unit<span style="font-size:16px;"></span></a></li>
+                                        <li><a href="<?php echo $this->webroot;?>videocard/index">Videocard<span style="font-size:16px;"></span></a></li>
+                                        <li><a href="<?php echo $this->webroot;?>headset/index">Headset<span style="font-size:16px;"></span></a></li>
+                                        <li><a href="<?php echo $this->webroot;?>speaker/index">Speakers<span style="font-size:16px;"></span></a></li>
+                                        <li><a href="<?php echo $this->webroot;?>ups/index">UPS<span style="font-size:16px;"></span></a></li>
+                                    </ul>
+                                         <li class="active" ><a href="<?php echo $this->webroot;?>gadget/index">Gadget<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-phone"></span></a></li>
 
                 </li>
             </ul>
@@ -119,7 +92,7 @@
       <ul class="nav navbar-nav">
         <li class="active"><a href="#">Gadget Manangement <span class="sr-only">(current)</span></a></li>
         <li>  <a href="#add" data-toggle="modal"> <i class="glyphicon glyphicon-plus"> </i> Add Gadget</a></li>
-        <li>  <a href="#add" data-toggle="modal"> <i class="glyphicon glyphicon-search"> </i> View All Details</a></li>
+       
           </ul>
         </li>
       </ul>
@@ -466,7 +439,7 @@ $(function () {
  );
 </script>
 
-<!-- DELETE SCRIPT-->
+<!-- DELETE SCRIPT
 
 <script type="text/javascript">
   $(document).ready(function(){
@@ -499,6 +472,45 @@ $(function () {
     });
 
   });
+
+</script>
+
+-->
+
+<!-- DELETE SCRIPT-->
+<script type="text/javascript">
+
+function deleteGadget(id){
+    
+// var id = $(this).attr("id");
+
+       bootbox.confirm("Are you sure you want to delete this data?", function(result) {
+          if(result == true){
+            alert(id);
+           $.ajax({                   
+                  url: 'deletegdgt',
+                  cache: false,
+                  type: 'POST',
+                  dataType: 'HTML',
+               data: {
+                 input: id
+                },
+                  success: function () {
+                  
+                   bootbox.alert("Record successfully deleted.");
+                  }
+                 });
+                  $('.remove'+id).hide('fade');
+          }
+          
+
+        }); 
+
+
+      return false;
+
+
+}
 
 </script>
 

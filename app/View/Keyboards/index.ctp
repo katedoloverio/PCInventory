@@ -200,11 +200,14 @@
          </td>
    
         <td>
-        <a href="#view<?php echo $keyboard['Keyboard']['id'];?>" data-toggle="modal" class="btn btn-success"><i class="glyphicon glyphicon-search"> </i>View</a>
+        <a href="javascript:void(0);" data-href="#view<?php echo $keyboard['Keyboard']['id'];?>" keyboard-id="<?php echo $keyboard['Keyboard']['id']; ?>" class="btn btn-success keyboard-view-modal"><i class="glyphicon glyphicon-search"> </i>View</a>
 
-        <a href="#edit<?php echo $keyboard['Keyboard']['id'];?>" data-toggle="modal" class="btn btn-primary"> <i class="glyphicon glyphicon-edit"> </i>Edit</a>
+        <a href="javascript:void(0);" data-href="#edit<?php echo $keyboard['Keyboard']['id'];?>" keyboard-id="<?php echo $keyboard['Keyboard']['id']; ?>" class="btn btn-primary keyboard-edit-modal"><i class="glyphicon glyphicon-edit"> </i>Edit</a>
 
-        <a href="#delete<?php echo $keyboard['Keyboard']['id'];?>" data-toggle="modal" class="btn btn-danger"><i class="glyphicon glyphicon-trash"> </i>Delete</a></td>
+
+        <a href="javascript:void(0);" data-href="#delete<?php echo $keyboard['Keyboard']['id'];?>" keyboard-id="<?php echo $keyboard['Keyboard']['id']; ?>" class="btn btn-danger keyboard-delete-modal"><i class="glyphicon glyphicon-trash"> </i>Delete</a>
+
+       </td>
     </tr>
     <?php endforeach; ?>
 </table>
@@ -255,16 +258,16 @@
             <div  class="modal-body">
                 <div class="form-group">
                     <label for="kbpropertyno">Property No.</label>
-                    <input type="text" name="kbpropertyno" id="mypropertyno-input" class="LV_field"   class="form-control">
+                    <input type="text" name="kbpropertyno" id="mypropertyno-input"   class="form-control">
                 </div>
                 <div class="form-group">
                     <label for="kbdescription">Description</label>
-                    <input type="text" name="kbdescription"  id="mydescription-input" class="LV_field"   class="form-control">
+                    <input type="text" name="kbdescription"  id="mydescription-input"    class="form-control">
                 </div>
                   <div class="form-group">
                     <label for="available">Status</label>
                      <select name="kbstatus" id="kbstatus" class="form-control">
-                        <option value="1"> Working</option>
+                        <option value="1" > Working</option>
                         <option  value="2"> Defective</option>          
                       </select>
                
@@ -305,9 +308,8 @@
 
 
 <!-- EDIT KEYBOARD DETAILS -->
-<?php foreach($keyboards  as $row){ ?>
 
-<div class="modal fade" id="edit<?php echo $row['Keyboard']['id'];?>" tabindex="-1" role="dialog">
+<div class="modal fade" id="edit-keyboard-object" tabindex="-1" role="dialog">
 
     <div class="modal-dialog">
         <div class="modal-content">
@@ -318,24 +320,25 @@
         <form action = "/PCInventory/keyboard/editkb" method ="post">
 
                 <div class="modal-body">
-                    <input type="text" name="id" value="<?php echo  $row['Keyboard']['id'];?>"/>
+                   <input type="hidden" name="id" id="kid" />
+                    </div>
                     <div class="form-group">
                         <label for="kbpropertyno">Property No.</label>
-                        <input type="text" name="kbpropertyno" id="mypropertyno_edit-input" class="LV_field" value="<?php echo $row['Keyboard']['kbpropertyno']; ?>" class="form-control"/>
-                    </div>
+                        <input type="text" name="kbpropertyno" id="mypropertyno_edit-input"  class="form-control" />
+
                      <div class="form-group">
                         <label for="kbdescription">Description</label>
-                        <input type="text" name="kbdescription" id="mydescription_edit-input" class="LV_field"  value="<?php echo $row['Keyboard']['kbdescription']; ?>" class="form-control"/>
-                    </div>
+                        <input type="text" name="kbdescription" id="mydescription_edit-input" class="form-control"/>
+                         </div>
                      
                     
-                    <div class="form-group">
+                         <div class="form-group">
                         <label for="kbstatus">Status</label>
-                        <select name="kbstatus" id="kbstatus" class="form-control">
-                        <?php $kbstatus = $row['Keyboard']['kbstatus'];
+                        <select name="kbstatus" id="kstatus" class="form-control">
+                        <?php 
                         if ($kbstatus == 1){?>
 
-                        <option value="1"> Working</option>
+                        <option value="1" selected="selected"> Working</option>
                         <option  value="2"> Defective</option> 
 
 <?php
@@ -355,12 +358,12 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="kbtype">Type</label>
-                        <select name="kbtype" id="kbtype" class="form-control">
-                        <?php $kbtype = $row['Keyboard']['kbtype'];
+                        <label for="kbtype" >Type</label>
+                        <select name="kbtype" id="ktype" class="form-control">
+                        <?php
                         if ($kbtype == 1){?>
 
-                        <option value="1"> New</option>
+                        <option value="1" selected="selected"> New</option>
                         <option  value="2"> Old</option> 
 
 <?php
@@ -386,11 +389,11 @@
 
                     <div class="form-group">
                         <label for="kbavailability">Availability</label>
-                        <select name="kbavailability" id="kbavailability" class="form-control">
-                        <?php $kbavailability = $row['Keyboard']['kbavailability'];
+                        <select name="kbavailability" id="kavail" class="form-control">
+                        <?php 
                         if ($kbavailability == 1){?>
 
-                        <option value="1"> Used</option>
+                        <option value="1" selected="selected"> Used</option>
                         <option  value="2"> Availaible</option> 
 
 <?php
@@ -418,12 +421,12 @@
     </div>
 </div>
 
-<?php } ?>
+
 
 <!-- This modal for Delete Keyboard -->
-<?php foreach($keyboards  as $row){ ?>
 
-<div class="modal fade" id="delete<?php echo $row['Keyboard']['id'];?>" tabindex="-1" role="dialog">
+
+<div class="modal fade"  id="delete-keyboard-object" tabindex="-1" role="dialog">
 
     <div class="modal-dialog">
         <div class="modal-content">
@@ -433,7 +436,7 @@
             </div>
             <form action="/PCInventory/keyboard/deletekb" method="post">
                 <div class="modal-body">
-                    <input type="hidden" name="id" value="<?php echo  $row['Keyboard']['id'];?>"/>
+                   <input type="hidden" name="id" id="kid" />
                     Are you sure you want to delete this data?
                 </div>
                 <div class="modal-footer">
@@ -445,53 +448,160 @@
     </div>
 </div>
 
-<?php } ?>
 
-<!-- This modal for View Keyboard -->
-<?php foreach($keyboards  as $row){ 
-    ?>
 
-<div class="modal fade" id="view<?php echo $row['Keyboard']['id'];?>" tabindex="-1" role="dialog">
 
+
+<!-- view headset modal -->
+<div class="modal fade" id="view-keyboard-object" tabindex="-1" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <i class="glyphicon glyphicon-pencil"></i>
                 Keyboard Information 
             </div>
-                <div class="modal-body">
-                
-                 <label> Property No : <?php echo $row['Keyboard']['kbpropertyno'];?> </label> <br/>
-                  <label>Description : <?php echo $row['Keyboard']['kbdescription'];?> </label> <br/>
-                  <label> Status : <?php $kbstatus = $row['Keyboard']['kbstatus'];
-                        if ($kbstatus == 1){?> Working
-                        <?php }else{ ?> Defective
-                            <?php   }   ?>
-                  </label> <br/>
-                  <label> Type : <?php $kbtype = $row['Keyboard']['kbtype'];
-                        if ($kbtype == 1){?> Working
-                        <?php }else{ ?> Defective
-                            <?php   }   ?>
-                  </label> <br/>
-                  <label> Availability :      <?php $kbavailability = $row['Keyboard']['kbavailability'];
-                        if ($kbavailability == 1){?> Used
-                        <?php }else{ ?> Available
-                            <?php   }   ?>
-                  </label> <br/>
-                
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-default" data-dismiss="modal">OK</button>
-                </div>
+            <div class="modal-body">
+                <label> Property No : <span class='k-pno'></span> </label> <br/>
+                <label> Description : <span class='k-desc'></span> </label> <br/>
+                <label> Status : <span class='k-status'></span></label> <br/>
+                <label> Type : <span class='k-type'></span></label> <br/>
+                <label> Availability : <span class='k-avail'></span></label> <br/>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default" data-dismiss="modal">OK</button>
+            </div>
         </div>
     </div>
 </div>
+<!-- /. -->
+
+<!-- KEYBOARD DELETE -->
+<script>
+    "use strict"
+    $(document).ready(function(){
+        $('.keyboard-delete-modal')
+        .off('click')
+        .on('click', function(){
+            var kId = $.trim($(this).attr('keyboard-id'));
+            $.get(
+                '<?php echo $this->Html->url("/keyboards/viewAjax"); ?>',
+                {keyboardId : kId},
+                function(data){
+                    try {
+                        data = JSON.parse(data);
+                        if (data.error == false) {
+                            var content = data.content.Keyboard;
+                      
+                            document.getElementById("kid").value = kId;
+                          
+                            $('#delete-keyboard-object').modal('show');
+                        } else {
+                            alert("An error occurred while we were loading the request.");
+                        }
+                    } catch (e) {}
+                }
+            );
+        });
+    });
+</script>
+
+<!-- KEYBOARD EDIT -->
+<script>
+    "use strict"
+    $(document).ready(function(){
+        $('.keyboard-edit-modal')
+        .off('click')
+        .on('click', function(){
+            var kId = $.trim($(this).attr('keyboard-id'));
+            $.get(
+                '<?php echo $this->Html->url("/keyboards/viewAjax"); ?>',
+                {keyboardId : kId},
+                function(data){
+                    try {
+                        data = JSON.parse(data);
+                        if (data.error == false) {
+                            var content = data.content.Keyboard;
+                            //var elem = document.getElementById("myID");
+                            document.getElementById("kid").value = kId;
+                            document.getElementById("mypropertyno_edit-input").value = content.kbpropertyno;
+                            document.getElementById("mydescription_edit-input").value = content.kbdescription;
+                           
 
 
+                            if (content.kbstatus == 1) {
+                               document.getElementById("kstatus").value = "Working";
+                             
+                            } else {
+                                document.getElementById("kstatus").value = "Defective";
+                            }
 
+                            if (content.kbtype == 1) {
+                                document.getElementById("ktype").value = "New";
+                            } else {
+                                  document.getElementById("ktype").value = "Old";
+                            }
 
-<?php } ?>
+                            if (content.kbavailability == 1) {
+                                 document.getElementById("kavail").value = "Available";
+                            } else {
+                                  document.getElementById("kavail").value = "Used";
+                            }
 
-  </div>
- </div>
-</div>
+                            $('#edit-keyboard-object').modal('show');
+                        } else {
+                            alert("An error occurred while we were loading the request.");
+                        }
+                    } catch (e) {}
+                }
+            );
+        });
+    });
+</script>
+
+<!-- KEYBOARD VIEW -->
+<script>
+    "use strict"
+    $(document).ready(function(){
+        $('.keyboard-view-modal')
+        .off('click')
+        .on('click', function(){
+            var kId = $.trim($(this).attr('keyboard-id'));
+            $.get(
+                '<?php echo $this->Html->url("/keyboards/viewAjax"); ?>',
+                {keyboardId : kId},
+                function(data){
+                    try {
+                        data = JSON.parse(data);
+                        if (data.error == false) {
+                            var content = data.content.Keyboard;
+                            $('#view-keyboard-object').find('.k-pno').html(content.kbpropertyno);
+                            $('#view-keyboard-object').find('.k-desc').html(content.kbdescription);
+
+                            if (content.kbstatus == 1) {
+                                $('#view-keyboard-object').find('.k-status').html("Working");
+                            } else {
+                                $('#view-keyboard-object').find('.k-status').html("Defective");
+                            }
+
+                            if (content.kbtype == 1) {
+                                $('#view-keyboard-object').find('.k-type').html("New");
+                            } else {
+                                $('#view-keyboard-object').find('.k-type').html("Old");
+                            }
+
+                            if (content.kbavailability == 1) {
+                                $('#view-keyboard-object').find('.k-avail').html("Used");
+                            } else {
+                                $('#view-keyboard-object').find('.k-avail').html("Available");
+                            }
+
+                            $('#view-keyboard-object').modal('show');
+                        } else {
+                            alert("An error occurred while we were loading the request.");
+                        }
+                    } catch (e) {}
+                }
+            );
+        });
+    });
+</script>

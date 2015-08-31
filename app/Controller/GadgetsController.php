@@ -30,14 +30,17 @@ class GadgetsController extends AppController {
 
 	public function index() {
 
-		$all = $this->Gadget->find('all');
-		$number= count($all);
-		$this->Set('allGadgets', $number);
-		
 
-		 $this->Paginator->settings = array( 'limit' => 5);
-         $data = $this->Paginator->paginate('Gadget');
-         $this->set('gadgets', $data);
+        $all = $this->Gadget->find('all');
+        $number= count($all);
+        $this->Set('allGadgets', $number);
+        
+
+         $this->Paginator->settings = array( 'limit' => 5);
+
+    // similar to findAll(), but fetches paged results
+    $data = $this->Paginator->paginate('Gadget');
+    $this->set('gadgets', $data);
 	}
 
 
@@ -70,9 +73,6 @@ class GadgetsController extends AppController {
 	        if ($this->request->is('post')) {
 	            
 	            $data = $this->request->data;
-
-	//pr($data);
-			
 
             if( empty($data['ggpropertyno']) || empty($data['ggdescription']) || empty($data['ggserial'])|| empty($data['ggstatus'])|| empty($data['ggavailability']) ) {
 
@@ -119,19 +119,12 @@ class GadgetsController extends AppController {
 }
 }
 public function delete() {
-	$this->autoRender = false;
-	if (!$this->request->is('post')) {
-		throw new MethodNotAllowedException();
-	}
 
-	$id = $this->request->data['id'];
-	
-	if ($this->Gadget->delete($id)) {
-	$this->Session->setFlash('<div class="alert alert-success"><i class="glyphicon glyphicon-ok"></i> Successfully deleted.</div>', 'default', array(), 'good');
-		return $this->redirect(array('action' => 'index'));
-	}
-	$this->Session->setFlash(__('Could not remove gadget'));
-	$this->redirect($this->referer());
+        $this->autoRender = false;
+         $id = $this->request->data['input'] ;
+          $this->Gadget->delete($id);
+
+      
 }
 
 	public function searchGadss(){

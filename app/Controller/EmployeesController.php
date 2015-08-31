@@ -208,13 +208,14 @@ class EmployeesController extends AppController {
   }
 
 
-  public function delete() {
+    public function delete() {
 
         $this->autoRender = false;
-         $id = $this->request->data['input'] ;
-          $this->Employee->delete($id);
- 
-      //    echo '<div class="alert alert-success"><i class="glyphicon glyphicon-ok"></i> Successfully deleted.</div>';
+        if (isset($this->request->data)){
+         $id = $this->request->data['input'];
+       $this->Employee->delete($id);
+        $this->redirect($this->referer());
+    }
       
   }
 
@@ -241,15 +242,15 @@ class EmployeesController extends AppController {
     $query = $this->request->query;
     $content = "";
     $error = false;
-    if (isset($query['headsetId'])) {
-      $hId = $query['headsetId'];
-      $headset = $this->Headset->findById($hId);
-      if ($headset) {
+    if (isset($query['keyboardId'])) {
+      $kId = $query['keyboardId'];
+      $keyboard = $this->Keyboard->findById($kId);
+      if ($keyboard) {
         $error = false;
-        $content = $headset;
+        $content = $keyboard;
       } else {
         $error = true;
-        $content = "no_hs";
+        $content = "no_kb";
       }
     } else {
       $error = true;
