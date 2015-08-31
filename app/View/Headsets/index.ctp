@@ -147,7 +147,7 @@
                                        <?php }?>
                                      </td>
                                     <td class='text-center'>
-                                        <a href="#view<?php echo $headset['Headset']['id'];?>" data-toggle="modal" class="btn btn-success"><i class="glyphicon glyphicon-search"> </i>View</a>
+                                        <a href="javascript:void(0);" data-href="#view<?php echo $headset['Headset']['id'];?>" headset-id="<?php echo $headset['Headset']['id'] ?>" class="btn btn-success headset-view-modal"><i class="glyphicon glyphicon-search"> </i>View</a>
                                         <a href="#edit<?php echo $headset['Headset']['id'];?>" data-toggle="modal" class="btn btn-primary"> <i class="glyphicon glyphicon-edit"> </i>Edit</a>
                                         <a href="#delete<?php echo $headset['Headset']['id'];?>" data-toggle="modal" class="btn btn-danger"><i class="glyphicon glyphicon-trash"> </i>Delete</a>
                                     </td>
@@ -336,41 +336,72 @@
 </div>
 <?php } ?>
 
-<!-- This modal for View Headset -->
-<?php foreach($headsets  as $row){ 
-    ?>
-<div class="modal fade" id="view<?php echo $row['Headset']['id'];?>" tabindex="-1" role="dialog">
+<!-- view headset modal -->
+<div class="modal fade" id="view-headset-object" tabindex="-1" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <i class="glyphicon glyphicon-pencil"></i>
                 Headset Information 
             </div>
-                <div class="modal-body">
-                
-                 <label> Property No : <?php echo $row['Headset']['hspropertyno'];?> </label> <br/>
-                  <label>Description : <?php echo $row['Headset']['hsdescription'];?> </label> <br/>
-                  <label> Status : <?php $hstatus = $row['Headset']['hsstatus'];
-                        if ($hsstatus == 1){?> Working
-                        <?php }else{ ?> Defective
-                            <?php   }   ?>
-                  </label> <br/>
-                  <label> Type : <?php $hstype = $row['Headset']['hstype'];
-                        if ($hstype == 1){?> New
-                        <?php }else{ ?> Old
-                            <?php   }   ?>
-                  </label> <br/>
-                  <label> Availability :      <?php $hsavailability = $row['Headset']['hsavailability'];
-                        if ($hsavailability == 1){?> Used
-                        <?php }else{ ?> Available
-                            <?php   }   ?>
-                  </label> <br/>
-                
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-default" data-dismiss="modal">OK</button>
-                </div>
+            <div class="modal-body">
+                <label> Property No : <span class='h-pno'></span> </label> <br/>
+                <label> Description : <span class='h-desc'></span> <?php echo $row['Headset']['hsdescription'];?> </label> <br/>
+                <label> Status : <span class='h-status'></span></label> <br/>
+                <label> Type : <span class='h-type'></span></label> <br/>
+                <label> Availability : <span class='h-avail'></span></label> <br/>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default" data-dismiss="modal">OK</button>
+            </div>
         </div>
     </div>
 </div>
-<?php } ?>
+<!-- /. -->
+
+<script>
+    "use strict"
+    $(document).ready(function(){
+        $('.headset-view-modal')
+        .off('click')
+        .on('click', function(){
+            var hId = $.trim($(this).attr('headset-id'));
+            $.get(
+                '<?php echo $this->Html->url("/employees/viewAjax"); ?>',
+                {headsetId : hId},
+                function(data){
+                    try {
+                        data = JSON.parse(data);
+                        if (data.error == false) {
+                            var content = data.content.Headset;
+                            $('#view-headset-object').find('.h-pno').html(content.hspropertyno);
+                            $('#view-headset-object').find('.h-desc').html(content.hsdescription);
+
+                            if (content.hsstatus == 1) {
+                                $('#view-headset-object').find('.h-status').html("Working");
+                            } else {
+                                $('#view-headset-object').find('.h-status').html("Defective");
+                            }
+
+                            if (content.hstype == 1) {
+                                $('#view-headset-object').find('.h-type').html("New");
+                            } else {
+                                $('#view-headset-object').find('.h-type').html("Old");
+                            }
+
+                            if (content.hsavailability == 1) {
+                                $('#view-headset-object').find('.h-avail').html("Used");
+                            } else {
+                                $('#view-headset-object').find('.h-avail').html("Available");
+                            }
+
+                            $('#view-headset-object').modal('show');
+                        } else {
+                            alert("An error occurred while we were loading the request.");
+                        }
+                    } catch (e) {}
+                }
+            );
+        });
+    });
+</script>
