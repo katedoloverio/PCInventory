@@ -45,6 +45,8 @@ class EmployeesController extends AppController {
     public function index() {
 
     $all = $this->Employee->find('all');
+     //pr($all);
+     // die();
         $number= count($all);
         $this->Set('allEmployees', $number);    
         $this->Paginator->settings = array( 'limit' => 10);

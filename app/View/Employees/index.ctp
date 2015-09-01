@@ -168,7 +168,8 @@
                                   <?php } else{ ?>Slow
                                     <?php  }   ?>
                             </td>
-                        <td><?php echo $employee['Inventory']['monitor_id']; ?></td>
+                        <td><?php echo $employee['Property']['1']['pdescription']; ?></td>
+
                          <td class='text-center'>
                           <a href="javascript:void(0);" data-href="#view<?php echo $employee['Employee']['id'];?>" employee-id="<?php echo $employee['Employee']['id']; ?>" class="btn btn-success employee-view-modal"><i class="glyphicon glyphicon-search"> </i>View</a>
 
