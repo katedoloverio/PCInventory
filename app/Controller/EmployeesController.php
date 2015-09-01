@@ -54,16 +54,7 @@ class EmployeesController extends AppController {
     }
 
 
-    public function allEmployees(){
-
-      $all = $this->Employee->find('all');
-      $number= count($all);
-      $this->Set('allEmployees', $number);
-      $this->Paginator->settings = array( 'limit' => 5);
-      $data = $this->Paginator->paginate('Employee');
-      $this->set('employees', $data);
-  }
-
+ 
     public function add() {
 
         $this->autoRender = false;    
@@ -208,15 +199,16 @@ class EmployeesController extends AppController {
   }
 
 
+    
     public function delete() {
-
         $this->autoRender = false;
-        if (isset($this->request->data)){
-         $id = $this->request->data['input'];
-       $this->Employee->delete($id);
+        $id = $this->request->data['id'];
+        
+        if ($this->Employee->delete($id)) {
+        $this->Session->setFlash('<div class="alert alert-success"><i class="glyphicon glyphicon-ok"></i> Successfully deleted.</div>', 'default', array(), 'good');
+          return $this->redirect(array('action' => 'index'));
+        }
         $this->redirect($this->referer());
-    }
-      
   }
 
   public function searchEmployee() {
@@ -234,7 +226,8 @@ class EmployeesController extends AppController {
             )
           )
     );
-    $this->Set('showEmployee', $match);  
+    $this->Set('showEmployee', $match); 
+
   }
 
   public function viewAjax(){
@@ -242,15 +235,15 @@ class EmployeesController extends AppController {
     $query = $this->request->query;
     $content = "";
     $error = false;
-    if (isset($query['keyboardId'])) {
-      $kId = $query['keyboardId'];
-      $keyboard = $this->Keyboard->findById($kId);
-      if ($keyboard) {
+    if (isset($query['employeeId'])) {
+      $eId = $query['employeeId'];
+      $employee = $this->Employee->findById($eId);
+      if ($employee) {
         $error = false;
-        $content = $keyboard;
+        $content = $employee;
       } else {
         $error = true;
-        $content = "no_kb";
+        $content = "no_eb";
       }
     } else {
       $error = true;

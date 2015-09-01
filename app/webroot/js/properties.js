@@ -51,6 +51,18 @@ var validate = function(){
   
       
 
+    var myclassification = new LiveValidation('classification-input', { validMessage: "Valid!"});
+    myclassification.add(Validate.Presence);
+
+    var mydescription = new LiveValidation('description-input', { validMessage: "Valid!"});
+    mydescription.add(Validate.Presence);
+
+
+    var mypropertyno = new LiveValidation('propertyno-input', { validMessage: "Valid!"});
+    mypropertyno.add(Validate.Presence);
+
+
+         
     var myclass = new LiveValidation('pclass-input', { validMessage: "Valid!"});
     myclass.add(Validate.Presence);
 
@@ -62,18 +74,8 @@ var validate = function(){
     myprop.add(Validate.Presence);
 
 
-    var mypropertyno = new LiveValidation('mypropertyno-input', { validMessage: "Valid!"});
-    mypropertyno.add(Validate.Presence);
 
-     var mydescription = new LiveValidation('mydescription-input', { validMessage: "Valid!"});
-    mydescription.add(Validate.Presence);
-
-
-    var mypropertyno_edit = new LiveValidation('mypropertyno_edit-input', { validMessage: "Valid!"});
-    mypropertyno_edit.add(Validate.Presence);
-
-     var mydescription_edit = new LiveValidation('mydescription_edit-input', { validMessage: "Valid!"});
-    mydescription_edit.add(Validate.Presence);
+  
 	
 
 };

@@ -12,6 +12,7 @@ App::uses('Headset', 'Model');
 App::uses('Speaker', 'Model');
 App::uses('Up', 'Model');
 App::uses('Inventory', 'Model');
+App::uses('Property', 'Model');
 App::uses('Alert', 'lib');
 
 
@@ -29,7 +30,8 @@ class  InventorysController extends AppController {
           'Headset', 
           'Speaker', 
           'Up',
-          'Inventory');
+          'Inventory',
+          'Property');
           
     public $helpers = array(
       'Html',   

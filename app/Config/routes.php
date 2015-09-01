@@ -39,12 +39,27 @@
          Router::connect('/employee/addemp', array('controller' => 'employees', 'action' => 'add'));
          Router::connect('/employee/editemp', array('controller' => 'employees', 'action' => 'edit'));
          Router::connect('/employee/deleteemp', array('controller' => 'employees', 'action' => 'delete'));
-         //Router::connect('/employees/index/page:2', array('controller' => 'employees', 'action' => 'delete'));
+     
         
          Router::connect('/employee/home', array('controller' => 'employees', 'action' => 'home'));
          Router::connect('/employee/searchEmployee', array('controller' => 'employees', 'action' => 'searchEmployee'));
          Router::connect('/employee/allEmployees', array('controller' => 'employees', 'action' => 'allEmployees'));
          
+
+
+        //{PROPERTY} 
+         Router::connect('/property/index', array('controller' => 'propertys', 'action' => 'index'));
+         Router::connect('/property/addprop', array('controller' => 'propertys', 'action' => 'add'));
+         Router::connect('/property/editprop', array('controller' => 'propertys', 'action' => 'edit'));
+         Router::connect('/property/deleteprop', array('controller' => 'propertys', 'action' => 'delete'));
+     
+        
+         Router::connect('/property/home', array('controller' => 'propertys', 'action' => 'home'));
+         Router::connect('/property/searchProperty', array('controller' => 'propertys', 'action' => 'searchProperty'));
+         Router::connect('/property/allProperty', array('controller' => 'propertys', 'action' => 'allProperty'));
+
+
+
          //MONITOR  - Property 
          Router::connect('/monitor/index', array('controller' => 'monitors', 'action' => 'index'));
          Router::connect('/monitor/addmon', array('controller' => 'monitors', 'action' => 'add'));
@@ -68,7 +83,9 @@
          Router::connect('/keyboard/editkb', array('controller' => 'keyboards', 'action' => 'edit'));
          Router::connect('/keyboard/deletekb', array('controller' => 'keyboards', 'action' => 'delete'));
          Router::connect('/keyboard/home', array('controller' => 'keyboards', 'action' => 'home'));
-    
+         Router::connect('/keyboard/searchKeyboard', array('controller' => 'keyboards', 'action' => 'searchKeyboard'));
+         Router::connect('/keyboard/allKeyboards', array('controller' => 'keyboards', 'action' => 'allKeyboards'));
+         
 
           //System Unit  - Property 
          Router::connect('/systemunit/index', array('controller' => 'systemunits', 'action' => 'index'));
@@ -115,6 +132,14 @@
          Router::connect('/inventory/home', array('controller' => 'inventorys', 'action' => 'home'));
          Router::connect('/inventory/searchInventory', array('controller' => 'inventory', 'action' => 'searchInventory'));
          
+           //Main
+         Router::connect('/main/index', array('controller' => 'mains', 'action' => 'index'));
+         Router::connect('/main/addmn', array('controller' => 'mains', 'action' => 'add'));
+         Router::connect('/main/editmn', array('controller' => 'mains', 'action' => 'edit'));
+         Router::connect('/main/deletemn', array('controller' => 'mains', 'action' => 'delete'));
+        Router::connect('/main/searchMain', array('controller' => 'mains', 'action' => 'searchKeyboard'));
+      
+         
 
 
 
@@ -132,8 +157,7 @@
         Router::connect('/gadget/deletegdgt', array('controller' => 'gadgets', 'action' => 'delete'));
         Router::connect('/gadget/searchGadss', array('controller' => 'gadgets', 'action' => 'searchGadss'));
         Router::connect('/gadget/allGadgets', array('controller' => 'gadgets', 'action' => 'allGadgets'));
-       Router::connect('/gadget/*', array('controller' => 'gadgets', 'action' => 'index'));
-        Router::connect('/page/index', array('controller' => 'Pages', 'action' => 'index'));
+       
 /**
  * ...and connect the rest of 'Pages' controller's urls.
  */

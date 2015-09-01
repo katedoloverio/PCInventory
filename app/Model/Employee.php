@@ -1,10 +1,10 @@
 <?php
 App::uses('AppModel', 'Model');
-App::uses('Inventory', 'Model');
+App::uses('Property', 'Model');
 App::uses('SimplePasswordHasher', 'Controller/Component/Auth');
 
 class Employee extends AppModel {
-public $hasOne = 'Inventory';
+public $hasMany = 'Property';
 
 	public $validate = array(
 	'empfirstname' => array(

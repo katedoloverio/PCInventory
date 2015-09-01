@@ -1,3 +1,6 @@
+
+
+
 <head>
 <?php      
    echo $this->Html->css('stylevalidate.css');
@@ -10,13 +13,11 @@
 
 
 
-<div class="editGad">
-<div class="table-responsive">
+<div class="mytable table-responsive">
     <table class=" table table-bordered table-hover" id="gadget">
         <tr>
             <th><?php echo $this->Paginator->sort('Property No.'); ?></th>
             <th><?php echo $this->Paginator->sort('Description'); ?></th>
-
             <th><?php echo $this->Paginator->sort('Serial'); ?></th>
             <th><?php echo $this->Paginator->sort('Status'); ?></th>
             <th><?php echo $this->Paginator->sort('Availability'); ?></th>
@@ -48,16 +49,14 @@
           
 
 
-        <td>
-            <a href="#view<?php echo $gadget['Gadget']['id'];?>" data-toggle="modal" class="btn btn-success" title="View"><i class="glyphicon glyphicon-search"> </i></a>
-            <button id="<?php echo $gadget['Gadget']['id'];?>"  class="btn btn-primary " onclick="editGadget('<?php echo $gadget['Gadget']['id']; ?>', '<?php echo $gadget['Gadget']['ggpropertyno']; ?>','<?php echo $gadget['Gadget']['ggdescription']; ?>','<?php echo $gadget['Gadget']['ggserial']; ?>', '<?php echo $gadget['Gadget']['ggstatus']; ?>','<?php echo $gadget['Gadget']['ggavailability']; ?>')"    
-                 title ="Edit"><i class="glyphicon glyphicon-edit"> </i> 
-            </button>
+            <td class='text-center'>
+               <a href="javascript:void(0);" data-href="#view<?php echo $gadget['Gadget']['id'];?>" gadget-id="<?php echo $gadget['Gadget']['id']; ?>" class="btn btn-success gadget-view-modal"><i class="glyphicon glyphicon-search"> </i>View</a>
+
+               <a href="javascript:void(0);" data-href="#edit<?php echo $gadget['Gadget']['id'];?>" gadget-id="<?php echo $gadget['Gadget']['id']; ?>" class="btn btn-primary gadget-edit-modal"><i class="glyphicon glyphicon-edit"> </i>Edit</a>
 
 
-            <button id="<?php echo $gadget['Gadget']['id'];?>" onclick="deleteGadget(<?php echo $gadget['Gadget']['id'];?>)" data-toggle="modal" class="btn btn-danger delete" title ="Delete"><i class="glyphicon glyphicon-trash"> </i></button>
-
-        </td>
+               <a href="javascript:void(0);" data-href="#delete<?php echo $gadget['Gadget']['id'];?>" gadget-id="<?php echo $gadget['Gadget']['id']; ?>" class="btn btn-danger gadget-delete-modal"><i class="glyphicon glyphicon-trash"> </i>Delete</a> 
+            </td>
 
 
 

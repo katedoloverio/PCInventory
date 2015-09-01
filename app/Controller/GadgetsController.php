@@ -36,33 +36,68 @@ class GadgetsController extends AppController {
         $this->Set('allGadgets', $number);
         
 
-         $this->Paginator->settings = array( 'limit' => 5);
+        $this->Paginator->settings = array( 'limit' => 5);
 
-    // similar to findAll(), but fetches paged results
-    $data = $this->Paginator->paginate('Gadget');
-    $this->set('gadgets', $data);
-	}
+	   
+	    $data = $this->Paginator->paginate('Gadget');
+	    $this->set('gadgets', $data);
+		}
 
 
 	
 
 	public function add() {
-		$this->autoRender = false;
-
-			if ($this->request->is('post')) {
-			$this->Gadget->create();
 
 
-			if ($this->Gadget->save($this->request->data)) {
+	    $this->autoRender = false;
 
-				  $this->Session->setFlash($this->alert->success('Sucessfully added.'), 'default', array(), 'added');
-				$this->redirect($this->referer());
-			}
-			$this->Session->setFlash(__('Could not add gadget'));
-		}
+	        if ($this->request->is('post')) {
+	        $data = $this->request->data;
+	     // pr($data);
+	     // die();
 
+	            if (empty($data['ggpropertyno']) || empty($data['ggdescription']) || empty($data['ggserial'])|| empty($data['ggstatus'])|| empty($data['ggavailability'])) {
+	             
+
+	              $this->Session->setFlash($this->alert->danger('All fields must have values.'),'default', array(), 'error');   
+	                $this->redirect($this->referer());   
+	                    
+	        } else {
+
+	                $checkExist = $this->Gadget->find('first',
+	                    array(
+							'fields' => 'ggpropertyno',
+							'conditions' => array(
+								'ggpropertyno' => $data['ggpropertyno']
+								)
+							)
+						);
+
+	                if($checkExist){
+							$this->Session->setFlash($this->alert->danger('Gadget Property No. already exist.'),'default', array(), 'error'); 
+							 $this->redirect($this->referer());  
+					} else {
+	                    $prepareData = array(
+	                    'Gadget' => array(
+		                    'ggpropertyno' => $data['ggpropertyno'],
+		                    'ggdescription' => $data['ggdescription'],
+		                    'ggserial' => $data['ggserial'],
+		                    'ggstatus' => $data['ggstatus'],
+		                    'ggavailability' => $data['ggavailability']
+	                     )
+	             );
+	                $this->Gadget->create($prepareData);
+	            	$this->Gadget->save($prepareData);
+	           		$this->Session->setFlash($this->alert->success('Successfully Added.'), 'default', array(), 'good');
+	                }
+
+	                 $this->redirect($this->referer());
+	                  exit();
+	              }
+	     }
 
 	}
+
 
 
 
@@ -77,6 +112,7 @@ class GadgetsController extends AppController {
             if( empty($data['ggpropertyno']) || empty($data['ggdescription']) || empty($data['ggserial'])|| empty($data['ggstatus'])|| empty($data['ggavailability']) ) {
 
            	    $this->Session->setFlash($this->alert->danger('All fields must have values.'),'default', array(), 'error');   
+           	     $this->redirect($this->referer());
             }
             
             else{
@@ -92,16 +128,22 @@ class GadgetsController extends AppController {
 
 				if($checkExist){
 					$this->Session->setFlash($this->alert->danger('Gadget Property No. already exist.'),'default', array(), 'error');   
+					 $this->redirect($this->referer());
 					
 				} else{
+
+					($data['ggstatus']=='Working') ? $ggstat = 1 : $ggstat =2;
+                    ($data['ggavailability']=='Available') ? $ggavail = 1 : $ggavail =2;
+
+
 
 	            	$prepareData = array(
 	                'Gadget' => array(
 	                    'ggpropertyno' => $data['ggpropertyno'],
 	                    'ggdescription' => $data['ggdescription'],
 	                    'ggserial' => $data['ggserial'],
-	                    'ggstatus' => $data['ggstatus'],
-	                    'ggavailability' => $data['ggavailability']
+	                    'ggstatus' => $ggstat,
+	                    'ggavailability' => $ggavail
 
 	                )
 	            );
@@ -112,24 +154,25 @@ class GadgetsController extends AppController {
   
 
             } 
+
+            $this->redirect($this->referer());
+            exit();
   			        
-
-
-
+		}
 }
-}
-public function delete() {
-
-        $this->autoRender = false;
-         $id = $this->request->data['input'] ;
-          $this->Gadget->delete($id);
-
-      
-}
+	public function delete() {
+		$this->autoRender = false;
+		$id = $this->request->data['id'];
+		
+		if ($this->Gadget->delete($id)) {
+		$this->Session->setFlash('<div class="alert alert-success"><i class="glyphicon glyphicon-ok"></i> Successfully deleted.</div>', 'default', array(), 'good');
+			return $this->redirect(array('action' => 'index'));
+		}
+		$this->redirect($this->referer());
+	}
 
 	public function searchGadss(){
 
-	//$this->autoRender = false;
      $searchInput = $this->request->data['input'];
     
  	 $match= $this->Gadget->find('all',
@@ -150,17 +193,31 @@ public function delete() {
 	}
 
 
-	public function allGadgets(){
-		$all = $this->Gadget->find('all');
-		$number= count($all);
-		$this->Set('allGadgets', $number);
-		
+	
 
-		 $this->Paginator->settings = array( 'limit' => 5);
+	public function viewAjax(){
+    $this->autoRender = false;
+    $query = $this->request->query;
+    $content = "";
+    $error = false;
+    if (isset($query['gadgetId'])) {
+      $gId = $query['gadgetId'];
+      $gadget = $this->Gadget->findById($gId);
+      if ($gadget) {
+        $error = false;
+        $content = $gadget;
+      } else {
+        $error = true;
+        $content = "no_gb";
+      }
+    } else {
+      $error = true;
+      $content = "no_id";
+    }
+    echo json_encode(array('error' => $error, 'content' => $content));
+    exit();
+  }
 
-    $data = $this->Paginator->paginate('Gadget');
-    $this->set('gadgets', $data);
-	}
 
 	
 }

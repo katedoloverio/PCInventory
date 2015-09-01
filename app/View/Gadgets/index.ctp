@@ -133,17 +133,61 @@
     </div>
    
       
-<div  class="panel panel-default">
-        <div class="panel-heading">
-            Gadget Table  
-        </div>
-<div class="panel-body" style="background-color:white" >
-        <?php echo $this->Session->flash('error'); ?>
-        <?php echo $this->Session->flash('good'); ?>
-        <?php echo $this->Session->flash('added'); ?>
+            <div  class="panel panel-default">
+                    <div class="panel-heading">Gadget Table</div>
+                    <div class="panel-body"> 
 
-      <div id="allGadgets"></div>
+                    <?php echo $this->Session->flash('error'); ?>
+                    <?php echo $this->Session->flash('good'); ?>
+                    <?php echo $this->Session->flash('added'); ?>
+
+                <div class="mytable table-responsive">
+                    <table class=" table table-bordered table-hover" id="gadget">
+                        <tr>
+                            <th><?php echo $this->Paginator->sort('Property No.'); ?></th>
+                            <th><?php echo $this->Paginator->sort('Description'); ?></th>
+                            <th><?php echo $this->Paginator->sort('Serial'); ?></th>
+                            <th><?php echo $this->Paginator->sort('Status'); ?></th>
+                            <th><?php echo $this->Paginator->sort('Availability'); ?></th>
+
+
+                            <th><?php echo __('Actions'); ?></th>
+                        </tr>
+
+                             <?php foreach ($gadgets as $gadget):
+                                $ggstatus = $gadget['Gadget']['ggstatus'];
+                                $ggavailability = $gadget['Gadget']['ggavailability'];
+                             ?>
+
+
+                       <tr>
+                        <td><?php echo $gadget['Gadget']['ggpropertyno']; ?></td>
+                        <td><?php echo $gadget['Gadget']['ggdescription']; ?></td>
+                        <td><?php echo $gadget['Gadget']['ggserial']; ?></td>
+                        <td><?php  if ($ggstatus == 1){?> Working
+                            <?php }else{ ?> Defective
+                            <?php   }   ?></td>
+                        <td><?php  if ($ggavailability == 1){?> Available
+                            <?php }else{ ?> Used
+                            <?php   }   ?></td>
+
+                        <td class='text-center'>
+                           <a href="javascript:void(0);" data-href="#view<?php echo $gadget['Gadget']['id'];?>" gadget-id="<?php echo $gadget['Gadget']['id']; ?>" class="btn btn-success gadget-view-modal"><i class="glyphicon glyphicon-search"> </i>View</a>
+
+                           <a href="javascript:void(0);" data-href="#edit<?php echo $gadget['Gadget']['id'];?>" gadget-id="<?php echo $gadget['Gadget']['id']; ?>" class="btn btn-primary gadget-edit-modal"><i class="glyphicon glyphicon-edit"> </i>Edit</a>
+
+
+                           <a href="javascript:void(0);" data-href="#delete<?php echo $gadget['Gadget']['id'];?>" gadget-id="<?php echo $gadget['Gadget']['id']; ?>" class="btn btn-danger gadget-delete-modal"><i class="glyphicon glyphicon-trash"> </i>Delete</a> 
+                        </td>
+                      </tr>
+                         <?php endforeach; ?>
+                     </table>
+                     </div>
+
         <div id="gad"> </div>
+
+        
+        <!--PAGINATION-->
            <div class="text-center">
                    <?php if ($allGadgets > 5){ ?>
                    <ul class="pagination pagination-large">
@@ -152,11 +196,21 @@
                     <li> <?php  echo $this->Paginator->next(__('next'), array('tag' => 'li','currentClass' => 'disabled'), null, array('tag' => 'li','class' => 'disabled','disabledTag' => 'a'));?></li>
                    </ul>
                    <?php } ?>
-                  </div>
+        </div>
 
+        <div class="panel-footer">
+                <div class="text-center">
+            <?php echo $this->Paginator->counter(array('format' => __('Page {:page} of {:pages}, Showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}'))); ?>
+                </div>
+              </div>
+        </div>
+    
+<!-- SEARCH RESULT -->
+  <div id="gad"> </div>
+      
+         </div>
     </div>
 </div>
-
 
 
 
@@ -175,20 +229,19 @@
             <div  class="modal-body">
                 <div class="form-group">
                     <label for="ggpropertyno">Property Number</label>
-                    <input type="text" name="data[Gadget][ggpropertyno]" id="gdgtpropertyno-input" class="form-control">
+                    <input type="text" name="ggpropertyno" id="gdgtpropertyno-input" class="form-control">
                 </div>
                 <div class="form-group">
                     <label for="ggdescription">Description</label>
-                    <input type="text" name="data[Gadget][ggdescription]" id="gdgtdescription-input" class="form-control">
+                    <input type="text" name="ggdescription" id="gdgtdescription-input" class="form-control">
                 </div>
                   <div class="form-group">
                     <label for="ggserial">Serial No.</label>
-                    <input type="text" name="data[Gadget][ggserial]" id="gdgtserial-input" class="form-control">
+                    <input type="text" name="ggserial" id="gdgtserial-input" class="form-control">
                 </div>
                  <div class="form-group">
                     <label for="ggstatus">Status</label>
-
-                      <select name="data[Gadget][ggstatus]" id="" class="form-control">
+                      <select name="ggstatus" id="" class="form-control">
                         <option value="1"> Working</option>
                         <option  value="2"> Defective</option>          
                         </select>
@@ -196,10 +249,9 @@
                 </div>
                   <div class="form-group">
                     <label for="ggavailability">Availability</label>
-
-                      <select name="data[Gadget][ggavailability]" id="" class="form-control">
-                        <option value="1"> Used</option>
-                        <option  value="2"> Available</option>          
+                      <select name="ggavailability" id="" class="form-control">
+                        <option value="1"> Available</option>
+                        <option  value="2"> Used</option>          
                         </select>
                
                 </div>
@@ -216,15 +268,9 @@
 </div>
 
 
-
-
-
-
 <!-- Modal to Edit Gadgets -->
 
-<?php foreach($gadgets  as $row){ ?>
-
-<div class="modal fade" id="edit<?php echo $row['Gadget']['id'];?>" tabindex="-1" role="dialog">
+<div class="modal fade" id="edit-gadget-object" tabindex="-1" role="dialog">
 
     <div class="modal-dialog">
         <div class="modal-content">
@@ -234,70 +280,38 @@
             </div>
             <form action="/PCInventory/gadget/editgdgt" method="post">
                 <div class="modal-body">
-                    <input type="hidden" name="id" value="<?php echo  $row['Gadget']['id'];?>"/>
+                    <input type="hidden" name="id" id="gid"/>
                     <div class="form-group">
                         <label for="ggpropertyno">Property No.</label>
-                        <input type="text" name="ggpropertyno"  id="gdgtpropertyno_edit-input"  value="<?php echo $row['Gadget']['ggpropertyno']; ?>" class="form-control"/>
+                        <input type="text" name="ggpropertyno"  id="gdgtpropertyno_edit-input" class="form-control"/>
                     </div>
                      <div class="form-group">
                         <label for="ggdescription">Description</label>
-                        <input type="text" name="ggdescription" id="gdgtdescription_edit-input"  value="<?php echo $row['Gadget']['ggdescription']; ?>" class="form-control"/>
+                        <input type="text" name="ggdescription" id="gdgtdescription_edit-input" class="form-control"/>
                     </div>
                      <div class="form-group">
                         <label for="ggserial">Serial No.</label>
-                        <input type="text" name="ggserial" id="gdgtserial_edit-input"    value="<?php echo $row['Gadget']['ggserial']; ?>" class="form-control"/>
+                        <input type="text" name="ggserial" id="gdgtserial_edit-input" class="form-control"/>
                     </div>
                    
                     
                     <div class="form-group">
                         <label for="ggstatus">Status</label>
-                        <select name="ggstatus" id="" class="form-control">
-                        <?php $ggstatus = $row['Gadget']['ggstatus'];
-                        if ($ggstatus == 1){?>
-                        <option value="1"> Working</option>
-                        <option  value="2"> Defective</option> 
-                    <?php}else{?>
-                        <option  value="2"> Defective</option> 
-                        <option value="1"> Working</option>
-                     
-                        	<?php 
-                        }
-
-
-                        ?>
-                        
+                        <select name="ggstatus" id="gstatus" class="form-control">
+                        <option> Working</option>
+                        <option > Defective</option> 
                         </select>
                         
                     </div>
 
-                      <div class="form-group">
+                    <div class="form-group">
                         <label for="ggavailability">Availability</label>
-                        <select name="ggavailability" id="ggavailability" class="form-control">
-                        <?php $ggavailability = $row['Gadget']['ggavailability'];
-                        if ($ggavailability == 1){?>
-
-                        <option value="1"> Available</option>
-                        <option  value="2"> Used</option> 
-
-<?php
-                        }else{
-                            ?>
-                        <option  value="2"> Used</option> 
-                        <option value="1"> Available</option>
-                     
-                            <?php 
-                        }
-
-
-                        ?>
-                        
+                        <select name="ggavailability" id="gavailability" class="form-control">
+                        <option>Available</option>
+                        <option>Used</option> 
                         </select>
                         
                     </div>
-
-
-
-
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-primary" type="submit">Update</button>
@@ -308,14 +322,12 @@
     </div>
 </div>
 
-<?php } ?>
 
 
 
 <!-- Modal to Delete Gadgets -->
-<?php foreach($gadgets  as $row){ ?>
 
-<div class="modal fade" id="delete<?php echo $row['Gadget']['id'];?>" tabindex="-1" role="dialog">
+<div class="modal fade"  id="delete-gadget-object" tabindex="-1" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -324,7 +336,7 @@
             </div>
             <form action="/PCInventory/gadget/deletegdgt" method="post">
                 <div class="modal-body">
-                    <input type="hidden" name="id" value="<?php echo  $row['Gadget']['id'];?>"/>
+                    <input type="hidden" name="id" id="deletegid"/>
                     Are you sure you want to delete this data?
                 </div>
                 <div class="modal-footer">
@@ -336,75 +348,160 @@
     </div>
 </div>
 
-<?php } ?>
-
 
 
 <!-- Modal for View Gadgets -->
-<?php foreach($gadgets  as $row){ ?>
 
-<div class="modal fade" id="view<?php echo $row['Gadget']['id'];?>" tabindex="-1" role="dialog">
 
-    <div class="modal-dialog">
+<div class="modal fade" id="view-gadget-object"tabindex="-1" role="dialog">
+ <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <i class="glyphicon glyphicon-pencil"></i>
-                 <?php echo $row['Gadget']['ggdescription'];?> Information 
+                Gadget Information 
             </div>
-                <div class="modal-body">
-                  <label>  Porperty No. : <?php echo $row['Gadget']['ggpropertyno'];?> </label> <br/>
-                  <label> Descriptiom : <?php echo $row['Gadget']['ggdescription'];?> </label> <br/>
-                  <label> Serial No. : <?php echo $row['Gadget']['ggserial'];?> </label> <br/>
-                  <label> Status : 
-                    <?php $ggstatus = $row['Gadget']['ggstatus'];
-                        if ($ggstatus == 1){ ?>
-                        <?php echo 'Working';?>
-                        <?php }else{ ?>
-                        <?php echo 'Defective';?>
-                        <?php }?> </label> <br/>
-                  <label> Availability : 
-                    <?php $ggavailability = $row['Gadget']['ggavailability'];
-                        if ($ggavailability == 1){ ?>
-                        <?php echo 'Availabile';?>
-                        <?php }else{ ?>
-                        <?php echo 'Resign';?>
-                        <?php }?> </label> <br/> <br/>
-                
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-default" data-dismiss="modal">OK</button>
-                </div>
+            <div class="modal-body">
+                <label> Property No : <span class='g-pno'></span> </label> <br/>
+                <label> Description : <span class='g-desc'></span> </label> <br/>
+                <label> Serial : <span class='g-serial'></span> </label> <br/>
+                <label> Status : <span class='g-status'></span></label> <br/>
+                <label> Availability : <span class='g-avail'></span></label> <br/>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default" data-dismiss="modal">OK</button>
+            </div>
         </div>
     </div>
 </div>
 
-<?php } ?>
 
-
-<!-- LOAD TABLE SCRIPT-->
-
-<script type="text/javascript">
-  
-$(function () {
-                $.get("allGadgets", function (data) {
-                    $("#allGadgets").append(data);
-                });
-            });
-
-
+<!-- GADGET DELETE -->
+<script>
+    "use strict"
+    $(document).ready(function(){
+        $('.gadget-delete-modal')
+        .off('click')
+        .on('click', function(){
+            var gId = $.trim($(this).attr('gadget-id'));
+            $.get(
+                '<?php echo $this->Html->url("/gadgets/viewAjax"); ?>',
+                {gadgetId : gId},
+                function(data){
+                    try {
+                        data = JSON.parse(data);
+                        if (data.error == false) {
+                            var content = data.content.Gadget;
+                      
+                           document.getElementById("deletegid").value = gId;
+                          
+                            $('#delete-gadget-object').modal('show');
+                        } else {
+                            alert("An error occurred while we were loading the request.");
+                        }
+                    } catch (e) {}
+                }
+            );
+        });
+    });
 </script>
-<!-- VIEW SCRIPT
-
-<script type="text/javascript">
-  
-$(function () {
-                $.get("allGadgets", function (data) {
-                    $("#allGadgets").append(data);
-                });
-            });
 
 
-</script>-->
+<!-- GADGET EDIT -->
+<script>
+    "use strict"
+    $(document).ready(function(){
+        $('.gadget-edit-modal')
+        .off('click')
+        .on('click', function(){
+            var gId = $.trim($(this).attr('gadget-id'));
+            $.get(
+                '<?php echo $this->Html->url("/gadgets/viewAjax"); ?>',
+                {gadgetId : gId},
+                function(data){
+                    try {
+                        data = JSON.parse(data);
+                        if (data.error == false) {
+                            var content = data.content.Gadget;
+                          
+                            //var elem = document.getElementById("myID");
+                            document.getElementById("gid").value = gId;
+                            document.getElementById("gdgtpropertyno_edit-input").value = content.ggpropertyno;
+                            document.getElementById("gdgtdescription_edit-input").value = content.ggdescription;
+                            document.getElementById("gdgtserial_edit-input").value = content.ggserial;
+ 
+                            if (content.ggstatus == 1){
+                            document.getElementById("gstatus").value = "Working";
+                            } else {
+                            document.getElementById("gstatus").value = "Defective";
+                            }
+
+                        
+                            if (content.ggavailability == 1) {
+                            document.getElementById("gavailability").value = "Available";
+                            } else {
+                            document.getElementById("gavailability").value = "Used";
+                            }
+
+
+                            $('#edit-gadget-object').modal('show');
+
+                        } else {
+
+                            alert("An error occurred while we were loading the request.");
+                        }
+                    } catch (e) {}
+                }
+            );
+        });
+    });
+</script>
+
+
+<!-- GADGET VIEW -->
+<script>
+    "use strict"
+    $(document).ready(function(){
+        $('.gadget-view-modal')
+        .off('click')
+        .on('click', function(){
+            var gId = $.trim($(this).attr('gadget-id'));
+            $.get(
+                '<?php echo $this->Html->url("/gadgets/viewAjax"); ?>',
+                {gadgetId : gId},
+                function(data){
+                    try {
+                        data = JSON.parse(data);
+                        if (data.error == false) {
+                            var content = data.content.Gadget;
+
+                            
+                            $('#view-gadget-object').find('.g-pno').html(content.ggpropertyno);
+                            $('#view-gadget-object').find('.g-desc').html(content.ggdescription);
+                            $('#view-gadget-object').find('.g-serial').html(content.ggserial);
+
+                            if (content.kbstatus == 1) {
+                                $('#view-gadget-object').find('.g-status').html("Working");
+                            } else {
+                                $('#view-gadget-object').find('.g-status').html("Defective");
+                            }
+
+
+                            if (content.kbavailability == 1) {
+                                $('#view-gadget-object').find('.g-avail').html("Used");
+                            } else {
+                                $('#view-gadget-object').find('.g-avail').html("Available");
+                            }
+
+                            $('#view-gadget-object').modal('show');
+                        } else {
+                            alert("An error occurred while we were loading the request.");
+                        }
+                    } catch (e) {}
+                }
+            );
+        });
+    });
+</script>
 
 <!--SEARCH SCRIPT-->
 
@@ -426,7 +523,7 @@ $(function () {
                $('#gad').html(clients);
               }
              });
-          $('#allGadgets').hide();
+          $('.mytable').hide();
           return false;
    }  else {
     return false;
@@ -437,210 +534,4 @@ $(function () {
 
   }
  );
-</script>
-
-<!-- DELETE SCRIPT
-
-<script type="text/javascript">
-  $(document).ready(function(){
-    $('.delete').click(function(){
-     var id = $(this).attr("id");
-       bootbox.confirm("Are you sure you want to delete this data?", function(result) {
-          if(result == true){
-           $.ajax({                   
-                  url: 'deletegdgt',
-                  cache: false,
-                  type: 'POST',
-                  dataType: 'HTML',
-               data: {
-                 input: id
-                },
-                  success: function () {
-                  
-                   bootbox.alert("Record successfully deleted.");
-                  }
-                 });
-                  $('.remove'+id).hide('fade');
-          }
-          
-
-        }); 
-
-
-      return false;
-            
-    });
-
-  });
-
-</script>
-
--->
-
-<!-- DELETE SCRIPT-->
-<script type="text/javascript">
-
-function deleteGadget(id){
-    
-// var id = $(this).attr("id");
-
-       bootbox.confirm("Are you sure you want to delete this data?", function(result) {
-          if(result == true){
-            alert(id);
-           $.ajax({                   
-                  url: 'deletegdgt',
-                  cache: false,
-                  type: 'POST',
-                  dataType: 'HTML',
-               data: {
-                 input: id
-                },
-                  success: function () {
-                  
-                   bootbox.alert("Record successfully deleted.");
-                  }
-                 });
-                  $('.remove'+id).hide('fade');
-          }
-          
-
-        }); 
-
-
-      return false;
-
-
-}
-
-</script>
-
-<!-- EDIT SCRIPT-->
-
-<script type="text/javascript">
-  
-
-   function editGadget(id, ggpropertyno,ggdescription, ggserial, ggstatus, ggavailability){
-
-
-        bootbox.dialog({
-                title: "Edit Gadget Information",
-                message: '<div class="row">  ' +
-                    '<div class="col-md-12"> ' +
-                    '<form class="form-horizontal"> ' +
-
-
-                    '<div class="form-group"> ' +
-                    '<label class="col-md-4 control-label" for="name">Property No.</label> ' +
-                    '<div class="col-md-4"> ' +
-                    '<input type="hidden" name="id" id="id" value="'+id+'"/>'+ 
-                    '<input type="text" name="ggpropertyno" id="ggpropertyno" value="'+ggpropertyno+'" class="form-control input-md"/>'+
-                    '</div> ' +
-                    '</div> ' +
-
-
-                    '<div class="form-group"> ' +
-                    '<label class="col-md-4 control-label" for="name">Description</label> ' +
-                    '<div class="col-md-4"> ' +
-                    '<input type="text" name="ggdescription" id="ggdescription" value="'+ggdescription+'" class="form-control input-md"/>'+
-                    '</div> ' +
-                    '</div> ' +
-
-
-                    '<div class="form-group"> ' +
-                    '<label class="col-md-4 control-label" for="name">Serial</label> ' +
-                    '<div class="col-md-4"> ' +
-                    '<input type="text" name="ggserial" id="ggserial" value="'+ggserial+'" class="form-control input-md"/>'+
-                    '</div> ' +
-                    '</div> ' +
-
-
-                    '<div class="form-group"> ' +
-                    '<label class="col-md-4 control-label" for="name">Status</label> ' +
-                    '<div class="col-md-4"> ' +
-                    '<select name="ggstatus" id="ggstatus" class="form-control input-md">'+
-                        '<option value="1">Working</option>' +
-                        '<option  value="2">Defective</option> ' +
-                    ' </select>' +
-                    '</div> ' +
-                    '</div> ' +
-
-
-
-
-                    '<div class="form-group"> ' +
-                    '<label class="col-md-4 control-label" for="name">Availability</label> ' +
-                    '<div class="col-md-4"> ' +
-                    '<select name="ggavailability" id="ggavailabilitys" class="form-control input-md">'+
-                       '<option value="1">Available</option>' +
-                       '<option value="2">Used</option> ' +
-                    ' </select>' +
-                    '</div> ' +
-                    '</div> ' +
-
-
-
-
-                    '</form> </div>  </div>',
-                buttons: {
-
-
-                    success: {
-                        label: "<i class='fa fa-pencil'></i> Update",
-                        className: "btn-success",
-                        callback: function () {
-                            var id = $('#id').val();
-                            var ggpropertyno = $('#ggpropertyno').val();
-                            var ggdescription = $('#ggdescription').val();
-                            var ggserial = $('#ggserial').val();
-                            var ggstatus = $('#ggstatus').val();
-                            var ggavailability = $('#ggavailabilitys').val();
-
-                            $.ajax({                   
-                                    url: 'editgdgt',
-                                    type: 'POST',
-                                    cache: false,
-                                    dataType: 'HTML',
-                                    data: {
-                                      id: id,
-                                      ggpropertyno: ggpropertyno,
-                                      ggdescription: ggdescription,
-                                      ggserial: ggserial,
-                                      ggstatus: ggstatus,
-                                      ggavailability: ggavailability
-
-                                    },
-                                   
-
-                                      success: function () {
-                                    
-                                     bootbox.alert('Record successfully updated.', function()
-                                     {
-                                      $("#gadget").remove();
-                                     
-
-                                      $.get("allGadgets", function(data) {
-                                      $("#allGadgets").append(data);
-
-
-                                      });
-
-                                     });
-                                          
-                                    }
-                            });
-                           
-                        }
-                        
-                    }
-                } // close of button
-                
-            }
-                    
-        );
-
-  
-
-   }
-
-
 </script>

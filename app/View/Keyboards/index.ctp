@@ -2,7 +2,7 @@
 <?php      
    echo $this->Html->css('stylevalidate.css');
    echo $this->Html->css('validation.css');
-  echo $this->Html->script(array('property', 'jquery-1.9.1.min', 'livevalidation_standalone'));
+  echo $this->Html->script(array('property', 'jquery-1.9.1.min', 'livevalidation_standalone', 'bootbox.min'));
 ?>
  
 <div class="container-fluid" background-color="black">
@@ -118,16 +118,21 @@
       <ul class="nav navbar-nav">
         <li class="active"><a href="#">Keyboard Manangement <span class="sr-only">(current)</span></a></li>
         <li>  <a href="#add" data-toggle="modal"> <i class="glyphicon glyphicon-plus"> </i> Add Keyboard</a></li>
-        <li>  <a href="#add" data-toggle="modal"> <i class="glyphicon glyphicon-search"> </i> View All Details</a></li>
+       
           </ul>
         </li>
       </ul>
-      <form class="navbar-form navbar-left" role="search">
+
+
+      
+       <form class="navbar-form navbar-left" role="search" method="post" style="margin-top:0px">
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="Search">
+          <input type="text" name ="search" id="search" class="form-control" placeholder="Search">
         </div>
-        <button type="submit" class="btn btn-default">Submit</button>
+        <button type="submit" id="submit" class="btn btn-default " style="margin-top:5px">Search</button>   
       </form>
+
+
       <ul class="nav navbar-nav navbar-right">
         
         <li class="dropdown">
@@ -152,93 +157,90 @@
 
     </div>
    
+       
+        <div  class="panel panel-default" >
+              <div class="panel-heading" >Keyboard Table </div>
+              <div class="panel-body"> 
+
+              <!--DISPLAY Mouse DETAILS IN TABLE-->
+              <?php echo $this->Session->flash('good'); ?>
+              <?php echo $this->Session->flash('error'); ?>
+              <?php echo $this->Session->flash('keyboard_error'); ?>
+              <?php echo $this->Session->flash('added'); ?>
+
+     
+          <div class="mytable table-responsive">
+              <table class="table table-bordered table-hover" id="keyboard">
+                  <tr>
+                      <th><?php echo $this->Paginator->sort('Property Number'); ?></th>
+                      <th><?php echo $this->Paginator->sort('Description'); ?></th>
+                      <th><?php echo $this->Paginator->sort('Status'); ?></th>
+                      <th><?php echo $this->Paginator->sort('Type'); ?></th>
+                      <th><?php echo $this->Paginator->sort('Availability'); ?></th>
+                      <th><?php echo __('Actions'); ?></th>
+                  </tr>
+
+                      <?php foreach ($keyboards as $keyboard):
+                       $kbstatus =  $keyboard['Keyboard']['kbstatus'];
+                       $kbavailability =  $keyboard['Keyboard']['kbavailability'];
+                       $kbtype =  $keyboard['Keyboard']['kbtype'];
+                      ?>
+
+                  <tr>
+    
+                      <td><?php echo $keyboard['Keyboard']['kbpropertyno']; ?></td>
+                      <td><?php echo $keyboard['Keyboard']['kbdescription']; ?></td>
+                      <td><?php if($kbstatus==1) { ?> Working
+                          <?php } else{ ?>Defective
+                            <?php  }   ?>
+                      </td>
+                      <td><?php if($kbtype==1) { ?> New
+                          <?php } else{ ?>Old
+                            <?php  }   ?>
+                      </td>
+                      <td><?php if($kbavailability ==1){?>Available
+                      <?php }else{?>Used
+                            <?php  }?>
+                      </td>
+   
+                      <td class='text-center'>
+                          <a href="javascript:void(0);" data-href="#view<?php echo $keyboard['Keyboard']['id'];?>" keyboard-id="<?php echo $keyboard['Keyboard']['id']; ?>" class="btn btn-success keyboard-view-modal"><i class="glyphicon glyphicon-search"> </i>View</a>
+
+                          <a href="javascript:void(0);" data-href="#edit<?php echo $keyboard['Keyboard']['id'];?>" keyboard-id="<?php echo $keyboard['Keyboard']['id']; ?>" class="btn btn-primary keyboard-edit-modal"><i class="glyphicon glyphicon-edit"> </i>Edit</a>
+
+
+                          <a href="javascript:void(0);" data-href="#delete<?php echo $keyboard['Keyboard']['id'];?>" keyboard-id="<?php echo $keyboard['Keyboard']['id']; ?>" class="btn btn-danger keyboard-delete-modal"><i class="glyphicon glyphicon-trash"> </i>Delete</a> 
+                     </td>
+                  </tr>
+                   <?php endforeach; ?>
+              </table>
+         <div>
+
+
+
+                <!--PAGINATION-->
+               <div class="text-center">
+                   <?php if ($allKeyboards > 10){ ?>
+                   <ul class="pagination pagination-large">
+                    <li><?php  echo $this->Paginator->prev(__('prev'), array('tag' => 'li'), null, array('tag' => 'li','class' => 'disabled','disabledTag' => 'a'));?></li>
+                    <li><?php  echo $this->Paginator->numbers(array('separator' => '','currentTag' => 'a', 'currentClass' => 'active','tag' => 'li','first' => 1)); ?></li>
+                    <li> <?php  echo $this->Paginator->next(__('next'), array('tag' => 'li','currentClass' => 'disabled'), null, array('tag' => 'li','class' => 'disabled','disabledTag' => 'a'));?></li>
+                   </ul>
+                   <?php } ?>
+              </div>
+
+          <div class="panel-footer">
+                <div class="text-center">
+            <?php echo $this->Paginator->counter(array('format' => __('Page {:page} of {:pages}, Showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}'))); ?>
+                </div>
+              </div>
+           </div>
+    
+<!-- SEARCH RESULT -->
+  <div id="key"> </div>
       
- 
-<div  class="panel panel-default" >
-        
-        <div class="panel-heading" >Keyboard Table </div>
-        <div class="panel-body" style="background-color:navyblue" > <div>
-
-
-<!--DISPLAY Mouse DETAILS IN TABLE-->
-<?php echo $this->Session->flash('good'); ?>
-<?php echo $this->Session->flash('error'); ?>
-<?php echo $this->Session->flash('keyboard_error'); ?>
-<?php echo $this->Session->flash('added'); ?>
-<div class="table-responsive">
-<table class="table table-bordered table-hover" >
-    <tr>
-        <th><?php echo $this->Paginator->sort('Property Number'); ?></th>
-        <th><?php echo $this->Paginator->sort('Description'); ?></th>
-        <th><?php echo $this->Paginator->sort('Status'); ?></th>
-        <th><?php echo $this->Paginator->sort('Type'); ?></th>
-        <th><?php echo $this->Paginator->sort('Availability'); ?></th>
-        <th><?php echo __('Actions'); ?></th>
-    </tr>
-
-    <?php foreach ($keyboards as $keyboard):
-   $kbstatus =  $keyboard['Keyboard']['kbstatus'];
-   $kbavailability =  $keyboard['Keyboard']['kbavailability'];
-   $kbtype =  $keyboard['Keyboard']['kbtype'];
-    ?>
-
-    <tr>
-    
-        <td><?php echo $keyboard['Keyboard']['kbpropertyno']; ?></td>
-        <td><?php echo $keyboard['Keyboard']['kbdescription']; ?></td>
-        <td><?php if($kbstatus==1) { ?> Working
-              <?php } else{ ?>Defective
-                <?php  }   ?>
-        </td>
-        <td><?php if($kbtype==1) { ?> New
-              <?php } else{ ?>Old
-                <?php  }   ?>
-        </td>
-                <td><?php if($kbavailability ==1){?> Used
-           <?php }else{?> Available
-           <?php  }?>
-         </td>
-   
-        <td>
-        <a href="javascript:void(0);" data-href="#view<?php echo $keyboard['Keyboard']['id'];?>" keyboard-id="<?php echo $keyboard['Keyboard']['id']; ?>" class="btn btn-success keyboard-view-modal"><i class="glyphicon glyphicon-search"> </i>View</a>
-
-        <a href="javascript:void(0);" data-href="#edit<?php echo $keyboard['Keyboard']['id'];?>" keyboard-id="<?php echo $keyboard['Keyboard']['id']; ?>" class="btn btn-primary keyboard-edit-modal"><i class="glyphicon glyphicon-edit"> </i>Edit</a>
-
-
-        <a href="javascript:void(0);" data-href="#delete<?php echo $keyboard['Keyboard']['id'];?>" keyboard-id="<?php echo $keyboard['Keyboard']['id']; ?>" class="btn btn-danger keyboard-delete-modal"><i class="glyphicon glyphicon-trash"> </i>Delete</a>
-
-       </td>
-    </tr>
-    <?php endforeach; ?>
-</table>
-</div>
-
-<!--PAGINATION-->
- <div class="text-center">
-   
-   <?php if ($allKeyboards > 10){ ?>
-    <ul class="pagination" "text-center">
-    <li><?php echo $this->Paginator->prev(__('Previous'), array(), null, array('class' => 'prev disabled'));?></li>
-
-   <li><?php echo $this->Paginator->numbers(array('separator' => '')); ?></li>
-
-   <li> <?php echo $this->Paginator->next(__('Next'), array(), null, array('class' => 'next disabled'));
-    ?></li>
-
-   </ul>
-   <?php } ?>
-</div>
-
-
-  </div>
-        <div class="panel-footer">
-        <div class="text-center">
-    <?php echo $this->Paginator->counter(array('format' => __('Page {:page} of {:pages}, Showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}'))); ?>
-        </div>
-        </div>
-  </div>
-    
-</div>
+         </div>
+    </div>
 </div>
 
 <!--MODAL FORMS-->
@@ -285,8 +287,8 @@
                     <label for="available">Availability</label>
 
                       <select name="kbavailability" id="kbavailability" class="form-control">
-                        <option value="1"> Used</option>
-                        <option  value="2"> Available</option>          
+                        <option value="1"> Available</option>
+                        <option  value="2"> Used</option>          
                         </select>
                
                 </div>
@@ -335,79 +337,28 @@
                          <div class="form-group">
                         <label for="kbstatus">Status</label>
                         <select name="kbstatus" id="kstatus" class="form-control">
-                        <?php 
-                        if ($kbstatus == 1){?>
-
-                        <option value="1" selected="selected"> Working</option>
-                        <option  value="2"> Defective</option> 
-
-<?php
-                        }else{
-                            ?>
-                        <option  value="2"> Defective</option> 
-                        <option value="1"> Working</option>
-                     
-                            <?php 
-                        }
-
-
-                        ?>
-                        
+                        <option>Working</option>
+                        <option>Defective</option> 
                         </select>
                         
                     </div>
 
+
+
                     <div class="form-group">
                         <label for="kbtype" >Type</label>
                         <select name="kbtype" id="ktype" class="form-control">
-                        <?php
-                        if ($kbtype == 1){?>
-
-                        <option value="1" selected="selected"> New</option>
-                        <option  value="2"> Old</option> 
-
-<?php
-                        }else{
-                            ?>
-                        <option  value="2"> Old</option> 
-                        <option  value="1"> New</option> 
-
-
-                     
-                            <?php 
-                        }
-
-
-                        ?>
-                        
+                        <option>New</option>
+                        <option> Old</option>
                         </select>
-
-
-
 
                     </div>
 
                     <div class="form-group">
                         <label for="kbavailability">Availability</label>
-                        <select name="kbavailability" id="kavail" class="form-control">
-                        <?php 
-                        if ($kbavailability == 1){?>
-
-                        <option value="1" selected="selected"> Used</option>
-                        <option  value="2"> Availaible</option> 
-
-<?php
-                        }else{
-                            ?>
-                        <option  value="2"> Availaible</option> 
-                        <option value="1"> Used</option>
-                     
-                            <?php 
-                        }
-
-
-                        ?>
-                        
+                        <select name="kbavailability" id="kbavail" class="form-control"> 
+                        <option>Available</option>
+                        <option>Used</option> 
                         </select>
                         
                     </div>
@@ -521,34 +472,36 @@
                         data = JSON.parse(data);
                         if (data.error == false) {
                             var content = data.content.Keyboard;
+
                             //var elem = document.getElementById("myID");
                             document.getElementById("kid").value = kId;
                             document.getElementById("mypropertyno_edit-input").value = content.kbpropertyno;
                             document.getElementById("mydescription_edit-input").value = content.kbdescription;
-                           
 
-
-                            if (content.kbstatus == 1) {
-                               document.getElementById("kstatus").value = "Working";
-                             
+ 
+                            if (content.kbstatus == 1){
+                            document.getElementById("kstatus").value = "Working";
                             } else {
-                                document.getElementById("kstatus").value = "Defective";
+                            document.getElementById("kstatus").value = "Defective";
                             }
 
                             if (content.kbtype == 1) {
-                                document.getElementById("ktype").value = "New";
+                            document.getElementById("ktype").value = "New";
                             } else {
-                                  document.getElementById("ktype").value = "Old";
+                            document.getElementById("ktype").value = "Old";
                             }
 
                             if (content.kbavailability == 1) {
-                                 document.getElementById("kavail").value = "Available";
+                            document.getElementById("kbavail").value = "Available";
                             } else {
-                                  document.getElementById("kavail").value = "Used";
+                            document.getElementById("kbavail").value = "Used";
                             }
 
+
                             $('#edit-keyboard-object').modal('show');
+
                         } else {
+
                             alert("An error occurred while we were loading the request.");
                         }
                     } catch (e) {}
@@ -605,3 +558,40 @@
         });
     });
 </script>
+<!-- SEARCH SCRIPT -->
+
+  <script>
+     $(document).ready(function(){
+      $('#submit').click(function(){
+       var search = $('#search').val();
+    
+       if (search != '') {
+
+                $.ajax({                   
+                  url: 'searchKeyboard',
+                  cache: false,
+                  type: 'POST',
+                  dataType: 'HTML',
+               data: {
+                 input: search
+                },
+                  success: function (clients) {
+
+                   $('#key').html(clients);
+
+                  }
+                 });
+              $('.mytable').hide();
+
+              return false;
+       } else {
+        return false;
+       }
+              
+              
+      });
+
+      }
+     );
+
+    </script>

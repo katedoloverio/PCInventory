@@ -9,11 +9,12 @@ App::uses('Headset', 'Model');
 App::uses('Speaker', 'Model');
 App::uses('Up', 'Model');
 App::uses('Inventory', 'Model');
+App::uses('Property', 'Model');
 App::uses('SimplePasswordHasher', 'Controller/Component/Auth');
 
 class Inventory extends AppModel {
 
 public $belongsTo = array(
-	'Employee','Keyboard','Mouse','Systemunit','Monitor','Videocard','Headset','Speaker','Up'
+	'Employee','Keyboard','Mouse','Systemunit','Monitor','Videocard','Headset','Speaker','Up','Property'
 	);
 }
