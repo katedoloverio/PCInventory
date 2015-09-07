@@ -35,35 +35,19 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
 
         <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
-            <ul class="nav navbar-nav">
+               <ul class="nav navbar-nav">
+              <!--  <li><a href="#">Home<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-home"></span></a></li>-->
 
-                <li><a href="#">Home<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-home"></span></a></li>
+                <li class="active"><a href="<?php echo $this->webroot;?>employee/index">Employee<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a></li>
+
+                <li ><a href="<?php echo $this->webroot;?>main/index">PC <span style="font-size:16px;" class="
+                pull-right hidden-xs showopacity glyphicon glyphicon-blackboard"></span></a></li>
+
+                  <li><a href="<?php echo $this->webroot;?>propertys/index">Properties <span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-list"></span></a></li>
 
 
-                <li class="active" ><a href="<?php echo $this->webroot;?>employee/index">Employee<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a></li>
-
-                <li ><a href="<?php echo $this->webroot;?>inventory/index">PC <span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-blackboard"></span></a></li>
-                
-                <li  class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Properties <span class="pull-right hidden-xs showopacity glyphicon glyphicon-list"></span><span style="font-size:16px;" ></span></a>         
-                    <ul class="dropdown-menu forAnimate" role="menu">
- <li><a href="#">Home<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-home"></span></a></li>
-                                <li ><a href="<?php echo $this->webroot;?>employee/index">Employee<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a></li>
-                                <li ><a href="<?php echo $this->webroot;?>inventory/index">PC <span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-blackboard"></span></a></li>
-                                <li  class="active" class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Properties <span class="pull-right hidden-xs showopacity glyphicon glyphicon-list"></span><span style="font-size:16px;" ></span></a>
-                                    <ul class="dropdown-menu forAnimate" role="menu">
-                                        <li><a href="<?php echo $this->webroot;?>monitor/index">Monitor<span style="font-size:16px;"></span></a></li>
-                                        <li><a href="<?php echo $this->webroot;?>mouse/index">Mouse<span style="font-size:16px;" ></span></a></li>
-                                        <li><a href="<?php echo $this->webroot;?>keyboard/index">Keyboard<span style="font-size:16px;"></span></a></li>
-                                        <li><a href="<?php echo $this->webroot;?>systemunit/index">System Unit<span style="font-size:16px;"></span></a></li>
-                                        <li><a href="<?php echo $this->webroot;?>videocard/index">Videocard<span style="font-size:16px;"></span></a></li>
-                                        <li><a href="<?php echo $this->webroot;?>headset/index">Headset<span style="font-size:16px;"></span></a></li>
-                                        <li><a href="<?php echo $this->webroot;?>speaker/index">Speakers<span style="font-size:16px;"></span></a></li>
-                                        <li><a href="<?php echo $this->webroot;?>ups/index">UPS<span style="font-size:16px;"></span></a></li>
-                                    </ul>
-                                </li>
-                                <li ><a href="<?php echo $this->webroot;?>gadget/index">Gadget<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-phone"></span></a></li>
-                            </ul>
+                       <li ><a href="<?php echo $this->webroot;?>gadget/index">Gadget<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-phone"></span></a></li> 
+                    </ul>
                         </div>
                         <!-- /. -->
                     </div>
@@ -162,21 +146,21 @@
                       <tr>
                       <td><a href="#changephoto<?php echo $employee['Employee']['id'];?>" data-toggle="modal" class="btn btn-default"  title ="View"><i class="glyphicon glyphicon-user" > </i></a></td>
                       <td><img src="<?php echo $this->Html->url('/img/users/'.$imagedisplay); ?>" class="img-circle img-for-own-message"></td>
-                      <td><?php echo $employee['Employee']['empfirstname']; ?>&nbsp; <?php echo $employee['Employee']['emplastname']; ?></td>
-                           <td><?php $pctype =  $employee['Inventory']['pctype'] ;
+                      <td><?php echo $employee['Employee']['empfirstname']; ?></td>
+                           <td><!--<?php $pctype =  $employee['Property']['pctype'] ;
                            if($pctype==1) { ?> Fast
                                   <?php } else{ ?>Slow
-                                    <?php  }   ?>
+                                    <?php  }   ?>-->
                             </td>
                         <td><?php echo $employee['Property']['1']['pdescription']; ?></td>
 
                          <td class='text-center'>
-                          <a href="javascript:void(0);" data-href="#view<?php echo $employee['Employee']['id'];?>" employee-id="<?php echo $employee['Employee']['id']; ?>" class="btn btn-success employee-view-modal"><i class="glyphicon glyphicon-search"> </i>View</a>
+                          <a href="javascript:void(0);" data-href="#view<?php echo $employee['Employee']['id'];?>" employee-id="<?php echo $employee['Employee']['id']; ?>" class="btn btn-success employee-view-modal  "><i class="glyphicon glyphicon-search" title="View"> </i></a>
 
-                          <a href="javascript:void(0);" data-href="#edit<?php echo $employee['Employee']['id'];?>" employee-id="<?php echo $employee['Employee']['id']; ?>" class="btn btn-primary employee-edit-modal"><i class="glyphicon glyphicon-edit"> </i>Edit</a>
+                          <a href="javascript:void(0);" data-href="#edit<?php echo $employee['Employee']['id'];?>" employee-id="<?php echo $employee['Employee']['id']; ?>" class="btn btn-primary employee-edit-modal  "><i class="glyphicon glyphicon-edit" title="Edit"> </i></a>
 
 
-                          <a href="javascript:void(0);" data-href="#delete<?php echo $employee['Employee']['id'];?>" employee-id="<?php echo $employee['Employee']['id']; ?>" class="btn btn-danger employee-delete-modal"><i class="glyphicon glyphicon-trash"> </i>Delete</a> 
+                          <a href="javascript:void(0);" data-href="#delete<?php echo $employee['Employee']['id'];?>" employee-id="<?php echo $employee['Employee']['id']; ?>" class="btn btn-danger employee-delete-modal  "><i class="glyphicon glyphicon-trash" title="Delete"> </i></a> 
                         </td>
                       </tr>
             <?php endforeach; ?>

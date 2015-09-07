@@ -38,26 +38,17 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li><a href="#">Home<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-home"></span></a></li>
+              <!--  <li><a href="#">Home<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-home"></span></a></li>-->
 
                 <li ><a href="<?php echo $this->webroot;?>employee/index">Employee<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a></li>
 
-                <li  class="active"><a href="<?php echo $this->webroot;?>inventory/index">PC <span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-blackboard"></span></a></li>
+                <li  class="active"><a href="<?php echo $this->webroot;?>main/index">PC <span style="font-size:16px;" class="
+                pull-right hidden-xs showopacity glyphicon glyphicon-blackboard"></span></a></li>
 
-                <li  class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Properties <span class="pull-right hidden-xs showopacity glyphicon glyphicon-list"></span><span style="font-size:16px;" ></span></a>
-                    <ul class="dropdown-menu forAnimate" role="menu">
-                        <li> <li><a href="<?php echo $this->webroot;?>monitor/index">Monitor<span style="font-size:16px;"></span></a></li> </li>
-                        <li> <li><a href="<?php echo $this->webroot;?>mouse/index">Mouse<span style="font-size:16px;" ></span></a></li> </li>
-                        <li> <li><a href="<?php echo $this->webroot;?>keyboard/index">Keyboard<span style="font-size:16px;"></span></a></li> </li>
-                        <li> <li><a href="<?php echo $this->webroot;?>systemunit/index">System Unit<span style="font-size:16px;"></span></a></li> </li>
-                        <li> <li><a href="<?php echo $this->webroot;?>videocard/index">Videocard<span style="font-size:16px;"></span></a></li> </li>
-                        <li> <li ><a href="<?php echo $this->webroot;?>headset/index">Headset<span style="font-size:16px;"></span></a></li> </li>
-                        <li> <li ><a href="<?php echo $this->webroot;?>speaker/index">Speakers<span style="font-size:16px;"></span></a></li> </li>
-                        <li> <li ><a href="<?php echo $this->webroot;?>ups/index">UPS<span style="font-size:16px;"></span></a></li> </li>
+                  <li ><a href="<?php echo $this->webroot;?>propertys/index">Properties <span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-list"></span></a></li>
 
-                    </ul>
-                       <li ><a href="<?php echo $this->webroot;?>gadget/index">Gadget<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-phone"></span></a></li> </li>
+
+                       <li ><a href="<?php echo $this->webroot;?>gadget/index">Gadget<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-phone"></span></a></li> 
                     </ul>
               </div>
           </div>
@@ -89,7 +80,7 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li class="active"><a href="#">PC Manangement <span class="sr-only">(current)</span></a></li>
-        <li>  <a href="#add" data-toggle="modal"> <i class="glyphicon glyphicon-plus"> </i> Add PC</a></li>
+        <li>  <a href="#add" data-toggle="modal"> <i class="glyphicon glyphicon-plus"> </i> Add PC set</a></li>
        
           </ul>
         </li>
@@ -138,22 +129,21 @@
 <div class="mytable table-responsive">
 <table class="table table-bordered table-hover search-table inner" >
     <tr>
-         <th><?php echo $this->Paginator->sort('Employee ID'); ?></th>
-         <th><?php echo $this->Paginator->sort('Property ID'); ?></th>
-        <th><?php echo $this->Paginator->sort('Employee'); ?></th>
-        <th><?php echo $this->Paginator->sort('Mouse'); ?></th>
-        <th><?php echo $this->Paginator->sort('Monitor'); ?></th>
+        <!--   <th><?php echo $this->Paginator->sort('Employee ID'); ?></th>
+         <th><?php echo $this->Paginator->sort('Property ID'); ?></th>-->
+        <th><?php echo $this->Paginator->sort('User'); ?></th>
+        <th colspan="2"><?php echo $this->Paginator->sort('Monitor'); ?></th>
+        <th><?php echo $this->Paginator->sort('Mouse'); ?></th> 
         <th><?php echo $this->Paginator->sort('Keyboard'); ?></th>
         <th><?php echo $this->Paginator->sort('System Unit'); ?></th>
         <th><?php echo $this->Paginator->sort('Videocard'); ?></th>
-        <th><?php echo $this->Paginator->sort('Speaker'); ?></th>
         <th><?php echo $this->Paginator->sort('Headset'); ?></th>
+         <th><?php echo $this->Paginator->sort('Speaker'); ?></th>
         <th><?php echo $this->Paginator->sort('UPS'); ?></th>
         <th><?php echo $this->Paginator->sort('OS'); ?></th>
         <th><?php echo $this->Paginator->sort('OS SN#'); ?></th>
-        <th><?php echo $this->Paginator->sort('Additional Info '); ?></th>
-       
-        <th><?php echo __('Actions'); ?></th>
+        <th><?php echo $this->Paginator->sort('Additional Info '); ?></th>  
+      <!--  <th><?php echo __('Actions'); ?></th> -->
 
     </tr>
 
@@ -164,37 +154,29 @@
     ?>
 
 <tr>
-        <td><?php echo $main['Main']['employee_id'] ?> </td>            
-       <td><?php echo $main['Main']['property_id'] ?> </td>  
-       <td><?php echo $main['Employee']['empfirstname'] ?> </td>  
-       <td><?php echo $main['Main']['mouse_propertyid'] ?> </td>    
-       <td><?php echo $main['Property']['ppropertyno'] ?> </td> 
-
-
-        <td><a href="#viewem<?php echo $inventory['Inventory']['employee_id']?>" data-toggle="modal"><?php echo $inventory['Employee']['empfirstname'] ?></a></td>  
-
-
-       <td><?php echo $main['Property']['id'] ?> </td>  
-
-       <td><?php echo $main['Property']['id'] ?> </td>  
-
-
-       <td>
-          </td>    
-       <td><?php echo $main['Main']['speaker_propertyid'] ?> </td>  
-       <td><?php echo $main['Main']['headset_propertyid'] ?> </td>  
-       <td><?php echo $main['Main']['up_propertyid'] ?> </td> 
+        <!--  <td><?php $employee = $main['Main']['employee_id'];  echo $employee; ?> </td>            
+       <td><?php $property = $main['Main']['property_id']; echo $property; ?> </td>  -->
+        <td><?php echo $main['Employee']['empfirstname']; ?> </td>   
+        <td><?php $monitor = $main['Main']['monitor_propertyid'];  echo $main['Property']['0']['ppropertyno']; ?> </td> 
+        <td><?php $monitor = $main['Main']['monitor_propertyid'];  echo $main['Property']['0']['ppropertyno']; ?> </td> 
+        <td><?php $mouse = $main['Main']['mouse_propertyid'];  echo $main['Property']['1']['ppropertyno']; ?> </td>  
+        <td><?php $keyboard = $main['Main']['keyboard_propertyid'];  echo $main['Property']['2']['ppropertyno']; ?> </td> 
+        <td><?php $systemunit = $main['Main']['systemunit_propertyid'];  echo $main['Property']['3']['ppropertyno']; ?> </td> 
+        <td><?php $videocard = $main['Main']['videocard_propertyid'];  echo $main['Property']['4']['ppropertyno']; ?> </td> 
+        <td><?php $headset = $main['Main']['headset_propertyid'];  echo $main['Property']['5']['ppropertyno']; ?> </td> 
+        <td><?php $speaker = $main['Main']['speaker_propertyid'];  $speakers = $main['Property']['6']['ppropertyno']; if ($speakers==''){ echo "None"; }?> </td> 
+        <td><?php $up = $main['Main']['up_propertyid'];  echo $main['Property']['7']['ppropertyno']; ?> </td> 
         <td><?php echo $main['Main']['os']; ?></td>
         <td><?php echo $main['Main']['os_serial']; ?></td>
         <td><?php echo $main['Main']['additionalinfo']; ?></td>
 
 
-        <td>
+        <!--<td>
        <i class="glyphicon glyphicon-search"> </i>View
 
         <i class="glyphicon glyphicon-edit"> </i>Edit
 
-        <i class="glyphicon glyphicon-trash"> </i>Delete</td>
+        <i class="glyphicon glyphicon-trash"> </i>Delete</td>-->
     </tr>
     <?php endforeach; ?>
 </table>
@@ -231,73 +213,72 @@
 <!--MODAL FORMS
 
 
-<!-- DELETE SCRIPT-->
+<!-- ADD EMPLOYEE MODAL FORM-->
 
-<script type="text/javascript">
-  $(document).ready(function(){
-    $('.delete').click(function(){
-     var id = $(this).attr("id");
-       bootbox.confirm("Are you sure you want to delete this data?", function(result) {
-          if(result == true){
-           $.ajax({                   
-                  url: 'deletepc',
-                  cache: false,
-                  type: 'POST',
-                  dataType: 'HTML',
-               data: {
-                 input: id
-                },
-                  success: function () {
-                  
-                   bootbox.alert("Record successfully deleted.");
-                  }
-                 });
-                  $('.remove'+id).hide('fade');
-          }
-          
+<div class="modal fade" id="add" role="dialog" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+               <i class="glyphicon glyphicon-plus"></i> Add PC Set
+            </div>
+            <?php echo $this->Form->create('Main', array('controller' => 'Main', 'action' => 'add', 'type' => 'file'));?>
+            <div  class="modal-body">
+                <div class="form-group">
+                    <label for="mouse_propertyid">Mouse</label>
+                    <input  type="text" name="mouse_propertyid"  class="form-control" >
+                </div>
+                <div class="form-group">
+                    <label for="monitor_propertyid">Monitor</label>
+                    <input  type="text" name="monitor_propertyid"  class="form-control" >
+                </div>
+                <div class="form-group">
+                    <label for="keyboard_propertyid">Keyboard</label>
+                    <input  type="text" name="keyboard_propertyid"  class="form-control" >
+                </div>
+                <div class="form-group">
+                    <label for="systemunit_propertyid">System Unit</label>
+                    <input  type="text" name="systemunit_propertyid"  class="form-control" >
+                </div>
+                <div class="form-group">
+                    <label for="videocard_propertyid">Video card</label>
+                    <input  type="text" name="videocard_propertyid"  class="form-control" >
+                </div>
+                <div class="form-group">
+                    <label for="speaker_propertyid">Speaker</label>
+                    <input  type="text" name="speaker_propertyid"  class="form-control" >
+                </div>
+                 <div class="form-group">
+                    <label for="headset_propertyid">Headset</label>
+                    <input  type="text" name="headset_propertyid"  class="form-control" >
+                </div>
+                 <div class="form-group">
+                    <label for="up_propertyid">Ups</label>
+                    <input  type="text" name="up_propertyid"  class="form-control" >
+                </div>
+                 <div class="form-group">
+                    <label for="os">OS</label>
+                    <input  type="text" name="os"  class="form-control" >
+                </div>
+                 <div class="form-group">
+                    <label for="os_serial">OS SN#</label>
+                    <input  type="text" name="os_serial"  class="form-control" >
+                </div>
+                 <div class="form-group">
+                    <label for="additionalinfo">Additional Info</label>
+                    <input  type="text" name="additionalinfo"  class="form-control" >
+                </div>
 
-        }); 
 
 
-      return false;
-            
-    });
 
-  });
+            </div>
 
-</script>
-
-<!-- EDIT SCRIPT -->
-
-  <script>
-     $(document).ready(function(){
-      $('#submit').click(function(){
-       var search = $('#search').val();
-       
-       if (search != '') {
-
-                $.ajax({                   
-                  url: 'searchInventory',
-                  cache: false,
-                  type: 'POST',
-                  dataType: 'HTML',
-               data: {
-                 input: search
-                },
-                  success: function (clients) {
-                   $('#inventory).html(clients);
-                  }
-                 });
-              $('.mytable').hide();
-              return false;
-       } else {
-        return false;
-       }
-              
-              
-      });
-
-      }
-     );
-
-    </script>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" onClick="checkForm()" >Add</button>
+                <button data-dismiss="modal" class="btn btn-default">Cancel</button>
+            </div>
+        </div>  
+      </form>
+    </div>
+</div>
+</div>

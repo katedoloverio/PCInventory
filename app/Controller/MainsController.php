@@ -33,8 +33,8 @@ class  MainsController extends AppController {
     public function index() {
 
         $all = $this->Main->find('all');
-       pr($all);
-       die();
+   pr($all );
+          die();
         $number= count($all);
         $this->Set('allMains', $number);    
         $this->Paginator->settings = array( 'limit' => 10);
@@ -51,11 +51,10 @@ class  MainsController extends AppController {
         $accept = $this->request->data;
 
 
+
          $data = array(
                  'Main' => array(
-                    'employee_id' => $accept['employee_id'],
-                    'property_id' => $accept['property_id'],
-                    'user' => $accept['user'],
+                    
                     'mouse_propertyid' => $accept['mouse_propertyid'],
                     'monitor_propertyid' => $accept['monitor_propertyid'],
                     'keyboard_propertyid' => $accept['keyboard_propertyid'],

@@ -16,6 +16,7 @@
 
      
 	<?php foreach ($showProperty as $show):
+		 $pclassification =$show['Property']['pclassification'];
 		$pstatus = $show['Property']['pstatus'];
 		$ptype = $show['Property']['ptype'];
 		$pavailability = $show['Property']['pavailability'];
@@ -24,7 +25,29 @@
 
 	<tr>
 
-		<td><?php echo $show['Property']['pclassification']; ?></td>
+		  <td><?php  if ($pclassification == 1){?> Monitor
+                            <?php }?> 
+                            <?php  if ($pclassification == 2){?> Mouse
+                            <?php }?> 
+                             <?php  if ($pclassification == 3){?> Keyboard
+                            <?php }?> 
+                             <?php  if ($pclassification == 4){?> System Unit
+                            <?php }?> 
+                             <?php  if ($pclassification == 5){?> Videocard
+                            <?php }?> 
+                             <?php  if ($pclassification == 6){?> Headset
+                            <?php }?> 
+                             <?php  if ($pclassification == 7){?> Speaker
+                            <?php }?> 
+                             <?php  if ($pclassification == 8){?> UPS
+                          
+                            
+                            <?php   }   ?>
+                          </td>
+
+
+
+		</td>
 		<td><?php echo $show['Property']['ppropertyno']; ?></td>
 		<td><?php echo $show['Property']['pdescription']; ?></td>
 

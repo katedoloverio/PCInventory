@@ -27,35 +27,19 @@
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li><a href="#">Home<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-home"></span></a></li>
+              <ul class="nav navbar-nav">
+              <!--  <li><a href="#">Home<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-home"></span></a></li>-->
 
                 <li ><a href="<?php echo $this->webroot;?>employee/index">Employee<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a></li>
 
-                <li ><a href="<?php echo $this->webroot;?>inventory/index">PC <span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-blackboard"></span></a></li>
+                <li ><a href="<?php echo $this->webroot;?>main/index">PC <span style="font-size:16px;" class="
+                pull-right hidden-xs showopacity glyphicon glyphicon-blackboard"></span></a></li>
+
+                  <li ><a href="<?php echo $this->webroot;?>propertys/index">Properties <span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-list"></span></a></li>
 
 
-
-                
-             
-
-               
-                <li   class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Properties <span class="pull-right hidden-xs showopacity glyphicon glyphicon-list"></span><span style="font-size:16px;" ></span></a>
-                 <ul class="dropdown-menu forAnimate" role="menu">
-                                        <li><a href="<?php echo $this->webroot;?>monitor/index">Monitor<span style="font-size:16px;"></span></a></li>
-                                        <li><a href="<?php echo $this->webroot;?>mouse/index">Mouse<span style="font-size:16px;" ></span></a></li>
-                                        <li><a href="<?php echo $this->webroot;?>keyboard/index">Keyboard<span style="font-size:16px;"></span></a></li>
-                                        <li><a href="<?php echo $this->webroot;?>systemunit/index">System Unit<span style="font-size:16px;"></span></a></li>
-                                        <li><a href="<?php echo $this->webroot;?>videocard/index">Videocard<span style="font-size:16px;"></span></a></li>
-                                        <li><a href="<?php echo $this->webroot;?>headset/index">Headset<span style="font-size:16px;"></span></a></li>
-                                        <li><a href="<?php echo $this->webroot;?>speaker/index">Speakers<span style="font-size:16px;"></span></a></li>
-                                        <li><a href="<?php echo $this->webroot;?>ups/index">UPS<span style="font-size:16px;"></span></a></li>
-                                    </ul>
-                                         <li class="active" ><a href="<?php echo $this->webroot;?>gadget/index">Gadget<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-phone"></span></a></li>
-
-                </li>
-            </ul>
+                       <li  class="active"><a href="<?php echo $this->webroot;?>gadget/index">Gadget<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-phone"></span></a></li> 
+                    </ul>
         </div>
     </div>
 </nav>
@@ -172,12 +156,12 @@
                             <?php   }   ?></td>
 
                         <td class='text-center'>
-                           <a href="javascript:void(0);" data-href="#view<?php echo $gadget['Gadget']['id'];?>" gadget-id="<?php echo $gadget['Gadget']['id']; ?>" class="btn btn-success gadget-view-modal"><i class="glyphicon glyphicon-search"> </i>View</a>
+                           <a href="javascript:void(0);" data-href="#view<?php echo $gadget['Gadget']['id'];?>" gadget-id="<?php echo $gadget['Gadget']['id']; ?>" class="btn btn-success gadget-view-modal"><i class="glyphicon glyphicon-search" title="View"> </i></a>
 
-                           <a href="javascript:void(0);" data-href="#edit<?php echo $gadget['Gadget']['id'];?>" gadget-id="<?php echo $gadget['Gadget']['id']; ?>" class="btn btn-primary gadget-edit-modal"><i class="glyphicon glyphicon-edit"> </i>Edit</a>
+                           <a href="javascript:void(0);" data-href="#edit<?php echo $gadget['Gadget']['id'];?>" gadget-id="<?php echo $gadget['Gadget']['id']; ?>" class="btn btn-primary gadget-edit-modal"><i class="glyphicon glyphicon-edit" title="Edit"> </i></a>
 
 
-                           <a href="javascript:void(0);" data-href="#delete<?php echo $gadget['Gadget']['id'];?>" gadget-id="<?php echo $gadget['Gadget']['id']; ?>" class="btn btn-danger gadget-delete-modal"><i class="glyphicon glyphicon-trash"> </i>Delete</a> 
+                           <a href="javascript:void(0);" data-href="#delete<?php echo $gadget['Gadget']['id'];?>" gadget-id="<?php echo $gadget['Gadget']['id']; ?>" class="btn btn-danger gadget-delete-modal"><i class="glyphicon glyphicon-trash"  title="Delete"> </i></a> 
                         </td>
                       </tr>
                          <?php endforeach; ?>
